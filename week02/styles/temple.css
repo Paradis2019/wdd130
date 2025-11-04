@@ -34,7 +34,7 @@ section {
     margin: 20px 0;
     border: 1px solid rgb(0 0 0 /10%);
     padding: 10px;
-    background-color: #abe;
+    background-color: rgb(205, 205, 206);
     font-size: .9rem;
 }
 section p {
