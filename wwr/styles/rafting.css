@@ -57,7 +57,7 @@ nav, p, section, article {
     background-color: #e9c46a;
     color: white;
 }
-article {
+.hero article {
     position: absolute;
     bottom: 10%;
     width: 100%;
