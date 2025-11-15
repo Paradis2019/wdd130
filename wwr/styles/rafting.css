@@ -1,0 +1,66 @@
+:root {
+    /*color: #055a05;
+    color: #f4a261;
+    accent-color: #264653;
+    accent-color: #e9c46a;
+    font-family: Arial, Helvetica, sans-serif*/
+    --primary-color: #0b5563; 
+    --secondary-color: #f2a65a; 
+    --accent1-color: #264653; 
+    --accent2-color: #e9c46a;
+    --heading-font: "Times New Roman", "Georgia", Serif; 
+    --body-font: Arial, Helvetica, sans-serif; 
+}
+header {
+    background-color: var(--primary-color);
+    color: var(--accent2-color);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: var(--body-font); 
+    color: var(--accent1-color);
+}
+header, main, footer {
+    width: 840px;
+    margin: 0 auto;
+}
+h1, h2 {
+    font-family: var(--heading-font);
+    color: var(--primary-color);
+}
+nav, p, section, article {
+    margin: 16px;
+    padding: 8px;
+}
+.socialmedia a {
+    text-decoration: none;
+}
+.hero {
+    position: relative;
+}
+.hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+h1 {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    padding: 16px;
+    text-align: center;
+    opacity: 0.7;
+    background-color: #e9c46a;
+    color: white;
+}
+/*article {
+    position: absolute;    
+}*/
+.hero article img {
+    float: right;
+    width: 125px;
+}
