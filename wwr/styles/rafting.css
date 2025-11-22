@@ -45,6 +45,8 @@ nav, p, section, article {
 }
 .socialmedia a {
     text-decoration: none;
+    width: 100px;
+    height: 100px;
 }
 .hero {
     position: relative;
@@ -89,7 +91,7 @@ nav a {
     display: block;
     color: #fff;
     text-align: center;
-    padding: 1rem;
+    padding: 5px 15px;
     text-decoration: none;
-    
+                  
 }
