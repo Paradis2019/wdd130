@@ -46,7 +46,7 @@ label, input, button, select, textarea {
   font-family: Roboto, Arial, sans-serif;
 }
 label {
-  text-align: right;
+  text-align: center;
   padding-right: 1rem;
 }
 input, select, textarea {
