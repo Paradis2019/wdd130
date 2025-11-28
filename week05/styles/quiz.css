@@ -5,10 +5,7 @@
     
 }
 main {
-    max-width: 700px;
-    margin: 1.5rem;
-    border: 1px solid rgb(0, 0, 0 /10%);
-    padding: 1rem;
+    max-width: 450px;
     background-color: grey;
     color: white;
 }
@@ -16,17 +13,13 @@ h1 {
     margin: .5rem;
 }
 form {
-    margin: 1rem;
+    /*margin: 1rem;
     border: 1px solid rgb(0, 0, 0 /10%);
-    padding: 1rem;
+    padding: 1rem; */
     background-color: #ddd;
     color: #111;
 }
-input, textarea, select {
-    padding: .75rem;
-    width: 350px;
-}
-button {
+input, textarea, select, button {
     padding: .75rem;
     width: 350px;
 }
@@ -42,7 +35,6 @@ code {
     display: block;
     background-color: #000;
     color: white;
-    width: 350px;
 }
 .box {
     margin: 1rem;
