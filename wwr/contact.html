@@ -74,39 +74,48 @@
                 width="500" height="350" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <form>
-            <div class="  ">
-                <label for="fullname">Name:</label>
-                <input type="text" id="fullname" name="fullname" placeholder="Popol Elonda" required>
+        <Section class="block">
+            <div class="tab">
+                <form class="contact">
+                    <div class="identity">
+                        <label for="fullname">Name:</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Popol Elonda" required>
+                    </div>
+                    <div class="identity">
+                        <label for="emailaddress">Email:</label>
+                        <input type="text" id="emailaddress" name="emailaddress" placeholder="pelonda@byupathway.edu">
+                    </div>
+                    <div class="identity radio">
+                        <label class="ident-label" for="message">Message Purpose</label>
+                    </div>
+                    <div class="option1">
+                        <input type="radio" id="message-groupe" name="message" value="general">
+                        <label for="message-groupe">General Inquiry</label>
+                    </div>
+                    <div class="option1">
+                        <input type="radio" id="check" name="message" value="general">
+                        <label for="check">Reservation Question</label>
+                    </div>
+                    <div class="option1">
+                        <input type="radio" id="selection" name="message" value="general">
+                        <label for="selection">Reservation Question</label>
+                    </div>
+                    <div class="identity radio">
+                        <label class="types" for="write">Message</label>
+                        <textarea id="write" name="message"></textarea>
+                    </div>
+                    <div class="identity radio enroll">
+                        <label for="suscribe"><input type="checkbox" id="suscribe" name="message">Please Subscribe me to
+                            the
+                            monthyly newsletter.
+                        </label>
+                    </div>
+                    <div class="identity radio">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            <div class="  ">
-                <label for="emailaddress">Email:</label>
-                <input type="text" id="emailaddress" name="emailaddress" placeholder="pelonda@byupathway.edu">
-            </div>
-            <div class=" ">
-                <label class=" " for="message">Message Purpose</label>
-                <div class="radio">
-                    <input type="radio" id="message-groupe" name="message" value="general">
-                    <label for="message-groupe">General Inquiry</label>
-                </div>
-                <div class="radio">
-                    <input type="radio" id="check" name="message" value="general">
-                    <label for="check">Reservation Question</label>
-                </div>
-                <div class="radio">
-                    <input type="radio" id="selection" name="message" value="general">
-                    <label for="selection">Reservation Question</label>
-                </div>
-                <div class=" ">
-                    <label class="types" for="write">Message</label>
-                    <textarea id="write" name="message"></textarea>
-                </div>
-                <div class="">
-                    <label for="suscribe"><input type="checkbox" id="suscribe" name="message">Please Subscribe me to the
-                        monthyly newsletter.</label>
-                </div>
-            </div>
-        </form>
+        </Section>
         <div class="title">
             <h2>We are Here to Serve You</h2>
         </div>
