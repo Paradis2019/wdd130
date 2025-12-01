@@ -19,14 +19,15 @@ header {
     padding: 0;
     box-sizing: border-box;
 }
-header img {
-    height: 70px;
-}
-
 body {
     font-family: var(--body-font); 
     color: var(--accent1-color);
 }
+header img {
+    height: 70px;
+}
+
+
 header, main, footer {
     width: 1024px;
     margin: 0 auto;  /* Modification */
