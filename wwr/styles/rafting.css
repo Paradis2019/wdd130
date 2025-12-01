@@ -14,14 +14,15 @@ header {
     align-items: center;
     justify-content: space-between;
 }
-header img {
-    height: 70px;
-}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+header img {
+    height: 70px;
+}
+
 body {
     font-family: var(--body-font); 
     color: var(--accent1-color);
