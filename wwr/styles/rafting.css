@@ -6,14 +6,6 @@
     --heading-font: "Times New Roman", "Georgia", Serif; 
     --body-font: Arial, Helvetica, sans-serif; 
 }
-header {
-    background-color: var(--primary-color);
-    color: var(--accent2-color);
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    justify-content: space-between;
-}
 * {
     margin: 0;
     padding: 0;
@@ -23,6 +15,15 @@ body {
     font-family: var(--body-font); 
     color: var(--accent1-color);
 }
+header {
+    background-color: var(--primary-color);
+    color: var(--accent2-color);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 10px;
+}
+
 header img {
     height: 70px;
 }
