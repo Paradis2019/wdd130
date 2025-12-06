@@ -157,13 +157,6 @@ section img {
 main h1 {
     text-align: center;
 }
-.text {
-    text-align: center;
-    font: bold;
-    font-size: large;
-    line-height: 0;
-}
-
 .map {
     width: 550px;
     height: 550px;
@@ -244,6 +237,9 @@ figcaption {
 .text {
     text-align: center;
     margin:0 1.5%;
+    font: bold;
+    font-size: large;
+    line-height: 0;
 }
 .text img {
     width: 200px;
