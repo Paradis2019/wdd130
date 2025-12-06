@@ -31,7 +31,8 @@ header img {
 .trip-sub {
     color: yellow;
     text-decoration: none;
-    transition: color 180ms ease; background-color: 180ms ease;
+    transition: color 180ms ease; 
+    background-color: 180ms ease;
     padding: 0.15rem 0.25rem;;
     border-radius: 4px;
 }
@@ -42,7 +43,7 @@ header img {
 }
 
 
-header, main{
+header, main, footer {
     width: 1024px;
     margin: 0 auto;  /* Modification */
 }
@@ -56,11 +57,15 @@ nav, p, section, article {
 }
 footer {
     display: flex;
+    justify-content: space-between;
+    background-color: #3e3e3e;
+    color: #efefef;
+    align-items: center;
+    margin-top: 3em;
 }
- footer {
-    width: 1024px;
-    margin:0 auto;
- }
+.socialmedia {
+    align-self: flex-end;
+}
 .socialmedia img{
     text-decoration: none;
     max-width: 50px;
@@ -114,10 +119,9 @@ nav a {
 }
 /* contact form*/
 .block {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 1em;
 }
 .ad-img {
     display: flex;
@@ -159,15 +163,11 @@ main h1 {
     font-size: large;
     line-height: 0;
 }
+
 .map {
-    float: left;
-    margin: 1.5% 1.5%;
-    width: 10%;
-}
-.map iframe {
-    width: 350px;
+    width: 550px;
     height: 550px;
-    border: 1px solid #ccc;
+    border: none;
 }
 .contact {
     flex: 1;
@@ -194,27 +194,36 @@ textarea {
     flex-direction: column;
     gap: 4px;
 }
-.enroll label {
-    font-size: .9rem;
+.enroll {
+   display: grid;
+   grid-template-columns: 2em auto;
+    align-items: center;
 
 }
+fieldset {
+    border: none;;
+}
+
 .identity {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
+   display: grid;
+   grid-template-columns: max-content auto;
+   gap: 2em 1em;
+   align-items: center;
 }
 .identity label {
-    min-width: 110px;
-    padding-top: 6px;
     text-align: left;
 }
-.identity .radio {
-    flex-direction: row;
-
+.radio {
+    display: grid;
+    grid-template-columns: 2em auto;
+    gap: 1em .5em;
+    align-items: center;
 }
-.identity .radio > label, .identity .radio .types{
-    min-width: 110px;
-    padding-top: 6px;
+.radio p {
+    grid-column: 1/3;
+    margin: 0;
+    padding: 0;
+    font-weight: 700;
 }
 button {
     background-color: navy;
@@ -228,24 +237,28 @@ button {
     margin-top: 20px;
 }
 figcaption {
-    margin-top: 6px;
+    margin-top: .75em;
     font-size: 14px;
 }
 /*contact employee profile*/
 .text {
-    width: 30%;
-    float: left;
     text-align: center;
     margin:0 1.5%;
 }
 .text img {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
 }
 .paragraph {
     text-align: center;
     line-height:0;
 }
+.employee {
+    margin: 2em auto;
+    display: flex;
+    justify-content: space-around;
+}
+
 
 /*Trips*/
 ul {
@@ -294,7 +307,7 @@ tbody td {
 
 tbody tr:nth-child(even) {
   background: yellow;
-  background-color: rgb(0, 0, 1 /50px);
+  background-color: rgb(0, 0, 1 / .5);
 }
 
 tbody tr:hover {
