@@ -120,3 +120,26 @@ if (loginForm) {
     console.log("Login attempt:", email);
   });
 }
+
+// ===== Hamburger / nav toggle =====
+const navToggle = document.getElementById("navToggle");
+const nav = document.querySelector(".nav");
+
+if (navToggle && nav) {
+  navToggle.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("nav-open");
+    navToggle.classList.toggle("nav-open-toggle", isOpen);
+    navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  });
+
+  // Optional: close menu when a link is clicked (mobile)
+  nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (nav.classList.contains("nav-open")) {
+        nav.classList.remove("nav-open");
+        navToggle.classList.remove("nav-open-toggle");
+        navToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+}
