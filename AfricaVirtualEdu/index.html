@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Africa Virtual Education (AVE)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <!-- ================= HEADER / NAVBAR ================= -->
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">
+                <span class="logo-main">Africa Virtual Education</span>
+                <span class="logo-sub">Empowering Students Across Africa</span>
+            </div>
+            <nav class="nav">
+                <a href="#project">Project</a>
+                <a href="#mission">Our Mission</a>
+                <a href="#membership">Membership</a>
+                <a href="#mentorship">Mentorship</a>
+                <a href="#education-support">Education Support</a>
+                <a href="#partnership">Partnership</a>
+                <a href="#donation">Donation</a>
+                <a href="#testimonies">Testimonies</a>
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ================= HERO / PROJECT (WELCOME + DONATION) ================= -->
+    <section id="project" class="hero">
+        <div class="container hero-content">
+            <div>
+                <h1>Annual Project: Support High School Students in DR Congo</h1>
+                <p>
+                    Each year, Africa Virtual Education (AVE) launches an Annual Project
+                    focused on a specific educational need. This year, we are supporting
+                    high school students in the Democratic Republic of Congo who face
+                    severe financial difficulties that threaten their ability to continue
+                    their studies.
+                </p>
+                <p>
+                    Join us by donating, partnering, or volunteering. Together, we can
+                    bring hope and education to the next generation of African leaders.
+                </p>
+                <div class="hero-actions">
+                    <a href="#donation" class="btn btn-primary">Donate Now</a>
+                    <a href="#membership" class="btn btn-secondary">Become a Member</a>
+                </div>
+            </div>
+            <div class="hero-card">
+                <h2>Quick Project Snapshot</h2>
+                <ul>
+                    <li>Focus: High school students in DR Congo</li>
+                    <li>Needs: Tuition, laptops, study materials</li>
+                    <li>Approach: Mentorship + financial support</li>
+                </ul>
+                <p class="hero-note">
+                    Project can be updated yearly to focus on different regions or needs.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= OUR MISSION ================= -->
+    <section id="mission" class="section">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <p>
+                At Africa Virtual Education, our mission is to empower students across
+                Africa by providing access to mentorship, education support, and
+                learning opportunities. We believe that everyone deserves a fair chance
+                to build their future through education, and we work hand in hand with
+                members, partners, and donors to make that possible.
+            </p>
+            <blockquote class="quote">
+                “Education is the most powerful weapon which you can use to change the
+                world.” — Nelson Mandela (South Africa)
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- ================= KEY AREAS GRID ================= -->
+    <section class="section section-light">
+        <div class="container">
+            <h2>How We Serve</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Membership</h3>
+                    <p>
+                        Connect with a network of learners, mentors, and supporters
+                        dedicated to personal and academic growth.
+                    </p>
+                    <a href="#membership" class="link">Learn more →</a>
+                </div>
+                <div class="card">
+                    <h3>Mentorship</h3>
+                    <p>
+                        Receive motivation, direction, and personalized guidance at every
+                        stage of your educational journey.
+                    </p>
+                    <a href="#mentorship" class="link">Learn more →</a>
+                </div>
+                <div class="card">
+                    <h3>Education Support</h3>
+                    <p>
+                        Get access to scholarships, materials, and tuition support to
+                        overcome financial or material barriers.
+                    </p>
+                    <a href="#education-support" class="link">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Partnership</h3>
+                    <p>
+                        Collaborate with us to expand sustainable education initiatives
+                        across Africa.
+                    </p>
+                    <a href="#partnership" class="link">Learn more →</a>
+                </div>
+                <div class="card">
+                    <h3>Donation</h3>
+                    <p>
+                        Your contribution funds scholarships, mentorship, and essential
+                        learning resources.
+                    </p>
+                    <a href="#donation" class="link">Learn more →</a>
+                </div>
+                <div class="card">
+                    <h3>Annual Projects</h3>
+                    <p>
+                        Each year, we focus on a specific region or challenge to maximize
+                        impact.
+                    </p>
+                    <a href="#project" class="link">See this year’s project →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MEMBERSHIP ================= -->
+    <section id="membership" class="section">
+        <div class="container">
+            <h2>Membership</h2>
+            <p>
+                Becoming a member of Africa Virtual Education connects you to a network
+                of learners, mentors, and supporters dedicated to personal and academic
+                growth. Members enjoy access to exclusive programs, guidance, and
+                community-driven projects that change lives.
+            </p>
+            <p>
+                Join us today and take a meaningful step toward your personal and
+                career development.
+            </p>
+
+            <div class="info-box">
+                <strong>Tip:</strong> Enrollment begins with accepting the terms and
+                conditions and filling out the registration form. After saving and
+                submitting the form, we will receive an email notification, and the
+                number of members will be updated on our dashboard.
+            </div>
+
+            <!-- Membership Evaluation Section -->
+            <h3>Member Evaluation</h3>
+            <form id="evaluationForm" class="form card-form">
+                <p>Please answer the following questions:</p>
+
+                <div class="form-group">
+                    <label>1. Do you speak English?</label>
+                    <div class="form-options">
+                        <label><input type="radio" name="speakEnglish" value="yes" /> Yes</label>
+                        <label><input type="radio" name="speakEnglish" value="no" /> No</label>
+                        <label><input type="radio" name="speakEnglish" value="little" /> A little</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>2. Do you listen and understand English well?</label>
+                    <div class="form-options">
+                        <label><input type="radio" name="understandEnglish" value="yes" /> Yes</label>
+                        <label><input type="radio" name="understandEnglish" value="no" /> No</label>
+                        <label><input type="radio" name="understandEnglish" value="sometimes" /> Sometimes</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>3. Do you have access to a laptop or computer?</label>
+                    <div class="form-options">
+                        <label><input type="radio" name="laptopAccess" value="yes" /> Yes</label>
+                        <label><input type="radio" name="laptopAccess" value="no" /> No</label>
+                        <label><input type="radio" name="laptopAccess" value="shared" /> Occasionally / Shared
+                            access</label>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary" id="evaluateBtn">
+                    Check Eligibility
+                </button>
+
+                <p id="evaluationResult" class="evaluation-result"></p>
+            </form>
+
+            <!-- Terms and Conditions -->
+            <h3>Membership Terms and Conditions</h3>
+            <button class="btn btn-outline" id="openTermsBtn">View Terms &amp; Conditions</button>
+
+            <div id="termsModal" class="modal hidden">
+                <div class="modal-content">
+                    <button class="modal-close" id="closeTermsBtn">&times;</button>
+                    <h3>Africa Virtual Education, Membership Enrollment Terms and Conditions</h3>
+                    <p><strong>Effective:</strong> Ongoing (No Expiration)</p>
+                    <p><strong>Organization:</strong> Africa Virtual Education (AVE)</p>
+                    <p><strong>Legal Form:</strong> Nonprofit Organization</p>
+
+                    <h4>1. Introduction</h4>
+                    <p>
+                        By enrolling as a member of Africa Virtual Education (AVE), you
+                        acknowledge and agree to these Terms and Conditions. These terms
+                        ensure clarity, protect both the member and the organization, and
+                        define the rights and responsibilities that come with participation
+                        in our programs and activities.
+                    </p>
+
+                    <h4>2. Membership Eligibility</h4>
+                    <ul>
+                        <li>Membership is open to individuals who share and support the mission of Africa Virtual
+                            Education.</li>
+                        <li>Applicants must provide accurate personal details when enrolling.</li>
+                        <li>Membership applications are reviewed and approved by the organization’s management team.
+                        </li>
+                    </ul>
+
+                    <h4>3. Member Responsibilities</h4>
+                    <p>All members agree to:</p>
+                    <ul>
+                        <li>Support and uphold the mission, values, and objectives of Africa Virtual Education.</li>
+                        <li>Participate ethically in organizational programs, mentorships, and community activities.
+                        </li>
+                        <li>Treat all members, volunteers, and staff with respect.</li>
+                        <li>Avoid actions or communications that could damage the reputation or operations of the
+                            organization.</li>
+                    </ul>
+
+                    <h4>4. Use of Photos, Videos, and Testimonials</h4>
+                    <p>
+                        By completing enrollment, you grant Africa Virtual Education the
+                        perpetual, non-exclusive right to use your name, photograph, image,
+                        likeness, voice, and written or spoken statements for publications,
+                        educational materials, reports, and campaigns. You may withdraw this
+                        consent in writing for future uses.
+                    </p>
+
+                    <h4>5. Data Privacy</h4>
+                    <p>
+                        Your personal information will be stored securely and used only for
+                        administrative, communication, and program purposes. AVE will not
+                        sell your information to third parties.
+                    </p>
+
+                    <h4>6. Membership Termination</h4>
+                    <p>
+                        Membership may be suspended or terminated if terms are violated,
+                        misconduct occurs, or false information was provided. Members may
+                        also voluntarily end membership by written request.
+                    </p>
+
+                    <h4>7. Liability Disclaimer</h4>
+                    <p>
+                        Africa Virtual Education is not liable for any personal injury,
+                        loss, or damage arising from participation in its activities, unless
+                        caused by proven negligence of the organization.
+                    </p>
+
+                    <h4>8. Amendments</h4>
+                    <p>
+                        These Terms and Conditions may be updated when necessary. Members
+                        will be notified of material changes.
+                    </p>
+
+                    <h4>9. Acceptance</h4>
+                    <p>
+                        By checking the box and providing your name during the enrollment
+                        process, you confirm that you have read, understood, and agreed to
+                        these Terms and Conditions.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Enrollment Form -->
+            <h3>Membership Enrollment Form</h3>
+            <form id="enrollmentForm" class="form card-form">
+                <h4>Personal Information</h4>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="fullName" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="date" name="dob" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select name="gender" required>
+                        <option value="">Please select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Prefer not to say</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Country of Residence</label>
+                    <input type="text" name="country" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Occupation / Student Status</label>
+                    <input type="text" name="status" />
+                </div>
+
+                <div class="form-group">
+                    <label>Institution (if applicable)</label>
+                    <input type="text" name="institution" />
+                </div>
+
+                <h4>Membership Details</h4>
+                <div class="form-group">
+                    <label>Reason for Joining Africa Virtual Education</label>
+                    <div class="form-options">
+                        <label><input type="checkbox" name="reason" value="Mentorship Program" /> Mentorship
+                            Program</label>
+                        <label><input type="checkbox" name="reason" value="Education Support" /> Education
+                            Support</label>
+                        <label><input type="checkbox" name="reason" value="Partnership" /> Partnership</label>
+                        <label><input type="checkbox" name="reason" value="Volunteering" /> Volunteering</label>
+                        <label><input type="checkbox" name="reason" value="Other" /> Other</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Briefly describe your goals or interest in joining</label>
+                    <textarea name="goals" rows="4"></textarea>
+                </div>
+
+                <h4>Communication Preference</h4>
+                <div class="form-group">
+                    <div class="form-options">
+                        <label><input type="radio" name="communication" value="Email" required /> Email</label>
+                        <label><input type="radio" name="communication" value="WhatsApp / SMS" /> WhatsApp / SMS</label>
+                        <label><input type="radio" name="communication" value="Both" /> Both</label>
+                    </div>
+                </div>
+
+                <h4>Consent and Agreement</h4>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="agreeTerms" required />
+                        I agree to the Africa Virtual Education Terms and Conditions and the
+                        use of my photo, image, video, or speech/testimony for
+                        organizational purposes.
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Full Name (as Signature)</label>
+                    <input type="text" name="signatureName" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" name="signatureDate" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit Enrollment</button>
+
+                <p id="enrollmentMessage" class="form-message"></p>
+
+                <div class="form-meta">
+                    <h4>For Office Use Only</h4>
+                    <p>Membership ID: ____________________</p>
+                    <p>Date Approved: ____________________</p>
+                    <p>Approved By: ______________________</p>
+                    <p>Comments: _________________________</p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ================= MENTORSHIP ================= -->
+    <section id="mentorship" class="section section-light">
+        <div class="container">
+            <h2>Mentorship</h2>
+            <p>
+                Our Mentorship Program provides motivation, direction, and personalized
+                guidance to students at different stages of their educational journey.
+                Through our team of dedicated mentors, we help each learner make informed
+                decisions, stay inspired, and grow with purpose. Together, we shape a
+                future full of possibility.
+            </p>
+        </div>
+    </section>
+
+    <!-- ================= EDUCATION SUPPORT ================= -->
+    <section id="education-support" class="section">
+        <div class="container">
+            <h2>Education Support</h2>
+            <p>
+                We believe that no student should be left behind due to financial or material
+                barriers. Our Education Support Program provides resources and assistance to
+                learners facing challenges in their studies, whether through scholarships,
+                materials, or tuition support.
+            </p>
+            <p>
+                Join our community or become a donor to help us create equal access to
+                education for all.
+            </p>
+        </div>
+    </section>
+
+    <!-- ================= PARTNERSHIP ================= -->
+    <section id="partnership" class="section section-light">
+        <div class="container">
+            <h2>Partnership</h2>
+            <p>
+                We welcome collaboration with individuals, organizations, and institutions
+                who share our passion for sustainable education in Africa. Partnerships
+                strengthen our reach and enable us to deliver greater impact to local
+                communities.
+            </p>
+            <p>
+                Join hands with us — together, we can transform the future.
+            </p>
+            <p>
+                <strong>Contact us directly:</strong>
+                <a href="mailto:partnership@africavirtualeducation.org">
+                    partnership@africavirtualeducation.org
+                </a>
+            </p>
+        </div>
+    </section>
+
+    <!-- ================= DONATION ================= -->
+    <section id="donation" class="section">
+        <div class="container">
+            <h2>Donation</h2>
+            <p>
+                Your donation fuels our mission. Every contribution supports scholarships,
+                mentorship programs, and essential learning materials for students in need.
+                Even the smallest gift helps change lives and opens doors to education for
+                those who need it most.
+            </p>
+            <p>
+                Give today and be the reason a student succeeds tomorrow.
+            </p>
+
+            <button class="btn btn-primary donation-btn">
+                Donate Securely
+            </button>
+            <p class="small-note">
+                (Link this button to your payment gateway or donation platform.)
+            </p>
+        </div>
+    </section>
+
+    <!-- ================= TESTIMONIES ================= -->
+    <section id="testimonies" class="section section-light">
+        <div class="container">
+            <h2>Testimonies</h2>
+            <p>Real stories from our members and beneficiaries.</p>
+
+            <div class="testimony-grid">
+                <div class="testimony-card">
+                    <img src="https://via.placeholder.com/120" alt="Person 1" />
+                    <h3>Jane, Kenya</h3>
+                    <p>
+                        “Through Africa Virtual Education, I received mentorship and financial
+                        support that helped me continue my high school education. I now believe
+                        my dream of becoming an engineer is possible.”
+                    </p>
+                </div>
+
+                <div class="testimony-card">
+                    <img src="https://via.placeholder.com/120" alt="Person 2" />
+                    <h3>Michael, DR Congo</h3>
+                    <p>
+                        “The laptop and study materials I received changed everything. I can now
+                        attend online classes and complete assignments without stress.”
+                    </p>
+                </div>
+
+                <div class="testimony-card">
+                    <img src="https://via.placeholder.com/120" alt="Person 3" />
+                    <h3>Amina, Nigeria</h3>
+                    <p>
+                        “My mentor helped me set clear goals and stay focused. I feel supported,
+                        not alone, in my education journey.”
+                    </p>
+                </div>
+            </div>
+            <p class="small-note">
+                (Replace placeholder images and texts with real photos and testimonies.)
+            </p>
+        </div>
+    </section>
+
+    <!-- ================= SIMPLE LOGIN AREA (FRONT-END ONLY) ================= -->
+    <div id="loginModal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close" id="closeLoginBtn">&times;</button>
+            <h3>Member Login</h3>
+            <p class="small-note">
+                This is a front-end example only. For real login, you need a backend
+                and database (see explanation in the documentation below).
+            </p>
+            <form id="loginForm" class="form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="loginEmail" required />
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="loginPassword" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p id="loginMessage" class="form-message"></p>
+            </form>
+
+            <div class="login-links">
+                <p>After login, members can access:</p>
+                <ul>
+                    <li>Education Support (Telegram group link and bootcamps)</li>
+                    <li>Financial Help (Laptop &amp; Tuition forms)</li>
+                    <li>Mentorship booking link</li>
+                </ul>
+                <p class="small-note">
+                    In a real system, this area would redirect to a protected dashboard page.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>&copy; <span id="year"></span> Africa Virtual Education. All rights reserved.</p>
+            <p>
+                Contact: <a href="mailto:info@africavirtualeducation.org">info@africavirtualeducation.org</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
