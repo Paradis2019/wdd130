@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Contact Us – Africa Virtual Education</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="description"
+        content="Contact Africa Virtual Education for partnerships, support inquiries, and general questions." />
+    <meta name="keywords"
+        content="Africa education, virtual learning, mentorship, scholarships, DR Congo, non-profit" />
+    <meta name="author" content="Africa Virtual Education" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Africa Virtual Education (AVE)" />
+    <meta property="og:description"
+        content="Empowering students across Africa through mentorship, education support, and targeted projects." />
+    <meta property="og:url" content="https://www.africavirtualeducation.org/" />
+    <meta property="og:image" content="https://www.africavirtualeducation.org/images/logo-ave.png" />
+
+    <link rel="canonical" href="https://www.africavirtualeducation.org/contact.html" />
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+
+<body>
+
+    <header class="header">
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo">
+                <img src="images/logo-ave.png" class="logo-img" alt="AVE Logo">
+                <div class="logo-text">
+                    <span class="logo-main">Africa Virtual Education</span>
+                    <span class="logo-sub">Empowering Students Across Africa</span>
+                </div>
+            </a>
+
+            <div class="header-actions">
+                <a href="donation.html" class="btn btn-donate">Donate</a>
+                <button class="btn btn-login" id="loginBtn">Login</button>
+                <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+            </div>
+
+            <nav class="nav" id="mainNav">
+                <a href="index.html#mission">Our Mission</a>
+                <a href="project.html">Project</a>
+                <a href="membership.html">Membership</a>
+                <a href="donation.html">Donation</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="testimonies.html">Testimonies</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p>If you have questions, want to collaborate, or need more information, please contact us.</p>
+
+            <div class="page-layout">
+                <div class="page-main">
+                    <form id="contactForm" class="form card-form">
+                        <div class="form-group">
+                            <label for="contactName">Full Name</label>
+                            <input type="text" id="contactName" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactEmail">Email Address</label>
+                            <input type="email" id="contactEmail" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <input type="text" id="contactSubject" name="subject" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" name="message" rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <p id="contactMessageStatus" class="form-message"></p>
+                    </form>
+                </div>
+
+                <aside class="sidebar">
+                    <h3>Contact Details</h3>
+                    <p><strong>Email:</strong> info@africavirtualeducation.org</p>
+                    <p><strong>Partnerships:</strong> partnership@africavirtualeducation.org</p>
+                    <p><strong>Location:</strong> Virtual – Serving students across Africa</p>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>&copy; <span id="year"></span> Africa Virtual Education.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

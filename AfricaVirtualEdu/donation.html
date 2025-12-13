@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Donate – Africa Virtual Education</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="description"
+        content="Support Africa Virtual Education with a donation to fund scholarships, laptops, and mentorship programs for students across Africa." />
+    <meta name="keywords" content="Africa education, virtual learning, mentorship, scholarships,non-profit" />
+    <meta name="author" content="Africa Virtual Education" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Africa Virtual Education (AVE)" />
+    <meta property="og:description"
+        content="Empowering students across Africa through mentorship, education support, and targeted projects." />
+    <meta property="og:url" content="https://www.africavirtualeducation.org/" />
+    <meta property="og:image" content="https://www.africavirtualeducation.org/images/logo-ave.png" />
+
+    <link rel="canonical" href="https://www.africavirtualeducation.org/donation.html" />
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+
+<body>
+
+    <!-- HEADER (same everywhere) -->
+    <header class="header">
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo">
+                <img src="images/logo-ave.png" class="logo-img" alt="AVE Logo">
+                <div class="logo-text">
+                    <span class="logo-main">Africa Virtual Education</span>
+                    <span class="logo-sub">Empowering Students Across Africa</span>
+                </div>
+            </a>
+
+            <div class="header-actions">
+                <a href="donation.html" class="btn btn-donate">Donate</a>
+                <button class="btn btn-login" id="loginBtn">Login</button>
+
+                <button class="nav-toggle" id="navToggle">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+
+            <nav class="nav" id="mainNav">
+                <a href="index.html#mission">Our Mission</a>
+                <a href="project.html">Project</a>
+                <a href="membership.html">Membership</a>
+                <a href="donation.html">Donation</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="testimonies.html">Testimonies</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Donation Content -->
+    <section class="section">
+        <div class="container">
+            <h2>Support Our Mission</h2>
+
+            <div class="page-layout">
+                <div class="page-main">
+                    <p>
+                        Your donation helps us provide mentorship, financial support, and learning resources to students
+                        across Africa.
+                        Every contribution, large or small, makes a difference.
+                    </p>
+
+                    <div class="card-form">
+                        <h3>Choose Your Support</h3>
+
+                        <button id="donateStripeBtn" class="btn btn-primary" type="button">
+                            Donate with Card (Stripe)
+                        </button>
+
+                        <p class="small-note">
+                            This button will redirect to a secure Stripe Checkout page (once configured).
+                        </p>
+
+                        <a id="donatePaypalLink" href="#" class="btn btn-secondary">
+                            Donate with PayPal
+                        </a>
+
+                        <p class="small-note">
+                            Replace the Stripe and PayPal links with your real donation URLs in <code>script.js</code>.
+                        </p>
+                    </div>
+                </div>
+
+                <aside class="sidebar">
+                    <h3>What Your Gift Can Do</h3>
+                    <ul>
+                        <li>$20 – Learning materials for one student</li>
+                        <li>$50 – Internet data support for online classes</li>
+                        <li>$100 – Partial tuition support</li>
+                        <li>$500 – Laptop and mentoring package</li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>&copy; <span id="year"></span> Africa Virtual Education. All rights reserved.</p>
+            <p>Contact: info@africavirtualeducation.org</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

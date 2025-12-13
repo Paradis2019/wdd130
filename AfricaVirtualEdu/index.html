@@ -3,42 +3,66 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Africa Virtual Education (AVE)</title>
+    <title>Africa Virtual Education (AVE) – Empowering Students Across Africa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="description"
+        content="Africa Virtual Education (AVE) provides mentorship, education support, and annual projects to empower students across Africa." />
+    <meta name="keywords"
+        content="Africa education, virtual learning, mentorship, scholarships, DR Congo, non-profit" />
+    <meta name="author" content="Africa Virtual Education" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Africa Virtual Education (AVE)" />
+    <meta property="og:description"
+        content="Empowering students across Africa through mentorship, education support, and targeted projects." />
+    <meta property="og:url" content="https://www.africavirtualeducation.org/" />
+    <meta property="og:image" content="https://www.africavirtualeducation.org/images/logo-ave.png" />
+
+    <link rel="canonical" href="https://www.africavirtualeducation.org/" />
+
     <link rel="stylesheet" href="styles.css" />
 </head>
+
 
 <body>
     <!-- ================= HEADER / NAVBAR ================= -->
     <header class="header">
         <div class="container nav-container">
-            <div class="logo">
-                <img src="images/logo-ave.jpg" alt="Africa Virtual Education logo" class="logo-img" />
+
+            <!-- LOGO (CLICKABLE → HOME) -->
+            <a href="index.html" class="logo">
+                <img src="images/Logo-ave.svg" alt="Africa Virtual Education logo" class="logo-img" />
                 <div class="logo-text">
                     <span class="logo-main">Africa Virtual Education</span>
                     <span class="logo-sub">Empowering Students Across Africa</span>
                 </div>
+            </a>
+
+            <!-- DONATION + LOGIN (ALWAYS VISIBLE) -->
+            <div class="header-actions">
+                <a href="index.html#donation" class="btn btn-donate">Donate</a>
+                <button class="btn btn-login" id="loginBtn">Login</button>
+
+                <!-- HAMBURGER BUTTON -->
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
 
-            <!-- HAMBURGER BUTTON -->
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <!-- NAV LINKS -->
-            <nav class="nav">
-                <a href="#project">Project</a>
-                <a href="#mission">Our Mission</a>
+            <!-- HIDDEN NAV MENU -->
+            <nav class="nav" id="mainNav">
+                <a href="index.html#mission">Our Mission</a>
+                <a href="project.html">Project</a>
                 <a href="membership.html">Membership</a>
-                <a href="#mentorship">Mentorship</a>
-                <a href="#education-support">Education Support</a>
-                <a href="#partnership">Partnership</a>
-                <a href="#donation">Donation</a>
-                <a href="#testimonies">Testimonies</a>
-                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <a href="donation.html">Donation</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="testimonies.html">Testimonies</a>
             </nav>
+
         </div>
     </header>
 
@@ -154,37 +178,6 @@
                     <a href="#project" class="link">See this year’s project →</a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- ================= MENTORSHIP ================= -->
-    <section id="mentorship" class="section section-light">
-        <div class="container">
-            <h2>Mentorship</h2>
-            <p>
-                Our Mentorship Program provides motivation, direction, and personalized
-                guidance to students at different stages of their educational journey.
-                Through our team of dedicated mentors, we help each learner make informed
-                decisions, stay inspired, and grow with purpose. Together, we shape a
-                future full of possibility.
-            </p>
-        </div>
-    </section>
-
-    <!-- ================= EDUCATION SUPPORT ================= -->
-    <section id="education-support" class="section">
-        <div class="container">
-            <h2>Education Support</h2>
-            <p>
-                We believe that no student should be left behind due to financial or material
-                barriers. Our Education Support Program provides resources and assistance to
-                learners facing challenges in their studies, whether through scholarships,
-                materials, or tuition support.
-            </p>
-            <p>
-                Join our community or become a donor to help us create equal access to
-                education for all.
-            </p>
         </div>
     </section>
 
