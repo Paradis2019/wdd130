@@ -79,7 +79,6 @@ if (enrollmentForm && enrollmentMessage) {
   enrollmentForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // In a real app, send data to your backend API here.
     const formData = new FormData(enrollmentForm);
     const fullName = formData.get("fullName");
     const email = formData.get("email");
@@ -100,7 +99,7 @@ if (enrollmentForm && enrollmentMessage) {
 
 // ================================
 // Login modal (front-end demo)
-// (Used on both pages where modal exists)
+// (Used on pages where modal exists)
 // ================================
 const loginBtn = document.getElementById("loginBtn");
 const loginModal = document.getElementById("loginModal");
@@ -126,7 +125,6 @@ if (loginForm && loginMessage) {
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // This is only a demo. Replace with real authentication.
     const data = new FormData(loginForm);
     const email = data.get("loginEmail");
 
@@ -149,19 +147,16 @@ if (navElement) {
     const href = link.getAttribute("href");
     if (!href) return;
 
-    // only compare the file part (ignore #hash)
     const file = href.split("#")[0] || "index.html";
 
     if (file === currentPath) {
       link.classList.add("active");
     }
 
-    // Special case: index.html sections like index.html#mission
     if (
       (currentPath === "" || currentPath === "index.html") &&
       (file === "" || file === "index.html")
     ) {
-      // keep only one active when on homepage
       if (href.includes("#mission")) {
         link.classList.add("active");
       }
@@ -189,7 +184,6 @@ if (donatePaypalLink) {
   donatePaypalLink.href = PAYPAL_DONATION_URL;
 }
 
-
 // ================================
 // Hamburger menu toggle
 // (Used on all pages with header)
@@ -203,7 +197,6 @@ if (navToggle && nav) {
     navToggle.classList.toggle("nav-open-toggle", openMenu);
   });
 
-  // Close menu when a link is clicked
   nav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
       nav.classList.remove("nav-open");
@@ -214,6 +207,7 @@ if (navToggle && nav) {
 
 // ================================
 // Contact form submission
+// (Used on contact.html)
 // ================================
 const contactForm = document.getElementById("contactForm");
 const contactMessageStatus = document.getElementById("contactMessageStatus");
@@ -250,54 +244,220 @@ if (contactForm && contactMessageStatus) {
   });
 }
 
-// server.js
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-const nodemailer = require("nodemailer");
-require("dotenv").config();
+// ================================
+// FLOATING CONTACT WIDGET TOGGLE
+// ================================
+const contactToggle = document.getElementById("contactToggle");
+const contactMenu = document.getElementById("contactMenu");
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+if (contactToggle && contactMenu) {
+  contactToggle.addEventListener("click", () => {
+    contactMenu.classList.toggle("show");
+  });
 
-// serve static files (your site)
-app.use(express.static(path.join(__dirname, ".")));
-app.use(bodyParser.json());
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (
+      !contactToggle.contains(e.target) &&
+      !contactMenu.contains(e.target)
+    ) {
+      contactMenu.classList.remove("show");
+    }
+  });
+}
 
-// Contact form endpoint
-app.post("/api/contact", async (req, res) => {
-  const { name, email, subject, message } = req.body || {};
-  if (!name || !email || !subject || !message) {
-    return res.status(400).json({ error: "Missing fields" });
+// ================================
+// CHATBOT BUBBLE TOGGLE + GUIDED FLOW
+// ================================
+const chatbotToggle = document.getElementById("chatbotToggle");
+const chatbotWindow = document.getElementById("chatbotWindow");
+const chatbotClose = document.getElementById("chatbotClose");
+
+const chatbotMessages = document.getElementById("chatbotMessages");
+const chatbotInputRow = document.getElementById("chatbotInputRow");
+const chatbotTextInput = document.getElementById("chatbotTextInput");
+const chatbotSendBtn = document.getElementById("chatbotSendBtn");
+
+// CONFIG: your real contacts
+const WHATSAPP_NUMBER = "13854914089";        // your WhatsApp, without +
+const TELEGRAM_USERNAME = "YourTelegramName"; // replace when ready
+
+let chatStep = 0;
+let chatData = {
+  topic: "",
+  name: "",
+  contact: "", // "whatsapp" or "telegram"
+};
+
+function resetChat() {
+  chatStep = 0;
+  chatData = { topic: "", name: "", contact: "" };
+  if (chatbotMessages) {
+    chatbotMessages.innerHTML = "";
   }
-
-  try {
-    // Configure email transport (using your email provider)
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT || 587),
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"AVE Contact" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_RECEIVER || process.env.SMTP_USER,
-      subject: `[AVE Contact] ${subject}`,
-      text: `From: ${name} <${email}>\n\n${message}`,
-    });
-
-    res.json({ ok: true });
-  } catch (err) {
-    console.error("Email error:", err);
-    res.status(500).json({ error: "Failed to send message" });
+  if (chatbotTextInput) {
+    chatbotTextInput.value = "";
+    chatbotTextInput.placeholder = "Type your answer here...";
   }
-});
+  startConversation();
+}
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+function addMessage(sender, text) {
+  if (!chatbotMessages) return;
+  const bubble = document.createElement("div");
+  bubble.className = "chat-bubble " + sender;
+  bubble.textContent = text;
+  chatbotMessages.appendChild(bubble);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
 
+function addChoices(choices) {
+  if (!chatbotMessages) return;
+  const wrapper = document.createElement("div");
+  wrapper.className = "chat-choices";
+
+  choices.forEach((choice) => {
+    const btn = document.createElement("button");
+    btn.className = "chat-choice-btn";
+    btn.textContent = choice.label;
+    btn.addEventListener("click", () => {
+      handleChoice(choice.value, choice.label);
+      wrapper.remove();
+    });
+    wrapper.appendChild(btn);
+  });
+
+  chatbotMessages.appendChild(wrapper);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+function startConversation() {
+  addMessage(
+    "bot",
+    "Hi 👋 I’m the AVE assistant. What would you like to talk about today?"
+  );
+
+  addChoices([
+    { label: "Membership", value: "Membership" },
+    { label: "Mentorship", value: "Mentorship" },
+    { label: "Education Support", value: "Education Support" },
+    { label: "Donation", value: "Donation" },
+    { label: "Partnership", value: "Partnership" },
+    { label: "Other", value: "Other" },
+  ]);
+
+  chatStep = 1;
+}
+
+function handleChoice(value, label) {
+  addMessage("user", label);
+
+  if (chatStep === 1) {
+    chatData.topic = value;
+    addMessage("bot", "Great, I can help with " + value + ". What is your name?");
+    chatStep = 2;
+    if (chatbotTextInput) {
+      chatbotTextInput.placeholder = "Type your name here...";
+    }
+  } else if (chatStep === 3) {
+    chatData.contact = value;
+    finishConversation();
+  }
+}
+
+function handleTextSubmit() {
+  if (!chatbotTextInput) return;
+  const text = chatbotTextInput.value.trim();
+  if (!text) return;
+
+  addMessage("user", text);
+
+  if (chatStep === 2) {
+    chatData.name = text;
+    chatbotTextInput.value = "";
+
+    addMessage(
+      "bot",
+      `Nice to meet you, ${chatData.name}. How would you like to continue?`
+    );
+
+    addChoices([
+      { label: "WhatsApp", value: "whatsapp" },
+      { label: "Telegram", value: "telegram" },
+    ]);
+
+    chatStep = 3;
+    chatbotTextInput.placeholder =
+      "You can also type more details if you want (optional)";
+  } else {
+    chatbotTextInput.value = "";
+    addMessage("bot", "Thanks, I’ll include that in your message.");
+  }
+}
+
+function finishConversation() {
+  const baseText =
+    `Hello, my name is ${chatData.name || "a new contact"}.\n` +
+    `I’m interested in: ${chatData.topic || "Information about Africa Virtual Education"}.\n` +
+    `Please contact me back.`;
+
+  addMessage(
+    "bot",
+    "Perfect. Click one of the buttons below to open WhatsApp or Telegram with your message ready to send."
+  );
+
+  const finalLinks = document.createElement("div");
+  finalLinks.className = "chat-final-links";
+
+  const msgEncoded = encodeURIComponent(baseText);
+
+  const waLink = document.createElement("a");
+  waLink.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msgEncoded}`;
+  waLink.target = "_blank";
+  waLink.className = "btn btn-primary";
+  waLink.textContent = "Open in WhatsApp";
+
+  const tgLink = document.createElement("a");
+  tgLink.href = `https://t.me/share/url?url=&text=${msgEncoded}`;
+  // or: `https://t.me/${TELEGRAM_USERNAME}?text=${msgEncoded}`;
+  tgLink.target = "_blank";
+  tgLink.className = "btn btn-secondary";
+  tgLink.textContent = "Open in Telegram";
+
+  finalLinks.appendChild(waLink);
+  finalLinks.appendChild(tgLink);
+
+  chatbotMessages.appendChild(finalLinks);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+// open / close
+if (chatbotToggle && chatbotWindow) {
+  chatbotToggle.addEventListener("click", () => {
+    const willOpen = chatbotWindow.classList.contains("hidden");
+    chatbotWindow.classList.toggle("hidden");
+    chatbotWindow.classList.toggle("show");
+    if (willOpen) {
+      resetChat();
+    }
+  });
+}
+
+if (chatbotClose && chatbotWindow) {
+  chatbotClose.addEventListener("click", () => {
+    chatbotWindow.classList.add("hidden");
+    chatbotWindow.classList.remove("show");
+  });
+}
+
+// send
+if (chatbotSendBtn && chatbotTextInput) {
+  chatbotSendBtn.addEventListener("click", handleTextSubmit);
+
+  chatbotTextInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleTextSubmit();
+    }
+  });
+}

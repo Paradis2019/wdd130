@@ -31,29 +31,26 @@
     <header class="header">
         <div class="container nav-container">
 
-            <!-- LOGO (CLICKABLE → HOME) -->
             <a href="index.html" class="logo">
-                <img src="images/Logo-ave.svg" alt="Africa Virtual Education logo" class="logo-img" />
+                <img src="images/Logo-ave.svg" class="logo-img" alt="AVE Logo">
                 <div class="logo-text">
                     <span class="logo-main">Africa Virtual Education</span>
                     <span class="logo-sub">Empowering Students Across Africa</span>
                 </div>
             </a>
 
-            <!-- DONATION + LOGIN (ALWAYS VISIBLE) -->
             <div class="header-actions">
-                <a href="index.html#donation" class="btn btn-donate">Donate</a>
+                <a href="donation.html" class="btn btn-donate">Donate</a>
+
                 <button class="btn btn-login" id="loginBtn">Login</button>
 
-                <!-- HAMBURGER BUTTON -->
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <!-- ⭐ HAMBURGER BUTTON ⭐ -->
+                <button class="nav-toggle" id="navToggle">
+                    <span></span><span></span><span></span>
                 </button>
             </div>
 
-            <!-- HIDDEN NAV MENU -->
+            <!-- ⭐ MENU PANEL ⭐ -->
             <nav class="nav" id="mainNav">
                 <a href="index.html#mission">Our Mission</a>
                 <a href="project.html">Project</a>
@@ -65,6 +62,7 @@
 
         </div>
     </header>
+
 
 
     <!-- ================= HERO / PROJECT (WELCOME + DONATION) ================= -->
@@ -120,88 +118,89 @@
         </div>
     </section>
 
+    <!-- ===== IMAGE HIGHLIGHT BETWEEN MISSION & HOW WE SERVE ===== -->
+    <section class="section section-image-highlight">
+        <div class="container image-center-wrap">
+            <img src="images/education_ave.webp" alt="Students learning with Africa Virtual Education"
+                class="mission-image-feature" />
+        </div>
+    </section>
+
     <!-- ================= KEY AREAS GRID ================= -->
     <section class="section section-light">
         <div class="container">
             <h2>How We Serve</h2>
+
             <div class="grid-3">
+
+                <!-- MEMBERSHIP -->
                 <div class="card">
                     <h3>Membership</h3>
                     <p>
                         Connect with a network of learners, mentors, and supporters
                         dedicated to personal and academic growth.
                     </p>
-                    <!-- LINK GOES TO membership.html -->
                     <a href="membership.html" class="link">Learn more →</a>
                 </div>
+
+                <!-- MENTORSHIP -->
                 <div class="card">
                     <h3>Mentorship</h3>
                     <p>
                         Receive motivation, direction, and personalized guidance at every
                         stage of your educational journey.
                     </p>
-                    <a href="#mentorship" class="link">Learn more →</a>
+                    <a href="membership.html" class="link">Learn more →</a>
                 </div>
+
+                <!-- EDUCATION SUPPORT -->
                 <div class="card">
                     <h3>Education Support</h3>
                     <p>
                         Get access to scholarships, materials, and tuition support to
                         overcome financial or material barriers.
                     </p>
-                    <a href="#education-support" class="link">Learn more →</a>
+                    <a href="membership.html" class="link">Learn more →</a>
                 </div>
+
             </div>
 
             <div class="grid-3">
+
+                <!-- PARTNERSHIP -->
                 <div class="card">
                     <h3>Partnership</h3>
                     <p>
                         Collaborate with us to expand sustainable education initiatives
                         across Africa.
                     </p>
-                    <a href="#partnership" class="link">Learn more →</a>
+                    <a href="contact.html" class="link">Learn more →</a>
                 </div>
+
+                <!-- DONATION -->
                 <div class="card">
                     <h3>Donation</h3>
                     <p>
                         Your contribution funds scholarships, mentorship, and essential
                         learning resources.
                     </p>
-                    <a href="#donation" class="link">Learn more →</a>
+                    <a href="donation.html" class="link">Learn more →</a>
                 </div>
+
+                <!-- ANNUAL PROJECT -->
                 <div class="card">
                     <h3>Annual Projects</h3>
                     <p>
                         Each year, we focus on a specific region or challenge to maximize
                         impact.
                     </p>
-                    <a href="#project" class="link">See this year’s project →</a>
+                    <a href="project.html" class="link">See this year’s project →</a>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- ================= PARTNERSHIP ================= -->
-    <section id="partnership" class="section section-light">
-        <div class="container">
-            <h2>Partnership</h2>
-            <p>
-                We welcome collaboration with individuals, organizations, and institutions
-                who share our passion for sustainable education in Africa. Partnerships
-                strengthen our reach and enable us to deliver greater impact to local
-                communities.
-            </p>
-            <p>
-                Join hands with us — together, we can transform the future.
-            </p>
-            <p>
-                <strong>Contact us directly:</strong>
-                <a href="mailto:partnership@africavirtualeducation.org">
-                    partnership@africavirtualeducation.org
-                </a>
-            </p>
-        </div>
-    </section>
 
     <!-- ================= DONATION ================= -->
     <section id="donation" class="section">
@@ -217,9 +216,10 @@
                 Give today and be the reason a student succeeds tomorrow.
             </p>
 
-            <button class="btn btn-primary donation-btn">
+            <a href="donation.html" class="btn btn-primary donation-btn">
                 Donate Securely
-            </button>
+            </a>
+
             <p class="small-note">
                 (Link this button to your payment gateway or donation platform.)
             </p>
@@ -238,8 +238,7 @@
                     <h3>Jane, Kenya</h3>
                     <p>
                         “Through Africa Virtual Education, I received mentorship and financial
-                        support that helped me continue my high school education. I now believe
-                        my dream of becoming an engineer is possible.”
+                        support that helped me continue my high school education.”
                     </p>
                 </div>
 
@@ -256,16 +255,24 @@
                     <img src="images/testimony3.jpg" alt="Amina - Nigeria" />
                     <h3>Amina, Nigeria</h3>
                     <p>
-                        “My mentor helped me set clear goals and stay focused. I feel supported,
-                        not alone, in my education journey.”
+                        “My mentor helped me set clear goals and stay focused throughout my education journey.”
                     </p>
                 </div>
             </div>
+
+            <!-- ⭐ NEW LINK TO FULL TESTIMONIES PAGE ⭐ -->
+            <div style="margin-top: 1.5rem;">
+                <a href="testimonies.html" class="btn btn-secondary">
+                    View More Testimonies →
+                </a>
+            </div>
+
             <p class="small-note">
                 (Replace images and texts with real photos and testimonies.)
             </p>
         </div>
     </section>
+
 
     <!-- ================= LOGIN MODAL (DEMO) ================= -->
     <div id="loginModal" class="modal hidden">
@@ -302,6 +309,148 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top">↑</button>
+
+
+    <!-- Floating Contact Widget -->
+    <div class="contact-widget">
+
+        <!-- Main round phone button -->
+        <button id="contactToggle" class="contact-main-btn" aria-label="Open contact options">
+            <!-- Phone SVG -->
+            <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                    d="M6.6 10.8c1.2 2.4 3.2 4.4 5.6 5.6l1.9-1.9c.3-.3.8-.4 1.1-.2l2.5 1c.4.2.7.5.7.9v2.7c0 .5-.4.9-.9 1-1.2.1-2.4 0-3.5-.4-3.1-1-5.9-3.3-8-6.4-1-1.6-1.7-3.3-2.1-5.1-.2-1-.3-1.9-.3-2.9 0-.5.4-.9.9-1H6c.4 0 .8.3.9.7l1 2.5c.1.4 0 .8-.3 1.1l-1.9 1.9z"
+                    fill="currentColor" />
+            </svg>
+        </button>
+
+        <!-- Sliding contact menu -->
+        <div id="contactMenu" class="contact-menu hidden">
+            <a href="mailto:info@africavirtualeducation.org" class="contact-item">
+                <span class="contact-icon">
+                    <!-- Email SVG -->
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 6h16c.6 0 1 .4 1 1v10c0 .6-.4 1-1 1H4c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1zm0 0 8 6 8-6"
+                            fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </span>
+                Email Us
+            </a>
+
+            <a href="tel:+1234567890" class="contact-item">
+                <span class="contact-icon">
+                    <!-- Phone SVG (reuse) -->
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M6.6 10.8c1.2 2.4 3.2 4.4 5.6 5.6l1.9-1.9c.3-.3.8-.4 1.1-.2l2.5 1c.4.2.7.5.7.9v2.7c0 .5-.4.9-.9 1-1.2.1-2.4 0-3.5-.4-3.1-1-5.9-3.3-8-6.4-1-1.6-1.7-3.3-2.1-5.1-.2-1-.3-1.9-.3-2.9 0-.5.4-.9.9-1H6c.4 0 .8.3.9.7l1 2.5c.1.4 0 .8-.3 1.1l-1.9 1.9z"
+                            fill="currentColor" />
+                    </svg>
+                </span>
+                Call Us
+            </a>
+
+            <a href="https://wa.me/1234567890" target="_blank" class="contact-item">
+                <span class="contact-icon">
+                    <!-- WhatsApp circle-style SVG -->
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7" />
+                        <path
+                            d="M9.5 9.1c0-.3.1-.6.3-.8l.3-.3c.1-.1.2-.1.3-.1.1 0 .2 0 .3.1l.8.4c.1.1.2.2.2.3l-.1.6c-.1.3-.2.5-.1.7.1.3.4.6.7.9.3.3.6.5.9.6.2.1.4 0 .7-.1l.5-.2c.1 0 .3 0 .4.1l.6.4c.1.1.2.2.2.3 0 .1 0 .3-.1.4l-.3.4c-.2.3-.5.5-.9.6-.5.1-1.1 0-1.7-.2-1.4-.5-2.5-1.4-3.4-2.5-.4-.4-.7-1-1-1.5-.3-.7-.4-1.2-.4-1.7z"
+                            fill="currentColor" />
+                    </svg>
+                </span>
+                WhatsApp
+            </a>
+
+            <a href="https://t.me/YourTelegramUsername" target="_blank" class="contact-item">
+                <span class="contact-icon">
+                    <!-- Telegram paper plane -->
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M4.5 11.8 18 6.5c.4-.2.9.2.8.6l-2 10c-.1.5-.7.7-1.1.4l-3.2-2.4-1.8 2c-.3.4-.9.2-1-.2l-.7-3.3-3.2-1.6c-.5-.3-.4-1 .1-1.2z"
+                            fill="currentColor" />
+                    </svg>
+                </span>
+                Telegram
+            </a>
+
+            <a href="https://m.me/YourFacebookPage" target="_blank" class="contact-item">
+                <span class="contact-icon">
+                    <!-- Messenger style bubble -->
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M5 19.5 5.5 16C4.6 14.9 4 13.5 4 12 4 8.7 7.1 6 11 6s7 2.7 7 6-3.1 6-7 6c-.8 0-1.6-.1-2.3-.4L5 19.5z"
+                            fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                        <path d="M9 11.5 10.8 13 13 11l2 2.5" fill="none" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </span>
+                Messenger
+            </a>
+
+            <a href="https://instagram.com/YourInstagramProfile" target="_blank" class="contact-item">
+                <span class="contact-icon">
+                    <!-- Simple Instagram style icon -->
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="5" y="5" width="14" height="14" rx="4" ry="4" fill="none" stroke="currentColor"
+                            stroke-width="1.7" />
+                        <circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.5" />
+                        <circle cx="16" cy="8" r="0.9" fill="currentColor" />
+                    </svg>
+                </span>
+                Instagram
+            </a>
+
+            <a href="contact.html" class="contact-item">
+                <span class="contact-icon">
+                    <!-- Chat bubble SVG -->
+                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 7h12c.6 0 1 .4 1 1v6c0 .6-.4 1-1 1H10l-3.5 3V8c0-.6.4-1 1-1z" fill="none"
+                            stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+                    </svg>
+                </span>
+                Contact Form
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Chatbot bubble (bottom-right) -->
+    <div class="chatbot-widget">
+        <button id="chatbotToggle" class="chatbot-btn" aria-label="Open chat assistant">
+            <!-- Chat icon SVG -->
+            <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 6h14c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1h-5.5L9 18l.5-3H5c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1z"
+                    fill="currentColor" />
+            </svg>
+        </button>
+
+        <div id="chatbotWindow" class="chatbot-window hidden">
+            <div class="chatbot-header">
+                <span>AVE Assistant</span>
+                <button id="chatbotClose" class="chatbot-close" aria-label="Close chat">×</button>
+            </div>
+
+            <div class="chatbot-body">
+                <div id="chatbotMessages" class="chatbot-messages"></div>
+
+                <div id="chatbotInputRow" class="chatbot-input-row">
+                    <input id="chatbotTextInput" type="text" class="chatbot-input"
+                        placeholder="Type your answer here..." />
+                    <button id="chatbotSendBtn" class="btn btn-primary btn-chat-send">Send</button>
+                </div>
+
+                <div id="chatbotFooterNote" class="chatbot-footer-note small-note">
+                    This assistant will prepare a WhatsApp or Telegram message for you.
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
