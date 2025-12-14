@@ -23,15 +23,193 @@
     <link rel="canonical" href="https://www.africavirtualeducation.org/membership.html" />
 
     <link rel="stylesheet" href="styles.css" />
-</head>
 
+    <script>
+        const state = {
+            evaluation: {},
+            termsConfirmed: false
+        };
+
+        function goToStep(step) {
+            const sections = ["step-1", "step-2", "step-3", "step-4"];
+            sections.forEach(id => document.getElementById(id).classList.remove("active"));
+            (step <= 3 ? document.getElementById(`step-${step}`) : document.getElementById("step-4")).classList.add("active");
+
+            for (let i = 1; i <= 3; i++) {
+                const pill = document.getElementById(`step-pill-${i}`);
+                pill.classList.remove("active", "muted");
+                if (i === step) pill.classList.add("active");
+                else if (i < step) pill.classList.add("active");
+                else pill.classList.add("muted");
+            }
+
+            const bar = document.getElementById("progress-bar");
+            const widthMap = { 1: "12%", 2: "52%", 3: "100%", 4: "100%" };
+            bar.style.width = widthMap[step] || "12%";
+        }
+
+        function showAlert(id, type, text) {
+            const box = document.getElementById(id);
+            if (!text) {
+                box.style.display = "none";
+                return;
+            }
+            box.className = `alert ${type}`;
+            box.textContent = text;
+            box.style.display = "block";
+        }
+
+        // STEP 1: evaluation with radios
+        function checkEligibility() {
+            const speak = document.querySelector('input[name="q_speakEnglish"]:checked')?.value;
+            const understand = document.querySelector('input[name="q_understandEnglish"]:checked')?.value;
+            const laptop = document.querySelector('input[name="q_laptopAccess"]:checked')?.value;
+
+            if (!speak || !understand || !laptop) {
+                showAlert("eval-alert", "error", "Please answer all evaluation questions.");
+                return;
+            }
+
+            state.evaluation = { speak, understand, laptop };
+
+            // Disqualify if any answer is exactly "no"
+            if (speak === "no" || understand === "no" || laptop === "no") {
+                showAlert("eval-alert", "error", "You are not qualified for membership at this time.");
+                return;
+            }
+
+            showAlert("eval-alert", "success", "Thank you. You are eligible to continue with the membership process.");
+            setTimeout(() => {
+                goToStep(2);
+                showAlert("eval-alert", "success", "");
+            }, 600);
+        }
+
+        // STEP 2: accept terms
+        async function confirmTerms() {
+            const agree = document.getElementById("t_agree").checked;
+            const fullname = document.getElementById("t_fullname").value.trim();
+            const date = document.getElementById("t_date").value;
+
+            if (!agree) {
+                showAlert("terms-alert", "error", "You must agree to the Terms and Conditions to continue.");
+                return;
+            }
+            if (!fullname) {
+                showAlert("terms-alert", "error", "Please enter your full name (as signature).");
+                return;
+            }
+            if (!date) {
+                showAlert("terms-alert", "error", "Please select the date.");
+                return;
+            }
+
+            state.termsConfirmed = true;
+            state.evaluation.termsName = fullname;
+            state.evaluation.termsDate = date;
+
+            showAlert("terms-alert", "success", "Thank you. Your acceptance of the terms has been recorded.");
+            // backend: send evaluation + terms if needed
+
+            setTimeout(() => {
+                goToStep(3);
+                showAlert("terms-alert", "success", "");
+            }, 600);
+        }
+
+        // STEP 3: enrollment form submit
+        async function submitEnrollment() {
+            const fullName = document.getElementById("en_fullName").value.trim();
+            const dob = document.getElementById("en_dob").value;
+            const gender = document.getElementById("en_gender").value;
+            const country = document.getElementById("en_country").value.trim();
+            const email = document.getElementById("en_email").value.trim();
+            const phone = document.getElementById("en_phone").value.trim();
+            const status = document.getElementById("en_status").value.trim();
+            const institution = document.getElementById("en_institution").value.trim();
+            const goals = document.getElementById("en_goals").value.trim();
+
+            const comm = document.querySelector('input[name="en_comm"]:checked')?.value;
+            const agreeTerms = document.getElementById("en_agreeTerms").checked;
+            const sigName = document.getElementById("en_signatureName").value.trim();
+            const sigDate = document.getElementById("en_signatureDate").value;
+
+            // reasons
+            const reasonNodes = document.querySelectorAll('input[name="en_reason"]:checked');
+            const reasons = Array.from(reasonNodes).map(r => r.value);
+            const otherText = document.getElementById("en_reasonOther").value.trim();
+            if (otherText) reasons.push("Other: " + otherText);
+
+            if (!fullName || !dob || !gender || !country || !email || !phone) {
+                showAlert("enroll-alert", "error", "Please fill in all required personal information fields.");
+                return;
+            }
+
+            if (!comm) {
+                showAlert("enroll-alert", "error", "Please select your communication preference.");
+                return;
+            }
+
+            if (!agreeTerms) {
+                showAlert("enroll-alert", "error", "You must confirm that you agree to the Terms and Conditions.");
+                return;
+            }
+
+            if (!sigName || !sigDate) {
+                showAlert("enroll-alert", "error", "Please provide your name and date as signature.");
+                return;
+            }
+
+            const enrollment = {
+                fullName,
+                dob,
+                gender,
+                country,
+                email,
+                phone,
+                status,
+                institution,
+                reasons,
+                goals,
+                communicationPreference: comm,
+                consentSignatureName: sigName,
+                consentSignatureDate: sigDate
+            };
+
+            const payload = {
+                evaluation: state.evaluation,
+                termsConfirmed: state.termsConfirmed,
+                enrollment
+            };
+
+            showAlert("enroll-alert", "success",
+                "Submitting your enrollment… you will receive your username and password by email once approved.");
+
+            // Here you would POST `payload` to your backend
+            /*
+            const response = await fetch('/api/membership/enroll', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            */
+
+            setTimeout(() => {
+                goToStep(4);
+                showAlert("enroll-alert", "success", "");
+            }, 800);
+        }
+    </script>
+
+</head>
 
 <body>
 
+    <!-- ===== HEADER (unchanged) ===== -->
     <header class="header">
         <div class="container nav-container">
 
-            <!-- LOGO (CLICKABLE → HOME) -->
             <a href="index.html" class="logo">
                 <img src="images/Logo-ave.svg" alt="Africa Virtual Education logo" class="logo-img" />
                 <div class="logo-text">
@@ -40,12 +218,10 @@
                 </div>
             </a>
 
-            <!-- DONATION + LOGIN (ALWAYS VISIBLE) -->
             <div class="header-actions">
                 <a href="index.html#donation" class="btn btn-donate">Donate</a>
                 <button class="btn btn-login" id="loginBtn">Login</button>
 
-                <!-- HAMBURGER BUTTON -->
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
                     <span></span>
                     <span></span>
@@ -53,7 +229,6 @@
                 </button>
             </div>
 
-            <!-- HIDDEN NAV MENU -->
             <nav class="nav" id="mainNav">
                 <a href="index.html#mission">Our Mission</a>
                 <a href="project.html">Project</a>
@@ -66,31 +241,13 @@
         </div>
     </header>
 
-    <!-- MEMBERSHIP PAGE CONTENT -->
-    <section class="section">
+    <!-- ===== MEMBERSHIP WIZARD (new) ===== -->
+
+    <main class="membership-main">
         <div class="container">
-            <h2>Membership</h2>
-            <p>
-                Becoming a member of Africa Virtual Education connects you to a network
-                of learners, mentors, and supporters dedicated to personal and academic
-                growth. Members enjoy access to exclusive programs, guidance, and
-                community-driven projects that change lives.
-            </p>
+            <h1>Membership – Evaluation</h1>
 
-            <p>
-                Join us today and take a meaningful step toward your personal and
-                career development.
-            </p>
-
-            <div class="info-box">
-                <strong>Tip:</strong> Enrollment begins with accepting the terms and
-                conditions and filling out the registration form. After submitting the
-                form, our team will review it and notify you by email.
-            </div>
-
-            <!-- Member Evaluation -->
-            <h3>Member Evaluation</h3>
-            <form id="evaluationForm" class="form card-form">
+            <form id="evalForm" class="card-form">
                 <p>Please answer the following questions:</p>
 
                 <div class="form-group">
@@ -116,48 +273,244 @@
                     <div class="form-options">
                         <label><input type="radio" name="laptopAccess" value="yes"> Yes</label>
                         <label><input type="radio" name="laptopAccess" value="no"> No</label>
-                        <label><input type="radio" name="laptopAccess" value="shared"> Shared / Occasionally</label>
+                        <label><input type="radio" name="laptopAccess" value="shared"> Occasionally / Shared
+                            access</label>
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-primary" id="evaluateBtn">
-                    Check Eligibility
+                <p class="note-text">
+                    <strong>Note:</strong> If you answer “No” to any of the questions above,
+                    you are not qualified for membership at this time.
+                </p>
+
+                <button type="button" class="btn btn-primary" id="evaluateBtn">Check Eligibility</button>
+                <p id="evaluationResult" class="form-message"></p>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById("evaluateBtn").addEventListener("click", function () {
+            const speak = document.querySelector('input[name="speakEnglish"]:checked')?.value;
+            const understand = document.querySelector('input[name="understandEnglish"]:checked')?.value;
+            const laptop = document.querySelector('input[name="laptopAccess"]:checked')?.value;
+            const result = document.getElementById("evaluationResult");
+
+            if (!speak || !understand || !laptop) {
+                result.textContent = "Please answer all questions.";
+                result.classList.add("error-message");
+                return;
+            }
+
+            // If any answer is exactly "no" → disqualify
+            if (speak === "no" || understand === "no" || laptop === "no") {
+                result.textContent = "You are not qualified for membership at this time.";
+                result.classList.add("error-message");
+                localStorage.removeItem("aveEligible");
+                return;
+            }
+
+            // Eligible → save flag and go to Step 2 page
+            localStorage.setItem("aveEligible", "yes");
+            result.textContent = "Thank you. You are eligible. Redirecting to Terms & Conditions...";
+            result.classList.remove("error-message");
+            result.classList.add("success-message");
+
+            setTimeout(() => {
+                window.location.href = "membership-step2.html";
+            }, 800);
+        });
+    </script>
+
+    <!-- ======== Part 2 ==========-->
+
+    <!--from step 1-->
+    window.location.href = "membership-terms.html";
+
+    <!-- inside <body> after your header, inside main/container as usual -->
+    <main class="membership-main">
+        <div class="container">
+            <h1>Membership – Evaluation</h1>
+
+            <form id="evalForm" class="card-form">
+                <p>Please answer the following questions:</p>
+
+                <div class="form-group">
+                    <label>1. Do you speak English?</label>
+                    <div class="form-options">
+                        <label><input type="radio" name="speakEnglish" value="yes"> Yes</label>
+                        <label><input type="radio" name="speakEnglish" value="no"> No</label>
+                        <label><input type="radio" name="speakEnglish" value="little"> A little</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>2. Do you listen and understand English well?</label>
+                    <div class="form-options">
+                        <label><input type="radio" name="understandEnglish" value="yes"> Yes</label>
+                        <label><input type="radio" name="understandEnglish" value="no"> No</label>
+                        <label><input type="radio" name="understandEnglish" value="sometimes"> Sometimes</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>3. Do you have access to a laptop or computer?</label>
+                    <div class="form-options">
+                        <label><input type="radio" name="laptopAccess" value="yes"> Yes</label>
+                        <label><input type="radio" name="laptopAccess" value="no"> No</label>
+                        <label><input type="radio" name="laptopAccess" value="shared"> Occasionally / Shared
+                            access</label>
+                    </div>
+                </div>
+
+                <p class="note-text">
+                    <strong>Note:</strong> If you answer “No” to any of the questions above,
+                    you are not qualified for membership at this time.
+                </p>
+
+                <button type="button" class="btn btn-primary" id="evaluateBtn">Check Eligibility</button>
+                <p id="evaluationResult" class="form-message"></p>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById("evaluateBtn").addEventListener("click", function () {
+            const speak = document.querySelector('input[name="speakEnglish"]:checked')?.value;
+            const understand = document.querySelector('input[name="understandEnglish"]:checked')?.value;
+            const laptop = document.querySelector('input[name="laptopAccess"]:checked')?.value;
+            const result = document.getElementById("evaluationResult");
+
+            if (!speak || !understand || !laptop) {
+                result.textContent = "Please answer all questions.";
+                result.classList.add("error-message");
+                return;
+            }
+
+            // If any answer is exactly "no" → disqualify
+            if (speak === "no" || understand === "no" || laptop === "no") {
+                result.textContent = "You are not qualified for membership at this time.";
+                result.classList.add("error-message");
+                localStorage.removeItem("aveEligible");
+                return;
+            }
+
+            // Eligible → save flag and go to Step 2 page
+            localStorage.setItem("aveEligible", "yes");
+            result.textContent = "Thank you. You are eligible. Redirecting to Terms & Conditions...";
+            result.classList.remove("error-message");
+            result.classList.add("success-message");
+
+            setTimeout(() => {
+                window.location.href = "membership-step2.html";
+            }, 800);
+        });
+    </script>
+
+
+    <!--from step 2-->
+    window.location.href = "membership-enroll.html";
+
+    <main class="membership-main">
+        <div class="container">
+            <h1>Membership – Terms and Conditions</h1>
+
+            <section class="card-form">
+                <!-- Put your full Terms & Conditions text here exactly as you wrote it -->
+                <div class="terms-box">
+                    <!-- ... ALL YOUR T&C TEXT ... -->
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="t_agree">
+                        I have read, understood, and agree to the Africa Virtual Education Membership Terms and
+                        Conditions.
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Full Name (as Signature)</label>
+                    <input type="text" id="t_fullname">
+                </div>
+
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="t_date">
+                </div>
+
+                <button class="btn btn-secondary" type="button" onclick="window.location.href='membership-step1.html'">
+                    Back to Evaluation
+                </button>
+                <button class="btn btn-primary" type="button" id="termsNextBtn">
+                    Accept & Continue to Enrollment
                 </button>
 
-                <p id="evaluationResult" class="evaluation-result"></p>
-            </form>
+                <p id="termsMessage" class="form-message"></p>
+            </section>
+        </div>
+    </main>
 
-            <!-- Terms Button -->
-            <h3>Membership Terms & Conditions</h3>
-            <button class="btn btn-outline" id="openTermsBtn">View Terms & Conditions</button>
+    <script>
+        // guard: only allow if evaluation step was passed
+        if (localStorage.getItem("aveEligible") !== "yes") {
+            window.location.href = "membership-step1.html";
+        }
 
-            <!-- Modal with Terms -->
-            <div id="termsModal" class="modal hidden">
-                <div class="modal-content">
-                    <button class="modal-close" id="closeTermsBtn">&times;</button>
-                    <h3>Africa Virtual Education - Membership Terms</h3>
-                    <p>Full terms exactly as provided in your original text…</p>
-                </div>
-            </div>
+        document.getElementById("termsNextBtn").addEventListener("click", function () {
+            const agree = document.getElementById("t_agree").checked;
+            const fullname = document.getElementById("t_fullname").value.trim();
+            const date = document.getElementById("t_date").value;
+            const msg = document.getElementById("termsMessage");
 
-            <!-- Enrollment Form -->
-            <h3>Membership Enrollment Form</h3>
-            <form id="enrollmentForm" class="form card-form">
-                <h4>Personal Information</h4>
+            if (!agree) {
+                msg.textContent = "You must agree to the Terms and Conditions to continue.";
+                msg.classList.add("error-message");
+                return;
+            }
+            if (!fullname || !date) {
+                msg.textContent = "Please provide your full name and date.";
+                msg.classList.add("error-message");
+                return;
+            }
+
+            // Optionally store name/date for backend later
+            localStorage.setItem("aveTermsAccepted", "yes");
+            localStorage.setItem("aveTermsName", fullname);
+            localStorage.setItem("aveTermsDate", date);
+
+            msg.textContent = "Thank you. Moving to enrollment…";
+            msg.classList.remove("error-message");
+            msg.classList.add("success-message");
+
+            setTimeout(() => {
+                window.location.href = "membership-step3.html";
+            }, 800);
+        });
+    </script>
+
+    <!--guard checks-->
+    window.location.href = "membership.html";
+    <main class="membership-main">
+        <div class="container">
+            <h1>Membership – Enrollment Form</h1>
+
+            <form id="enrollmentForm" class="card-form">
+                <h3>Personal Information</h3>
 
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" name="fullName" required>
+                    <input type="text" id="en_fullName" required>
                 </div>
 
                 <div class="form-group">
                     <label>Date of Birth</label>
-                    <input type="date" name="dob" required>
+                    <input type="date" id="en_dob" required>
                 </div>
 
                 <div class="form-group">
                     <label>Gender</label>
-                    <select name="gender" required>
+                    <select id="en_gender" required>
                         <option value="">Select</option>
                         <option>Male</option>
                         <option>Female</option>
@@ -167,71 +520,174 @@
 
                 <div class="form-group">
                     <label>Country of Residence</label>
-                    <input type="text" name="country" required>
+                    <input type="text" id="en_country" required>
                 </div>
 
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" name="email" required>
+                    <input type="email" id="en_email" required>
                 </div>
 
                 <div class="form-group">
                     <label>Phone Number</label>
-                    <input type="tel" name="phone" required>
+                    <input type="tel" id="en_phone" required>
                 </div>
 
                 <div class="form-group">
                     <label>Occupation / Student Status</label>
-                    <input type="text" name="status">
+                    <input type="text" id="en_status">
                 </div>
 
                 <div class="form-group">
                     <label>Institution (if applicable)</label>
-                    <input type="text" name="institution">
+                    <input type="text" id="en_institution">
                 </div>
 
-                <h4>Membership Details</h4>
+                <h3>Membership Details</h3>
                 <div class="form-group">
-                    <label>Reason for Joining AVE</label>
+                    <label>Reason for Joining Africa Virtual Education</label>
                     <div class="form-options">
-                        <label><input type="checkbox" value="Mentorship Program" name="reason"> Mentorship
+                        <label><input type="checkbox" name="en_reason" value="Mentorship Program"> Mentorship
                             Program</label>
-                        <label><input type="checkbox" value="Education Support" name="reason"> Education Support</label>
-                        <label><input type="checkbox" value="Partnership" name="reason"> Partnership</label>
-                        <label><input type="checkbox" value="Volunteering" name="reason"> Volunteering</label>
-                        <label><input type="checkbox" value="Other" name="reason"> Other</label>
+                        <label><input type="checkbox" name="en_reason" value="Education Support"> Education
+                            Support</label>
+                        <label><input type="checkbox" name="en_reason" value="Partnership"> Partnership</label>
+                        <label><input type="checkbox" name="en_reason" value="Volunteering"> Volunteering</label>
+                        <label>
+                            <input type="checkbox" name="en_reason" value="Other"> Other:
+                            <input type="text" id="en_reasonOther" style="margin-left:6px; max-width:60%;">
+                        </label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Describe your goals</label>
-                    <textarea name="goals" rows="4"></textarea>
+                    <label>Briefly describe your goals or interest in joining</label>
+                    <textarea id="en_goals" rows="4"></textarea>
                 </div>
 
-                <h4>Communication Preference</h4>
+                <h3>Communication Preference</h3>
                 <div class="form-group">
-                    <div class="form-options">
-                        <label><input type="radio" name="communication" value="Email" required> Email</label>
-                        <label><input type="radio" name="communication" value="WhatsApp / SMS"> WhatsApp / SMS</label>
-                        <label><input type="radio" name="communication" value="Both"> Both</label>
-                    </div>
+                    <label><input type="radio" name="en_comm" value="Email"> Email</label>
+                    <label><input type="radio" name="en_comm" value="WhatsApp / SMS"> WhatsApp / SMS</label>
+                    <label><input type="radio" name="en_comm" value="Both"> Both</label>
                 </div>
 
-                <h4>Consent</h4>
+                <h3>Consent and Agreement</h3>
                 <div class="form-group">
                     <label>
-                        <input type="checkbox" name="agreeTerms" required>
-                        I agree to the Africa Virtual Education Terms & Conditions.
+                        <input type="checkbox" id="en_agreeTerms">
+                        I agree to the Africa Virtual Education Terms and Conditions, including the use of my photo,
+                        image,
+                        video, or speech/testimony for organizational purposes.
                     </label>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit Enrollment</button>
+                <div class="form-group">
+                    <label>Full Name (as Signature)</label>
+                    <input type="text" id="en_signatureName">
+                </div>
+
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="en_signatureDate">
+                </div>
+
+                <button type="button" class="btn btn-secondary"
+                    onclick="window.location.href='membership-step2.html'">Back</button>
+                <button type="button" class="btn btn-primary" id="en_submitBtn">Submit Enrollment</button>
+
                 <p id="enrollmentMessage" class="form-message"></p>
             </form>
-
         </div>
-    </section>
+    </main>
 
+    <script>
+        // guard: only allow if evaluation + terms completed
+        if (localStorage.getItem("aveEligible") !== "yes" ||
+            localStorage.getItem("aveTermsAccepted") !== "yes") {
+            window.location.href = "membership-step1.html";
+        }
+
+        document.getElementById("en_submitBtn").addEventListener("click", function () {
+            const msg = document.getElementById("enrollmentMessage");
+
+            const fullName = document.getElementById("en_fullName").value.trim();
+            const dob = document.getElementById("en_dob").value;
+            const gender = document.getElementById("en_gender").value;
+            const country = document.getElementById("en_country").value.trim();
+            const email = document.getElementById("en_email").value.trim();
+            const phone = document.getElementById("en_phone").value.trim();
+            const comm = document.querySelector('input[name="en_comm"]:checked')?.value;
+            const agreeTerms = document.getElementById("en_agreeTerms").checked;
+            const sigName = document.getElementById("en_signatureName").value.trim();
+            const sigDate = document.getElementById("en_signatureDate").value;
+
+            if (!fullName || !dob || !gender || !country || !email || !phone) {
+                msg.textContent = "Please fill in all required personal information fields.";
+                msg.classList.add("error-message");
+                return;
+            }
+
+            if (!comm) {
+                msg.textContent = "Please select your communication preference.";
+                msg.classList.add("error-message");
+                return;
+            }
+
+            if (!agreeTerms || !sigName || !sigDate) {
+                msg.textContent = "Please agree to the terms and provide your signature name and date.";
+                msg.classList.add("error-message");
+                return;
+            }
+
+            // collect reasons
+            const reasonNodes = document.querySelectorAll('input[name="en_reason"]:checked');
+            const reasons = Array.from(reasonNodes).map(r => r.value);
+            const otherText = document.getElementById("en_reasonOther").value.trim();
+            if (otherText) reasons.push("Other: " + otherText);
+
+            const payload = {
+                evaluation: {
+                    speakEnglish: localStorage.getItem("speakEnglish"),
+                    understandEnglish: localStorage.getItem("understandEnglish"),
+                    laptopAccess: localStorage.getItem("laptopAccess"),
+                    termsName: localStorage.getItem("aveTermsName"),
+                    termsDate: localStorage.getItem("aveTermsDate")
+                },
+                enrollment: {
+                    fullName, dob, gender, country, email, phone,
+                    status: document.getElementById("en_status").value.trim(),
+                    institution: document.getElementById("en_institution").value.trim(),
+                    reasons, goals: document.getElementById("en_goals").value.trim(),
+                    communicationPreference: comm,
+                    consentSignatureName: sigName,
+                    consentSignatureDate: sigDate
+                }
+            };
+
+            // here you would send `payload` to your backend
+            /*
+            fetch('/api/membership/enroll', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            */
+
+            msg.textContent = "Thank you! Your enrollment has been submitted. You will receive your username and password by email.";
+            msg.classList.remove("error-message");
+            msg.classList.add("success-message");
+
+            // Optionally clear flags
+            localStorage.removeItem("aveEligible");
+            localStorage.removeItem("aveTermsAccepted");
+        });
+    </script>
+
+
+
+
+    <!-- ===== FOOTER + WIDGETS (unchanged) ===== -->
     <footer class="footer">
         <div class="container footer-content">
             <p>&copy; <span id="year"></span> Africa Virtual Education</p>
@@ -240,147 +696,17 @@
 
     <script src="script.js"></script>
 
-    <!-- Back to Top Button -->
     <button id="backToTop" class="back-to-top">↑</button>
 
-    <!-- Floating Contact Widget -->
     <div class="contact-widget">
-
-        <!-- Main round phone button -->
-        <button id="contactToggle" class="contact-main-btn" aria-label="Open contact options">
-            <!-- Phone SVG -->
-            <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                    d="M6.6 10.8c1.2 2.4 3.2 4.4 5.6 5.6l1.9-1.9c.3-.3.8-.4 1.1-.2l2.5 1c.4.2.7.5.7.9v2.7c0 .5-.4.9-.9 1-1.2.1-2.4 0-3.5-.4-3.1-1-5.9-3.3-8-6.4-1-1.6-1.7-3.3-2.1-5.1-.2-1-.3-1.9-.3-2.9 0-.5.4-.9.9-1H6c.4 0 .8.3.9.7l1 2.5c.1.4 0 .8-.3 1.1l-1.9 1.9z"
-                    fill="currentColor" />
-            </svg>
-        </button>
-
-        <!-- Sliding contact menu -->
-        <div id="contactMenu" class="contact-menu hidden">
-            <a href="mailto:info@africavirtualeducation.org" class="contact-item">
-                <span class="contact-icon">
-                    <!-- Email SVG -->
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M4 6h16c.6 0 1 .4 1 1v10c0 .6-.4 1-1 1H4c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1zm0 0 8 6 8-6"
-                            fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </span>
-                Email Us
-            </a>
-
-            <a href="tel:+1234567890" class="contact-item">
-                <span class="contact-icon">
-                    <!-- Phone SVG (reuse) -->
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <path
-                            d="M6.6 10.8c1.2 2.4 3.2 4.4 5.6 5.6l1.9-1.9c.3-.3.8-.4 1.1-.2l2.5 1c.4.2.7.5.7.9v2.7c0 .5-.4.9-.9 1-1.2.1-2.4 0-3.5-.4-3.1-1-5.9-3.3-8-6.4-1-1.6-1.7-3.3-2.1-5.1-.2-1-.3-1.9-.3-2.9 0-.5.4-.9.9-1H6c.4 0 .8.3.9.7l1 2.5c.1.4 0 .8-.3 1.1l-1.9 1.9z"
-                            fill="currentColor" />
-                    </svg>
-                </span>
-                Call Us
-            </a>
-
-            <a href="https://wa.me/1234567890" target="_blank" class="contact-item">
-                <span class="contact-icon">
-                    <!-- WhatsApp circle-style SVG -->
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7" />
-                        <path
-                            d="M9.5 9.1c0-.3.1-.6.3-.8l.3-.3c.1-.1.2-.1.3-.1.1 0 .2 0 .3.1l.8.4c.1.1.2.2.2.3l-.1.6c-.1.3-.2.5-.1.7.1.3.4.6.7.9.3.3.6.5.9.6.2.1.4 0 .7-.1l.5-.2c.1 0 .3 0 .4.1l.6.4c.1.1.2.2.2.3 0 .1 0 .3-.1.4l-.3.4c-.2.3-.5.5-.9.6-.5.1-1.1 0-1.7-.2-1.4-.5-2.5-1.4-3.4-2.5-.4-.4-.7-1-1-1.5-.3-.7-.4-1.2-.4-1.7z"
-                            fill="currentColor" />
-                    </svg>
-                </span>
-                WhatsApp
-            </a>
-
-            <a href="https://t.me/YourTelegramUsername" target="_blank" class="contact-item">
-                <span class="contact-icon">
-                    <!-- Telegram paper plane -->
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <path
-                            d="M4.5 11.8 18 6.5c.4-.2.9.2.8.6l-2 10c-.1.5-.7.7-1.1.4l-3.2-2.4-1.8 2c-.3.4-.9.2-1-.2l-.7-3.3-3.2-1.6c-.5-.3-.4-1 .1-1.2z"
-                            fill="currentColor" />
-                    </svg>
-                </span>
-                Telegram
-            </a>
-
-            <a href="https://m.me/YourFacebookPage" target="_blank" class="contact-item">
-                <span class="contact-icon">
-                    <!-- Messenger style bubble -->
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <path
-                            d="M5 19.5 5.5 16C4.6 14.9 4 13.5 4 12 4 8.7 7.1 6 11 6s7 2.7 7 6-3.1 6-7 6c-.8 0-1.6-.1-2.3-.4L5 19.5z"
-                            fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-                        <path d="M9 11.5 10.8 13 13 11l2 2.5" fill="none" stroke="currentColor" stroke-width="1.5"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </span>
-                Messenger
-            </a>
-
-            <a href="https://instagram.com/YourInstagramProfile" target="_blank" class="contact-item">
-                <span class="contact-icon">
-                    <!-- Simple Instagram style icon -->
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="5" y="5" width="14" height="14" rx="4" ry="4" fill="none" stroke="currentColor"
-                            stroke-width="1.7" />
-                        <circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.5" />
-                        <circle cx="16" cy="8" r="0.9" fill="currentColor" />
-                    </svg>
-                </span>
-                Instagram
-            </a>
-
-            <a href="contact.html" class="contact-item">
-                <span class="contact-icon">
-                    <!-- Chat bubble SVG -->
-                    <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M6 7h12c.6 0 1 .4 1 1v6c0 .6-.4 1-1 1H10l-3.5 3V8c0-.6.4-1 1-1z" fill="none"
-                            stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
-                    </svg>
-                </span>
-                Contact Form
-            </a>
-
-        </div>
+        <!-- (your contact widget markup unchanged) -->
+        <!-- ... -->
     </div>
 
-    <!-- Chatbot bubble (bottom-right) -->
     <div class="chatbot-widget">
-        <button id="chatbotToggle" class="chatbot-btn" aria-label="Open chat assistant">
-            <!-- Chat icon SVG -->
-            <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M5 6h14c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1h-5.5L9 18l.5-3H5c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1z"
-                    fill="currentColor" />
-            </svg>
-        </button>
-
-        <div id="chatbotWindow" class="chatbot-window hidden">
-            <div class="chatbot-header">
-                <span>AVE Assistant</span>
-                <button id="chatbotClose" class="chatbot-close" aria-label="Close chat">×</button>
-            </div>
-
-            <div class="chatbot-body">
-                <div id="chatbotMessages" class="chatbot-messages"></div>
-
-                <div id="chatbotInputRow" class="chatbot-input-row">
-                    <input id="chatbotTextInput" type="text" class="chatbot-input"
-                        placeholder="Type your answer here..." />
-                    <button id="chatbotSendBtn" class="btn btn-primary btn-chat-send">Send</button>
-                </div>
-
-                <div id="chatbotFooterNote" class="chatbot-footer-note small-note">
-                    This assistant will prepare a WhatsApp or Telegram message for you.
-                </div>
-            </div>
-        </div>
+        <!-- (your chatbot markup unchanged) -->
+        <!-- ... -->
     </div>
-
-
 
 </body>
 
