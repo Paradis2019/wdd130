@@ -1,4 +1,119 @@
 // ================================
+// SIMPLE I18N (EN / FR)
+// ================================
+const translations = {
+  en: {
+    "header.donate": "Donate",
+    "header.login": "Login",
+
+    "mission.title": "Our Mission",
+    "mission.body":
+      "At Africa Virtual Education, our mission is to empower students across Africa by providing access to mentorship, education support, and learning opportunities.",
+    "mission.quote":
+      "“Education is the most powerful weapon which you can use to change the world.” — Nelson Mandela (South Africa)",
+
+    "howWeServe.title": "How We Serve",
+
+    "cards.membership.title": "Membership",
+    "cards.membership.body":
+      "Connect with a network of learners, mentors, and supporters dedicated to personal and academic growth.",
+    "cards.membership.link": "Learn more →",
+
+    "cards.mentorship.title": "Mentorship",
+    "cards.mentorship.body":
+      "Receive motivation, direction, and personalized guidance at every stage of your educational journey.",
+    "cards.mentorship.link": "Learn more →",
+
+    "cards.educationSupport.title": "Education Support",
+    "cards.educationSupport.body":
+      "Get access to scholarships, materials, and tuition support to overcome financial or material barriers.",
+    "cards.educationSupport.link": "Learn more →",
+
+    "cards.donation.title": "Donation",
+    "cards.donation.body":
+      "Your contribution funds scholarships, mentorship, and essential learning resources.",
+    "cards.donation.link": "Learn more →",
+
+    "cards.project.title": "Annual Projects",
+    "cards.project.body":
+      "Each year, we focus on a specific region or challenge to maximize impact.",
+    "cards.project.link": "See this year’s project →",
+  },
+
+  fr: {
+    "header.donate": "Faire un don",
+    "header.login": "Connexion",
+
+    "mission.title": "Notre mission",
+    "mission.body":
+      "Chez Africa Virtual Education, notre mission est d’accompagner les élèves à travers l’Afrique en leur offrant un accès au mentorat, au soutien éducatif et aux opportunités d’apprentissage.",
+    "mission.quote":
+      "« L’éducation est l’arme la plus puissante que l’on puisse utiliser pour changer le monde. » — Nelson Mandela (Afrique du Sud)",
+
+    "howWeServe.title": "Comment nous servons",
+
+    "cards.membership.title": "Adhésion",
+    "cards.membership.body":
+      "Rejoignez un réseau d’apprenants, de mentors et de soutiens engagés dans la croissance personnelle et académique.",
+    "cards.membership.link": "En savoir plus →",
+
+    "cards.mentorship.title": "Mentorat",
+    "cards.mentorship.body":
+      "Recevez de la motivation, des conseils et un accompagnement personnalisé à chaque étape de votre parcours éducatif.",
+    "cards.mentorship.link": "En savoir plus →",
+
+    "cards.educationSupport.title": "Soutien scolaire",
+    "cards.educationSupport.body":
+      "Accédez à des bourses, du matériel et une aide aux frais de scolarité pour surmonter les barrières financières.",
+    "cards.educationSupport.link": "En savoir plus →",
+
+    "cards.donation.title": "Don",
+    "cards.donation.body":
+      "Votre contribution finance les bourses, le mentorat et les ressources essentielles pour les élèves.",
+    "cards.donation.link": "En savoir plus →",
+
+    "cards.project.title": "Projets annuels",
+    "cards.project.body":
+      "Chaque année, nous concentrons nos efforts sur une région ou un défi spécifique pour maximiser l’impact.",
+    "cards.project.link": "Voir le projet de cette année →",
+  },
+};
+
+function applyTranslations(lang) {
+  const dict = translations[lang] || translations.en;
+
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    const text = dict[key];
+    if (text) {
+      el.textContent = text;
+    }
+  });
+}
+
+function initLanguage() {
+  const select = document.getElementById("languageSelect");
+  if (!select) return;
+
+  // Load saved language or default to English
+  const savedLang = localStorage.getItem("aveLang") || "en";
+  select.value = savedLang;
+  applyTranslations(savedLang);
+
+  select.addEventListener("change", () => {
+    const newLang = select.value;
+    localStorage.setItem("aveLang", newLang);
+    applyTranslations(newLang);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initLanguage();
+});
+
+
+
+// ================================
 // Set current year in footer
 // ================================
 const yearSpan = document.getElementById("year");
@@ -185,25 +300,69 @@ if (donatePaypalLink) {
 }
 
 // ================================
-// Hamburger menu toggle
-// (Used on all pages with header)
+// Hamburger menu: click to open, close on mouse leave
 // ================================
 const navToggle = document.getElementById("navToggle");
 const nav = document.getElementById("mainNav");
 
 if (navToggle && nav) {
+  let hideTimeout = null;
+
+  function openMenu() {
+    nav.classList.add("nav-open");
+    navToggle.classList.add("nav-open-toggle");
+  }
+
+  function closeMenu() {
+    nav.classList.remove("nav-open");
+    navToggle.classList.remove("nav-open-toggle");
+  }
+
+  function clearHideTimeout() {
+    if (hideTimeout) {
+      clearTimeout(hideTimeout);
+      hideTimeout = null;
+    }
+  }
+
+  function scheduleHide() {
+    clearHideTimeout();
+    hideTimeout = setTimeout(() => {
+      closeMenu();
+    }, 150); // close quickly after mouse leaves
+  }
+
+  // Click on hamburger → open/close
   navToggle.addEventListener("click", () => {
-    const openMenu = nav.classList.toggle("nav-open");
-    navToggle.classList.toggle("nav-open-toggle", openMenu);
+    const isOpen = nav.classList.contains("nav-open");
+    if (isOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   });
 
+  // While mouse is over toggle or menu → keep open
+  [navToggle, nav].forEach((el) => {
+    el.addEventListener("mouseenter", () => {
+      clearHideTimeout();
+      // do NOT auto-open here, just prevent closing if already open
+    });
+
+    el.addEventListener("mouseleave", () => {
+      // when mouse leaves both, schedule close
+      scheduleHide();
+    });
+  });
+
+  // Clicking a link still closes the menu
   nav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      nav.classList.remove("nav-open");
-      navToggle.classList.remove("nav-open-toggle");
+      closeMenu();
     });
   });
 }
+
 
 // ================================
 // Contact form submission

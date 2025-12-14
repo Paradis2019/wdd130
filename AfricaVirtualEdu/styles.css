@@ -109,9 +109,11 @@ p {
 .header {
   background-color: #ffffff;        /* white header */
   padding: 0.25rem 0;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 50;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08); /* soft shadow */
 }
 
@@ -1206,5 +1208,29 @@ p {
   .chatbot-widget {
     right: 12px;
     bottom: 70px;
+  }
+}
+
+
+.lang-select {
+  border-radius: 999px;
+  border: 1px solid #cbd2d9;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.78rem;
+  background-color: #ffffff;
+  color: #102a43;
+  cursor: pointer;
+}
+
+.lang-select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 1px rgba(49, 119, 171, 0.25);
+}
+
+@media (max-width: 700px) {
+  .lang-select {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
   }
 }
