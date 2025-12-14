@@ -16,7 +16,7 @@
   },
   "editor.parameterHints.enabled": false,
   "editor.suggestOnTriggerCharacters": false,
-  "editor.hover.enabled": false,
+  "editor.hover.enabled": "off",
   "editor.inlineSuggest.enabled": false,
   
   // Git settings for beginners - simplify source control
