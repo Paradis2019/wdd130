@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin – Members | Africa Virtual Education</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .admin-page {
+      padding: 3rem 0;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .admin-key-form {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .admin-key-input {
+      padding: 0.4rem 0.6rem;
+      border-radius: 0.4rem;
+      border: 1px solid #cbd2d9;
+      min-width: 200px;
+    }
+
+    .admin-table-wrapper {
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+
+    table.admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+      padding: 0.5rem 0.6rem;
+      border-bottom: 1px solid #e1e7ee;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .admin-table th {
+      background-color: #e7f0fb;
+      color: #102a43;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .tag-pill {
+      display: inline-block;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background-color: #edf2ff;
+      color: #334e68;
+      font-size: 0.8rem;
+    }
+
+    .admin-status {
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Reuse your header -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/Logo-ave.svg" alt="Africa Virtual Education logo" class="logo-img" />
+        <div class="logo-text">
+          <span class="logo-main">Africa Virtual Education</span>
+          <span class="logo-sub">Empowering Students Across Africa</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <a href="donation.html" class="btn btn-donate">Donate</a>
+        <button class="btn btn-login" id="loginBtn">Login</button>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <nav class="nav" id="mainNav">
+        <a href="index.html#mission">Our Mission</a>
+        <a href="project.html">Project</a>
+        <a href="membership.html">Membership</a>
+        <a href="donation.html">Donation</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="testimonies.html">Testimonies</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-page">
+    <div class="container">
+
+      <div class="admin-header">
+        <div>
+          <h1>Admin – Members</h1>
+          <p class="small-note">
+            This page lists membership applications stored in the database.
+            Please keep this page private and protected.
+          </p>
+        </div>
+
+        <!-- Admin key form -->
+        <form id="adminKeyForm" class="admin-key-form">
+          <label for="adminKey" class="small-note">Admin Key:</label>
+          <input type="password" id="adminKey" class="admin-key-input" placeholder="Enter ADMIN_KEY" />
+          <button type="submit" class="btn btn-primary">Load Members</button>
+        </form>
+      </div>
+
+      <p id="adminStatus" class="admin-status"></p>
+
+      <div class="admin-table-wrapper">
+        <table class="admin-table" id="membersTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Country</th>
+              <th>Phone</th>
+              <th>Occupation / Institution</th>
+              <th>Reason</th>
+              <th>Preferred Contact</th>
+              <th>Created At</th>
+            </tr>
+          </thead>
+          <tbody id="membersTbody">
+            <!-- rows will be injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; <span id="year"></span> Africa Virtual Education. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <script>
+    const adminKeyForm = document.getElementById("adminKeyForm");
+    const adminKeyInput = document.getElementById("adminKey");
+    const adminStatus = document.getElementById("adminStatus");
+    const membersTbody = document.getElementById("membersTbody");
+
+    function renderMembers(members) {
+      membersTbody.innerHTML = "";
+
+      if (!members || members.length === 0) {
+        membersTbody.innerHTML = `
+          <tr>
+            <td colspan="9">No members found.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      members.forEach(m => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td>${m.id}</td>
+          <td>${m.full_name || ""}</td>
+          <td>${m.email || ""}</td>
+          <td>${m.country || ""}</td>
+          <td>${m.phone || ""}</td>
+          <td>
+            ${m.occupation || ""}<br/>
+            <span class="small-note">${m.institution || ""}</span>
+          </td>
+          <td>${m.reason || ""}</td>
+          <td><span class="tag-pill">${m.communication_pref || ""}</span></td>
+          <td>${m.created_at || ""}</td>
+        `;
+
+        membersTbody.appendChild(tr);
+      });
+    }
+
+    if (adminKeyForm) {
+      adminKeyForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const key = adminKeyInput.value.trim();
+        if (!key) {
+          adminStatus.textContent = "Please enter the admin key.";
+          adminStatus.style.color = "#c53030";
+          return;
+        }
+
+        adminStatus.textContent = "Loading members...";
+        adminStatus.style.color = "#555";
+
+        try {
+          const res = await fetch(`/api/admin/members?key=${encodeURIComponent(key)}`);
+          const data = await res.json();
+
+          if (!res.ok || !data.ok) {
+            throw new Error(data.error || "Request failed");
+          }
+
+          adminStatus.textContent = `Loaded ${data.members.length} members.`;
+          adminStatus.style.color = "#2f855a";
+          renderMembers(data.members);
+        } catch (err) {
+          console.error(err);
+          adminStatus.textContent = "Unauthorized or error loading members. Check your admin key.";
+          adminStatus.style.color = "#c53030";
+          renderMembers([]); // clear table
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

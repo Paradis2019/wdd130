@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Membership – Africa Virtual Education</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="description"
+    content="Become a member of Africa Virtual Education to access mentorship, education support, and community-driven projects." />
+  <meta name="keywords"
+    content="Africa education, virtual learning, mentorship, scholarships, DR Congo, non-profit" />
+  <meta name="author" content="Africa Virtual Education" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Africa Virtual Education (AVE)" />
+  <meta property="og:description"
+    content="Empowering students across Africa through mentorship, education support, and targeted projects." />
+  <meta property="og:url" content="https://www.africavirtualeducation.org/membership.html" />
+  <meta property="og:image" content="https://www.africavirtualeducation.org/images/logo-ave.png" />
+
+  <link rel="canonical" href="https://www.africavirtualeducation.org/membership.html" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="header">
+    <div class="container nav-container">
+
+      <a href="index.html" class="logo">
+        <img src="images/Logo-ave.svg" alt="Africa Virtual Education logo" class="logo-img" />
+        <div class="logo-text">
+          <span class="logo-main">Africa Virtual Education</span>
+          <span class="logo-sub">Empowering Students Across Africa</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <a href="donation.html" class="btn btn-donate">Donate</a>
+        <button class="btn btn-login" id="loginBtn">Login</button>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <nav class="nav" id="mainNav">
+        <a href="index.html#mission">Our Mission</a>
+        <a href="project.html">Project</a>
+        <a href="membership.html">Membership</a>
+        <a href="donation.html">Donation</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="testimonies.html">Testimonies</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- =============== MAIN =============== -->
+  <main class="membership-main">
+
+    <div class="container">
+
+      <!-- STEP 1: Evaluation -->
+      <section class="section section-light">
+        <h1>Membership – Eligibility Evaluation</h1>
+       
+        <form id="evalForm" class="card-form">
+          <div class="form-group">
+            <label>1. Do you speak English?</label>
+            <div class="form-options">
+              <label><input type="radio" name="speakEnglish" value="yes"> Yes</label>
+              <label><input type="radio" name="speakEnglish" value="no"> No</label>
+              <label><input type="radio" name="speakEnglish" value="little"> A little</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>2. Do you listen and understand English well?</label>
+            <div class="form-options">
+              <label><input type="radio" name="understandEnglish" value="yes"> Yes</label>
+              <label><input type="radio" name="understandEnglish" value="no"> No</label>
+              <label><input type="radio" name="understandEnglish" value="sometimes"> Sometimes</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>3. Do you have access to a laptop or computer?</label>
+            <div class="form-options">
+              <label><input type="radio" name="laptopAccess" value="yes"> Yes</label>
+              <label><input type="radio" name="laptopAccess" value="no"> No</label>
+              <label><input type="radio" name="laptopAccess" value="shared"> Occasionally / Shared access</label>
+            </div>
+          </div>
+
+          
+          <button type="button" class="btn btn-primary" id="evaluateBtn">Check Eligibility</button>
+          <p id="evaluationResult" class="form-message"></p>
+        </form>
+      </section>
+
+      <!-- STEP 2: Terms & Conditions (summary + checkbox) -->
+      <section class="section">
+        <h2>Membership Terms and Conditions</h2>
+
+        <div class="card-form">
+          <div class="terms-box" style="max-height: 260px; overflow-y: auto; margin-bottom: 1rem;">
+            <!-- 👉 Paste your full Terms & Conditions text here (the long one you wrote) -->
+            <p><strong>Africa Virtual Education, Membership Enrollment Terms and Conditions</strong></p>
+            <p>
+              By enrolling as a member of Africa Virtual Education (AVE), you acknowledge and agree to these Terms and
+              Conditions. Membership is open to individuals who share and support the mission of Africa Virtual
+              Education...
+            </p>
+            <!-- etc... -->
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="termsAgree">
+              I have read, understood, and agree to the Africa Virtual Education Membership Terms and Conditions,
+              including the use of my photo, image, video, or speech/testimony for organizational purposes.
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="termsFullName">Full Name (as Signature)</label>
+            <input type="text" id="termsFullName" />
+          </div>
+
+          <div class="form-group">
+            <label for="termsDate">Date</label>
+            <input type="date" id="termsDate" />
+          </div>
+
+          <p class="small-note">
+            This confirmation is stored together with your membership record for audit and consent purposes.
+          </p>
+        </div>
+      </section>
+
+      <!-- STEP 3: Enrollment (this goes into DB) -->
+      <section class="section section-light">
+        <h2>Membership Enrollment Form</h2>
+
+        <form id="enrollmentForm" class="card-form">
+          <h3>Personal Information</h3>
+
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input id="fullName" name="fullName" type="text" required />
+          </div>
+
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input id="dateOfBirth" name="dateOfBirth" type="date" required />
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="prefer_not_say">Prefer not to say</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="country">Country of Residence</label>
+            <input id="country" name="country" type="text" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" required />
+          </div>
+
+          <div class="form-group">
+            <label for="occupation">Occupation / Student Status</label>
+            <input id="occupation" name="occupation" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label for="institution">Institution (if applicable)</label>
+            <input id="institution" name="institution" type="text" />
+          </div>
+
+          <h3>Membership Details</h3>
+
+          <div class="form-group">
+            <label for="reason">Main Reason for Joining Africa Virtual Education</label>
+            <select id="reason" name="reason">
+              <option value="">Select</option>
+              <option value="mentorship">Mentorship Program</option>
+              <option value="education_support">Education Support</option>
+              <option value="partnership">Partnership</option>
+              <option value="volunteering">Volunteering</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="goals">Briefly describe your goals or interest in joining</label>
+            <textarea id="goals" name="goals" rows="4"></textarea>
+          </div>
+
+          <h3>Communication Preference</h3>
+
+          <div class="form-group">
+            <label for="communicationPref">Preferred way to contact you</label>
+            <select id="communicationPref" name="communicationPref" required>
+              <option value="email">Email</option>
+              <option value="whatsapp_sms">WhatsApp / SMS</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+
+          <h3>Final Consent</h3>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="finalAgree" />
+              I confirm that all information provided is accurate and that I meet the eligibility criteria above.
+            </label>
+          </div>
+
+          <p class="small-note">
+            Your membership application will be reviewed. Once approved, you will receive your username and password by
+            email.
+          </p>
+
+          <button type="submit" class="btn btn-primary">Submit Enrollment</button>
+
+          <p id="enrollmentMessage" class="form-message"></p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- =============== FOOTER + WIDGETS =============== -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; <span id="year"></span> Africa Virtual Education. All rights reserved.</p>
+      <p>
+        Contact: <a href="mailto:info@africavirtualeducation.org">info@africavirtualeducation.org</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Back to top button -->
+  <button id="backToTop" class="back-to-top">↑</button>
+
+  <!-- Floating Contact Widget (reuse same markup you have on index.html) -->
+  <!-- Make sure it matches the working version we fixed earlier -->
+  <div class="contact-widget">
+    <!-- ... your contact widget HTML (phone + menu) ... -->
+  </div>
+
+  <!-- Chatbot bubble (reuse same markup you have on index.html) -->
+  <div class="chatbot-widget">
+    <!-- ... your chatbot HTML ... -->
+  </div>
+
+  <!-- Global JS -->
+  <script src="script.js"></script>
+</body>
+
+</html>
