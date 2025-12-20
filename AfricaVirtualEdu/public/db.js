@@ -70,3 +70,21 @@ db.serialize(() => {
 
 // 5) Export the db object so server.js can use it
 module.exports = db;
+  // USERS table (login + access rights)
+  db.run(`
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      member_id INTEGER,              -- optional: link to members table
+      email TEXT NOT NULL UNIQUE,
+      password_hash TEXT NOT NULL,
+      role TEXT DEFAULT 'member',     -- e.g. 'member', 'mentor', 'admin'
+      can_finance_help INTEGER DEFAULT 0,
+      can_laptop_help INTEGER DEFAULT 0,
+      can_mentorship_help INTEGER DEFAULT 0,
+      can_volunteer INTEGER DEFAULT 0,
+      whatsapp_channel TEXT,
+      telegram_channel TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY(member_id) REFERENCES members(id)
+    )
+  `);

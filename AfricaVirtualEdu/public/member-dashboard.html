@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Member Dashboard – Africa Virtual Education</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Reuse your header here if you want -->
+
+  <main class="section">
+    <div class="container">
+      <h1>Member Dashboard</h1>
+      <p id="dashboardWelcome"></p>
+      <div id="dashboardLinks" class="grid-3"></div>
+      <button id="logoutBtn" class="btn btn-outline">Log out</button>
+    </div>
+  </main>
+
+  <script>
+    async function loadDashboard() {
+      const resMe = await fetch("/api/auth/me");
+      const dataMe = await resMe.json();
+      if (!dataMe.ok) {
+        window.location.href = "index.html";
+        return;
+      }
+
+      document.getElementById("dashboardWelcome").textContent =
+        "Welcome, " + dataMe.user.email;
+
+      const resLinks = await fetch("/api/member/links");
+      const dataLinks = await resLinks.json();
+      const container = document.getElementById("dashboardLinks");
+      container.innerHTML = "";
+
+      if (dataLinks.links.financeHelp) {
+        container.innerHTML += `
+          <div class="card">
+            <h3>Student Finance Help</h3>
+            <p>Access guidance and support for tuition and fees.</p>
+          </div>`;
+      }
+
+      if (dataLinks.links.laptopHelp) {
+        container.innerHTML += `
+          <div class="card">
+            <h3>Laptop Help</h3>
+            <p>Information about laptop assistance and requirements.</p>
+          </div>`;
+      }
+
+      if (dataLinks.links.mentorshipHelp) {
+        container.innerHTML += `
+          <div class="card">
+            <h3>Mentorship</h3>
+            <p>Join your mentorship program and meet your mentor.</p>
+          </div>`;
+      }
+
+      if (dataLinks.links.volunteer) {
+        container.innerHTML += `
+          <div class="card">
+            <h3>Volunteer Opportunities</h3>
+            <p>See current ways to serve with Africa Virtual Education.</p>
+          </div>`;
+      }
+
+      if (dataLinks.links.whatsappChannel) {
+        container.innerHTML += `
+          <div class="card">
+            <h3>WhatsApp Channel</h3>
+            <a class="btn btn-primary" href="${dataLinks.links.whatsappChannel}" target="_blank">
+              Open WhatsApp Channel
+            </a>
+          </div>`;
+      }
+
+      if (dataLinks.links.telegramChannel) {
+        container.innerHTML += `
+          <div class="card">
+            <h3>Telegram Channel</h3>
+            <a class="btn btn-secondary" href="${dataLinks.links.telegramChannel}" target="_blank">
+              Open Telegram Channel
+            </a>
+          </div>`;
+      }
+    }
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await fetch("/api/auth/logout", { method: "POST" });
+      window.location.href = "index.html";
+    });
+
+    loadDashboard();
+  </script>
+</body>
+</html>

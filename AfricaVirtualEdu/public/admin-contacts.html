@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin – Contact Messages</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/Logo-ave.svg" alt="AVE Logo" class="logo-img" />
+        <div class="logo-text">
+          <span class="logo-main">Africa Virtual Education</span>
+          <span class="logo-sub">Admin Area</span>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <h1>Contact Messages</h1>
+
+      <form id="adminKeyForm" class="form-group">
+        <label>Admin Key:</label>
+        <input type="password" id="adminKey" required />
+        <button class="btn btn-primary" type="submit">Load Messages</button>
+      </form>
+
+      <p id="statusMessage" class="form-message"></p>
+
+      <table class="admin-table" style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Message</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="contactTableBody"></tbody>
+      </table>
+
+    </div>
+  </main>
+
+  <script>
+    const adminKeyForm = document.getElementById("adminKeyForm");
+    const adminKeyInput = document.getElementById("adminKey");
+    const statusMessage = document.getElementById("statusMessage");
+    const tbody = document.getElementById("contactTableBody");
+
+    adminKeyForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const key = adminKeyInput.value.trim();
+      if (!key) {
+        statusMessage.textContent = "Enter admin key.";
+        statusMessage.style.color = "#c53030";
+        return;
+      }
+
+      statusMessage.textContent = "Loading...";
+      statusMessage.style.color = "#666";
+
+      try {
+        const res = await fetch(`/api/admin/contacts?key=${encodeURIComponent(key)}`);
+        const data = await res.json();
+
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || "Unauthorized");
+        }
+
+        statusMessage.textContent = `Loaded ${data.contacts.length} messages.`;
+        statusMessage.style.color = "#2f855a";
+
+        tbody.innerHTML = "";
+        data.contacts.forEach((c) => {
+          const row = `
+            <tr>
+              <td>${c.id}</td>
+              <td>${c.name}</td>
+              <td>${c.email}</td>
+              <td>${c.subject || ""}</td>
+              <td>${c.message}</td>
+              <td>${c.created_at}</td>
+            </tr>`;
+          tbody.innerHTML += row;
+        });
+
+      } catch (err) {
+        console.error(err);
+        statusMessage.textContent = "Error loading messages: " + err.message;
+        statusMessage.style.color = "#c53030";
+      }
+    });
+  </script>
+
+</body>
+</html>

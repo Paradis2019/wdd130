@@ -81,7 +81,7 @@ const translations = {
 
 function applyTranslations(lang) {
   const dict = translations[lang] || translations.en;
-
+  
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
     const text = dict[key];
@@ -95,7 +95,6 @@ function initLanguage() {
   const select = document.getElementById("languageSelect");
   if (!select) return;
 
-  // Load saved language or default to English
   const savedLang = localStorage.getItem("aveLang") || "en";
   select.value = savedLang;
   applyTranslations(savedLang);
@@ -111,8 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initLanguage();
 });
 
-
-
 // ================================
 // Set current year in footer
 // ================================
@@ -122,48 +119,8 @@ if (yearSpan) {
 }
 
 // ================================
-// Membership evaluation logic
-// (Used on membership.html)
-// ================================
-const evaluateBtn = document.getElementById("evaluateBtn");
-const evaluationResult = document.getElementById("evaluationResult");
-
-if (evaluateBtn && evaluationResult) {
-  evaluateBtn.addEventListener("click", () => {
-    const speak = document.querySelector('input[name="speakEnglish"]:checked');
-    const understand = document.querySelector(
-      'input[name="understandEnglish"]:checked'
-    );
-    const laptop = document.querySelector(
-      'input[name="laptopAccess"]:checked'
-    );
-
-    if (!speak || !understand || !laptop) {
-      evaluationResult.textContent = "Please answer all questions first.";
-      evaluationResult.style.color = "#c05621"; // warning
-      return;
-    }
-
-    // Disqualify if any "No" answer
-    if (
-      speak.value === "no" ||
-      understand.value === "no" ||
-      laptop.value === "no"
-    ) {
-      evaluationResult.textContent =
-        "You are not qualified for membership at this time.";
-      evaluationResult.style.color = "#c53030"; // red
-    } else {
-      evaluationResult.textContent =
-        "You meet the basic evaluation criteria. Please complete the enrollment form below.";
-      evaluationResult.style.color = "#2f855a"; // green
-    }
-  });
-}
-
-// ================================
-// Terms & Conditions modal
-// (Used on membership.html)
+// (Optional) Terms & Conditions MODAL
+// Only used if you have a modal with these IDs
 // ================================
 const openTermsBtn = document.getElementById("openTermsBtn");
 const termsModal = document.getElementById("termsModal");
@@ -184,72 +141,47 @@ if (openTermsBtn && termsModal && closeTermsBtn) {
 }
 
 // ================================
-// Enrollment form (front-end only)
-// (Used on membership.html)
-// ================================
-const enrollmentForm = document.getElementById("enrollmentForm");
-const enrollmentMessage = document.getElementById("enrollmentMessage");
-
-if (enrollmentForm && enrollmentMessage) {
-  enrollmentForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(enrollmentForm);
-    const fullName = formData.get("fullName");
-    const email = formData.get("email");
-
-    console.log("Enrollment form submitted:", Object.fromEntries(formData));
-
-    enrollmentMessage.textContent =
-      "Thank you, " +
-      fullName +
-      ". Your enrollment form has been received. We will contact you at " +
-      email +
-      ".";
-    enrollmentMessage.style.color = "#2f855a";
-
-    enrollmentForm.reset();
-  });
-}
-
-// ================================
 // Login modal (front-end demo)
-// (Used on pages where modal exists)
 // ================================
-const loginBtn = document.getElementById("loginBtn");
-const loginModal = document.getElementById("loginModal");
-const closeLoginBtn = document.getElementById("closeLoginBtn");
 const loginForm = document.getElementById("loginForm");
 const loginMessage = document.getElementById("loginMessage");
 
-if (loginBtn && loginModal && closeLoginBtn) {
-  loginBtn.addEventListener("click", () => {
-    loginModal.classList.remove("hidden");
-  });
-
-  closeLoginBtn.addEventListener("click", () => {
-    loginModal.classList.add("hidden");
-  });
-
-  loginModal.addEventListener("click", (e) => {
-    if (e.target === loginModal) loginModal.classList.add("hidden");
-  });
-}
-
 if (loginForm && loginMessage) {
-  loginForm.addEventListener("submit", (e) => {
+  loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    loginMessage.textContent = "Logging in...";
+    loginMessage.style.color = "#4a5568";
 
-    const data = new FormData(loginForm);
-    const email = data.get("loginEmail");
+    const formData = new FormData(loginForm);
+    const payload = Object.fromEntries(formData.entries());
 
-    loginMessage.textContent =
-      "Login demo only. In production, this should verify your email and password with the server.";
-    loginMessage.style.color = "#2b6cb0";
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    console.log("Login attempt:", email);
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Login failed");
+      }
+
+      loginMessage.textContent = "Logged in. Redirecting to your dashboard…";
+      loginMessage.style.color = "#2f855a";
+
+      setTimeout(() => {
+        window.location.href = "member-dashboard.html";
+      }, 700);
+    } catch (err) {
+      console.error("Login error:", err);
+      loginMessage.textContent = err.message || "Login failed. Please try again.";
+      loginMessage.style.color = "#c53030";
+    }
   });
 }
+
 
 // ================================
 // Global nav highlight
@@ -285,9 +217,9 @@ if (navElement) {
 const donateStripeBtn = document.getElementById("donateStripeBtn");
 const donatePaypalLink = document.getElementById("donatePaypalLink");
 
-// Replace these with your real links later
 const STRIPE_CHECKOUT_URL = "https://your-stripe-checkout-link-here";
-const PAYPAL_DONATION_URL = "https://www.paypal.com/donate/?hosted_button_id=YOUR_ID";
+const PAYPAL_DONATION_URL =
+  "https://www.paypal.com/donate/?hosted_button_id=YOUR_ID";
 
 if (donateStripeBtn) {
   donateStripeBtn.addEventListener("click", () => {
@@ -329,10 +261,9 @@ if (navToggle && nav) {
     clearHideTimeout();
     hideTimeout = setTimeout(() => {
       closeMenu();
-    }, 150); // close quickly after mouse leaves
+    }, 150);
   }
 
-  // Click on hamburger → open/close
   navToggle.addEventListener("click", () => {
     const isOpen = nav.classList.contains("nav-open");
     if (isOpen) {
@@ -342,20 +273,16 @@ if (navToggle && nav) {
     }
   });
 
-  // While mouse is over toggle or menu → keep open
   [navToggle, nav].forEach((el) => {
     el.addEventListener("mouseenter", () => {
       clearHideTimeout();
-      // do NOT auto-open here, just prevent closing if already open
     });
 
     el.addEventListener("mouseleave", () => {
-      // when mouse leaves both, schedule close
       scheduleHide();
     });
   });
 
-  // Clicking a link still closes the menu
   nav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
       closeMenu();
@@ -363,10 +290,8 @@ if (navToggle && nav) {
   });
 }
 
-
 // ================================
-// Contact form -> save to DB
-// (contact.html)
+// Contact form -> save to DB (contact.html)
 // ================================
 const contactForm = document.getElementById("contactForm");
 const contactMessageStatus = document.getElementById("contactMessageStatus");
@@ -408,7 +333,6 @@ if (contactForm && contactMessageStatus) {
   });
 }
 
-
 // ================================
 // FLOATING CONTACT WIDGET TOGGLE
 // ================================
@@ -420,12 +344,8 @@ if (contactToggle && contactMenu) {
     contactMenu.classList.toggle("show");
   });
 
-  // Close menu when clicking outside
   document.addEventListener("click", (e) => {
-    if (
-      !contactToggle.contains(e.target) &&
-      !contactMenu.contains(e.target)
-    ) {
+    if (!contactToggle.contains(e.target) && !contactMenu.contains(e.target)) {
       contactMenu.classList.remove("show");
     }
   });
@@ -444,22 +364,20 @@ const chatbotTextInput = document.getElementById("chatbotTextInput");
 const chatbotSendBtn = document.getElementById("chatbotSendBtn");
 
 // CONFIG: your real contacts
-const WHATSAPP_NUMBER = "13854914089";        // your WhatsApp, without +
+const WHATSAPP_NUMBER = "13854914089"; // without +
 const TELEGRAM_USERNAME = "YourTelegramName"; // replace when ready
 
 let chatStep = 0;
 let chatData = {
   topic: "",
   name: "",
-  contact: "", // "whatsapp" or "telegram"
+  contact: "",
 };
 
 function resetChat() {
   chatStep = 0;
   chatData = { topic: "", name: "", contact: "" };
-  if (chatbotMessages) {
-    chatbotMessages.innerHTML = "";
-  }
+  if (chatbotMessages) chatbotMessages.innerHTML = "";
   if (chatbotTextInput) {
     chatbotTextInput.value = "";
     chatbotTextInput.placeholder = "Type your answer here...";
@@ -563,7 +481,9 @@ function handleTextSubmit() {
 function finishConversation() {
   const baseText =
     `Hello, my name is ${chatData.name || "a new contact"}.\n` +
-    `I’m interested in: ${chatData.topic || "Information about Africa Virtual Education"}.\n` +
+    `I’m interested in: ${
+      chatData.topic || "Information about Africa Virtual Education"
+    }.\n` +
     `Please contact me back.`;
 
   addMessage(
@@ -596,7 +516,6 @@ function finishConversation() {
   chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 }
 
-// open / close
 if (chatbotToggle && chatbotWindow) {
   chatbotToggle.addEventListener("click", () => {
     const willOpen = chatbotWindow.classList.contains("hidden");
@@ -615,7 +534,6 @@ if (chatbotClose && chatbotWindow) {
   });
 }
 
-// send
 if (chatbotSendBtn && chatbotTextInput) {
   chatbotSendBtn.addEventListener("click", handleTextSubmit);
 
@@ -623,6 +541,146 @@ if (chatbotSendBtn && chatbotTextInput) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleTextSubmit();
+    }
+  });
+}
+
+// ================================
+// MEMBERSHIP PAGE LOGIC
+// ================================
+
+// --- Step 1: Evaluation ---
+let evaluationPassed = false;
+
+const evalBtn = document.getElementById("evaluateBtn");
+const evalResult = document.getElementById("evaluationResult");
+
+if (evalBtn && evalResult) {
+  evalBtn.addEventListener("click", () => {
+    const speak = document.querySelector('input[name="speakEnglish"]:checked');
+    const understand = document.querySelector(
+      'input[name="understandEnglish"]:checked'
+    );
+    const laptop = document.querySelector(
+      'input[name="laptopAccess"]:checked'
+    );
+
+    if (!speak || !understand || !laptop) {
+      evalResult.textContent = "Please answer all questions first.";
+      evalResult.style.color = "#c05621";
+      evaluationPassed = false;
+      return;
+    }
+
+    if (
+      speak.value === "no" ||
+      understand.value === "no" ||
+      laptop.value === "no"
+    ) {
+      evalResult.textContent =
+        "You are not qualified for membership at this time.";
+      evalResult.style.color = "#c53030";
+      evaluationPassed = false;
+    } else {
+      evalResult.textContent =
+        "You meet the basic evaluation criteria. Please review the Terms and complete the enrollment form below.";
+      evalResult.style.color = "#2f855a";
+      evaluationPassed = true;
+    }
+  });
+}
+
+// --- Step 3: Enrollment form -> POST /api/members ---
+const enrollmentForm = document.getElementById("enrollmentForm");
+const enrollmentMessage = document.getElementById("enrollmentMessage");
+
+if (enrollmentForm && enrollmentMessage) {
+  enrollmentForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (!evaluationPassed) {
+      enrollmentMessage.textContent =
+        "Please complete the eligibility evaluation above and make sure you are qualified before submitting.";
+      enrollmentMessage.style.color = "#c05621";
+      return;
+    }
+
+    const termsAgree = document.getElementById("termsAgree");
+    const termsFullName = document.getElementById("termsFullName");
+    const termsDate = document.getElementById("termsDate");
+    const finalAgree = document.getElementById("finalAgree");
+
+    if (!termsAgree || !termsFullName || !termsDate || !finalAgree) {
+      // if those fields don't exist, just skip this block
+    } else {
+      if (!termsAgree.checked) {
+        enrollmentMessage.textContent =
+          "You must agree to the Membership Terms and Conditions.";
+        enrollmentMessage.style.color = "#c53030";
+        return;
+      }
+
+      if (!termsFullName.value.trim() || !termsDate.value) {
+        enrollmentMessage.textContent =
+          "Please provide your full name and date as signature under the Terms and Conditions.";
+        enrollmentMessage.style.color = "#c53030";
+        return;
+      }
+
+      if (!finalAgree.checked) {
+        enrollmentMessage.textContent =
+          "Please confirm that your information is accurate and that you meet the eligibility criteria.";
+        enrollmentMessage.style.color = "#c53030";
+        return;
+      }
+    }
+
+    const formData = new FormData(enrollmentForm);
+    const payload = Object.fromEntries(formData.entries());
+
+    payload.eval_speakEnglish =
+      document.querySelector('input[name="speakEnglish"]:checked')?.value ||
+      "";
+    payload.eval_understandEnglish =
+      document.querySelector(
+        'input[name="understandEnglish"]:checked'
+      )?.value || "";
+    payload.eval_laptopAccess =
+      document.querySelector('input[name="laptopAccess"]:checked')?.value ||
+      "";
+
+    if (termsFullName && termsDate) {
+      payload.termsAgree = true;
+      payload.termsFullName = termsFullName.value.trim();
+      payload.termsDate = termsDate.value;
+    }
+
+    enrollmentMessage.textContent = "Submitting your enrollment…";
+    enrollmentMessage.style.color = "#4a5568";
+
+    try {
+      const res = await fetch("/api/members", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Request failed");
+      }
+
+      enrollmentMessage.textContent =
+        "Thank you! Your membership enrollment has been submitted. You will receive your username and password by email once approved.";
+      enrollmentMessage.style.color = "#2f855a";
+
+      enrollmentForm.reset();
+    } catch (err) {
+      console.error("Enrollment error:", err);
+      enrollmentMessage.textContent =
+        "Sorry, there was a problem submitting your enrollment. Please try again later.";
+      enrollmentMessage.style.color = "#c53030";
     }
   });
 }

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin – Create Member Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- you can reuse your normal header if you want -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/Logo-ave.svg" alt="AVE Logo" class="logo-img" />
+        <div class="logo-text">
+          <span class="logo-main">Africa Virtual Education</span>
+          <span class="logo-sub">Admin Area</span>
+        </div>
+      </a>
+      <div class="header-actions">
+        <a href="admin-members.html" class="btn btn-outline">Members</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section section-light">
+    <div class="container">
+      <h1>Create Member Login</h1>
+      <p class="small-note">
+        Use this page after you have approved a membership application. Keep this page private.
+      </p>
+
+      <form id="createUserForm" class="card-form">
+        <div class="form-group">
+          <label for="adminKey">Admin Key</label>
+          <input type="password" id="adminKey" name="adminKey" required />
+          <p class="small-note">Same key you use on the Admin Members page.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="memberId">Member ID (optional)</label>
+          <input type="number" id="memberId" name="memberId" placeholder="ID from members table" />
+        </div>
+
+        <div class="form-group">
+          <label for="userEmail">User Email (login)</label>
+          <input type="email" id="userEmail" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="userPassword">Password</label>
+          <input type="password" id="userPassword" name="password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="userRole">Role</label>
+          <select id="userRole" name="role">
+            <option value="member">Member</option>
+            <option value="mentor">Mentor</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+
+        <h3>Access Rights</h3>
+        <div class="form-options">
+          <label><input type="checkbox" name="canFinanceHelp" /> Student finance help</label>
+          <label><input type="checkbox" name="canLaptopHelp" /> Laptop help</label>
+          <label><input type="checkbox" name="canMentorshipHelp" /> Mentorship help</label>
+          <label><input type="checkbox" name="canVolunteer" /> Volunteer area</label>
+        </div>
+
+        <h3>Channels</h3>
+        <div class="form-group">
+          <label for="waChannel">WhatsApp channel link (optional)</label>
+          <input type="url" id="waChannel" name="whatsappChannel"
+                 placeholder="https://chat.whatsapp.com/..." />
+        </div>
+
+        <div class="form-group">
+          <label for="tgChannel">Telegram channel link (optional)</label>
+          <input type="url" id="tgChannel" name="telegramChannel"
+                 placeholder="https://t.me/your_channel" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create User</button>
+        <p id="createUserStatus" class="form-message"></p>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const createUserForm = document.getElementById("createUserForm");
+    const createUserStatus = document.getElementById("createUserStatus");
+
+    if (createUserForm && createUserStatus) {
+      createUserForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        createUserStatus.textContent = "Creating user...";
+        createUserStatus.style.color = "#4a5568";
+
+        const formData = new FormData(createUserForm);
+        const payload = Object.fromEntries(formData.entries());
+
+        // convert checkboxes to booleans
+        payload.canFinanceHelp = formData.get("canFinanceHelp") === "on";
+        payload.canLaptopHelp = formData.get("canLaptopHelp") === "on";
+        payload.canMentorshipHelp = formData.get("canMentorshipHelp") === "on";
+        payload.canVolunteer = formData.get("canVolunteer") === "on";
+
+        try {
+          const res = await fetch("/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await res.json();
+          if (!res.ok || !data.ok) {
+            throw new Error(data.error || "Failed to create user");
+          }
+
+          createUserStatus.textContent =
+            "User created successfully. Member ID: " + (payload.memberId || "—") +
+            ". You can now send the login details to the member.";
+          createUserStatus.style.color = "#2f855a";
+
+          // Optional: keep the email, clear the password
+          document.getElementById("userPassword").value = "";
+        } catch (err) {
+          console.error("Create user error:", err);
+          createUserStatus.textContent = err.message || "Error creating user.";
+          createUserStatus.style.color = "#c53030";
+        }
+      });
+    }
+  </script>
+</body>
+</html>

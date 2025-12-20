@@ -220,23 +220,25 @@
         adminStatus.textContent = "Loading members...";
         adminStatus.style.color = "#555";
 
-        try {
-          const res = await fetch(`/api/admin/members?key=${encodeURIComponent(key)}`);
-          const data = await res.json();
+              try {
+        const res = await fetch(`/api/admin/members?key=${encodeURIComponent(key)}`);
+        const data = await res.json();
 
-          if (!res.ok || !data.ok) {
-            throw new Error(data.error || "Request failed");
-          }
-
-          adminStatus.textContent = `Loaded ${data.members.length} members.`;
-          adminStatus.style.color = "#2f855a";
-          renderMembers(data.members);
-        } catch (err) {
-          console.error(err);
-          adminStatus.textContent = "Unauthorized or error loading members. Check your admin key.";
-          adminStatus.style.color = "#c53030";
-          renderMembers([]); // clear table
+        if (!res.ok || !data.ok) {
+          const msg = data.error || `HTTP ${res.status}`;
+          throw new Error(msg);
         }
+
+        adminStatus.textContent = `Loaded ${data.members.length} members.`;
+        adminStatus.style.color = "#2f855a";
+        renderMembers(data.members);
+      } catch (err) {
+        console.error(err);
+        adminStatus.textContent = `Error loading members: ${err.message}`;
+        adminStatus.style.color = "#c53030";
+        renderMembers([]);
+      }
+
       });
     }
   </script>
