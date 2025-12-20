@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Services — Miracle Tech Inc." />
+    <title>Miracle Tech Inc. — Services</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+    <header class="nav" role="banner">
+        <div class="container navInner">
+            <a class="brand" href="index.html" aria-label="Go to home">
+                <span class="logo" aria-hidden="true"></span>
+                <div>
+                    <strong>Miracle Tech Inc.</strong>
+                    <span>Changing the world in one click</span>
+                </div>
+            </a>
+
+            <nav class="navLinks" aria-label="Primary">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a class="active" href="services.html">Services</a>
+                <a href="vision.html">Vision</a>
+            </nav>
+
+            <div class="navCtas">
+                <a class="btn" href="about.html">About <span aria-hidden="true">→</span></a>
+                <a class="btn btnPrimary" href="index.html#contact">Start a project <span
+                        aria-hidden="true">↗</span></a>
+                <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
+                    aria-controls="drawer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
+        <div class="backdrop" id="backdrop"></div>
+        <div class="panel">
+            <div class="panelTop">
+                <div class="brand" style="gap:10px">
+                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <div>
+                        <strong style="font-size:14px">Miracle Tech Inc.</strong>
+                        <span style="font-size:11px">Changing the world in one click</span>
+                    </div>
+                </div>
+                <button class="btn" id="closeBtn" aria-label="Close menu">Close</button>
+            </div>
+            <nav class="panelNav" aria-label="Mobile">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="vision.html">Vision</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+    </div>
+
+    <main>
+        <section class="pageHero">
+            <div class="container">
+                <div class="reveal">
+                    <div class="kicker">Services</div>
+                    <h1 class="pageTitle">What we offer</h1>
+                    <p class="lead">We transform ideas into digital products by combining technical expertise, creative
+                        problem-solving, and strategic thinking.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="grid2">
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Custom Software Development</h3>
+                            <p>Tailor-made solutions designed to meet real needs.</p>
+                            <ul class="list">
+                                <li>Web applications (platforms, portals, SaaS)</li>
+                                <li>Mobile applications (Android & iOS)</li>
+                                <li>Desktop applications (Windows, macOS, Linux)</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Product Design & Innovation</h3>
+                            <p>Bring ideas to life through research, UX/UI, and strategy.</p>
+                            <ul class="list">
+                                <li>Idea validation and research</li>
+                                <li>MVP (Minimum Viable Product) development</li>
+                                <li>UX/UI design focused on clarity and usability</li>
+                                <li>Prototyping and product strategy</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Digital Transformation</h3>
+                            <p>Support organizations in modernizing their systems.</p>
+                            <ul class="list">
+                                <li>Workflow automation</li>
+                                <li>System integration</li>
+                                <li>Data-driven solutions</li>
+                                <li>Cloud-based platforms</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Maintenance & Technical Support</h3>
+                            <p>Ongoing support after launch.</p>
+                            <ul class="list">
+                                <li>Ongoing maintenance and updates</li>
+                                <li>Performance optimization</li>
+                                <li>Security monitoring</li>
+                                <li>Feature enhancements</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="card reveal" style="grid-column:1/-1">
+                        <div class="cardInner">
+                            <h3>Consulting & Collaboration</h3>
+                            <p>We analyze challenges, propose smart solutions, and co-create innovative digital products
+                                with your team.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <div style="height:18px"></div>
+                <div class="contactCTA reveal">
+                    <div>
+                        <div class="kicker">Next step</div>
+                        <div class="h2" style="font-size: clamp(22px, 2.4vw, 30px)">Let’s build something that matters
+                        </div>
+                        <p class="lead">Tell us what you need — we’ll suggest the fastest, safest path to launch.</p>
+                    </div>
+                    <a class="btn btnPrimary" href="index.html#contact">Start a project <span
+                            aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container foot">
+            <div class="fineprint">© <span id="year"></span> Miracle Tech Inc. All rights reserved.</div>
+            <div class="footLinks">
+                <a href="about.html">About</a>
+                <a href="vision.html">Vision</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+
+</html>
