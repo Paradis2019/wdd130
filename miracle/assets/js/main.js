@@ -192,3 +192,11 @@ if(heroCanvas && !reduceMotion){
     // If CDN is blocked, silently fail.
   });
 }
+
+// Instantly show above-the-fold reveals on page load
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.reveal').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.9) el.classList.add('in');
+  });
+});
