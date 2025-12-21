@@ -1,0 +1,10 @@
+exclude:
+  - AfricaVirtualEdu/public/node_modules
+  - AfricaVirtualEdu/node_modules
+  - node_modules
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+  - package.json
+  - package-lock.json
+  - yarn.lock
