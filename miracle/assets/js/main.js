@@ -194,9 +194,9 @@ if(heroCanvas && !reduceMotion){
 }
 
 // Instantly show above-the-fold reveals on page load
-window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.reveal').forEach(el => {
-    const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight * 0.9) el.classList.add('in');
-  });
-});
+// window.addEventListener('DOMContentLoaded', () => {
+ // document.querySelectorAll('.reveal').forEach(el => {
+   // const r = el.getBoundingClientRect();
+    //if (r.top < window.innerHeight * 0.9) el.classList.add('in');
+ // });
+//});
