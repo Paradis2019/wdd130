@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Miracle Tech Inc. — Changing the world in one click." />
+    <title>Miracle Tech Inc. — Home</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+    <header class="nav" role="banner">
+        <div class="container navInner">
+            <a class="brand" href="index.html" aria-label="Go to home">
+                <span class="logo" aria-hidden="true"></span>
+                <div>
+                    <strong>Miracle Tech Inc.</strong>
+                    <span>Changing the world in one click</span>
+                </div>
+            </a>
+
+            <nav class="navLinks" aria-label="Primary">
+                <a class="active" href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="vision.html">Vision</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="locations.html">Locations</a>
+            </nav>
+
+            <div class="navCtas">
+                <a class="btn" href="services.html">Explore <span aria-hidden="true">→</span></a>
+                <a class="btn btnPrimary" href="#contact">Talk to us <span aria-hidden="true">↗</span></a>
+
+                <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
+                    aria-controls="drawer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile drawer -->
+    <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
+        <div class="backdrop" id="backdrop"></div>
+        <div class="panel">
+            <div class="panelTop">
+                <div class="brand" style="gap:10px">
+                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <div>
+                        <strong style="font-size:14px">Miracle Tech Inc.</strong>
+                        <span style="font-size:11px">Changing the world in one click</span>
+                    </div>
+                </div>
+                <button class="btn" id="closeBtn" aria-label="Close menu">Close</button>
+            </div>
+            <nav class="panelNav" aria-label="Mobile">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="vision.html">Vision</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="fineprint" style="padding:8px">Tip: Replace the placeholder Address and Email.</div>
+        </div>
+    </div>
+
+    <main id="top">
+        <section class="hero">
+            <div class="container heroGrid">
+                <div class="reveal">
+                    <div class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Software development &
+                            digital innovation</span></div>
+                    <h1><span class="gradText">Powerful, meaningful</span> technology — built to scale.</h1>
+                    <p class="sub">
+                        Miracle Tech Inc. designs and builds mobile, web, and desktop applications that help
+                        organizations and individuals solve real-world problems through smart, reliable, and scalable
+                        software.
+                    </p>
+                    <div class="heroCtas">
+                        <a class="btn btnPrimary" href="#contact">Start a project <span aria-hidden="true">↗</span></a>
+                        <a class="btn" href="about.html">Learn more <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="heroMeta" aria-label="Highlights">
+                        <span class="pill">Web • Mobile • Desktop</span>
+                        <span class="pill">UX/UI & Product Strategy</span>
+                        <span class="pill">Automation • Cloud • Integrations</span>
+                    </div>
+                </div>
+
+                <div class="heroRight reveal" aria-label="Interactive hero visualization">
+                    <div class="glassHeader" aria-hidden="true">
+                        <div class="mini">
+                            <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span>Innovation preview</span>
+                        </div>
+                        <span class="muted12">WebGL • Real-time</span>
+                    </div>
+
+                    <canvas id="hero3d"></canvas>
+
+                    <div class="heroCard" aria-hidden="true">
+                        <div class="miniCard">
+                            <b>Useful. Intuitive. Impactful.</b>
+                            <p>Technology shouldn’t be complicated — it should create opportunity.</p>
+                        </div>
+                        <div class="miniCard">
+                            <b>Future-ready systems</b>
+                            <p>Modular architecture, scalable foundations, secure delivery.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="marqueeWrap" aria-label="Who we work with">
+                <div class="container" style="overflow:hidden">
+                    <div class="marquee" aria-hidden="true">
+                        <span><b>We collaborate with</b>Companies & Startups</span>
+                        <span><b>We collaborate with</b>Government & Public Institutions</span>
+                        <span><b>We collaborate with</b>Schools & Education</span>
+                        <span><b>We collaborate with</b>NGOs & Non-profits</span>
+                        <span><b>We collaborate with</b>Individuals & Innovators</span>
+                        <span><b>We collaborate with</b>Companies & Startups</span>
+                        <span><b>We collaborate with</b>Government & Public Institutions</span>
+                        <span><b>We collaborate with</b>Schools & Education</span>
+                        <span><b>We collaborate with</b>NGOs & Non-profits</span>
+                        <span><b>We collaborate with</b>Individuals & Innovators</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Home highlights -->
+        <section>
+            <div class="container">
+                <div class="sectionHead reveal">
+                    <div>
+                        <div class="kicker">At a glance</div>
+                        <div class="h2">What we do best</div>
+                    </div>
+                    <p class="lead">From concept to launch and beyond, we support partners at every stage of their
+                        digital journey.</p>
+                </div>
+
+                <div class="grid3">
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Build</h3>
+                            <p>Web, mobile, and desktop applications with scalable architecture.</p>
+                        </div>
+                    </article>
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Design</h3>
+                            <p>UX/UI that makes complex workflows feel simple.</p>
+                        </div>
+                    </article>
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Transform</h3>
+                            <p>Automation, integrations, and cloud platforms to modernize systems.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <div class="container">
+                <div class="sectionHead reveal">
+                    <div>
+                        <div class="kicker">Contact</div>
+                        <div class="h2">Have a project in mind?</div>
+                    </div>
+                    <p class="lead">Tell us what you’re building. We’ll respond with thoughtful questions and a clear
+                        next step.</p>
+                </div>
+
+                <div class="contactWrap reveal">
+                    <div class="contactInner">
+                        <div>
+                            <div class="card" style="background: rgba(0,0,0,.14)">
+                                <div class="cardInner">
+                                    <h3>Miracle Tech Inc.</h3>
+                                    <p style="margin-top:6px">Changing the world in one click</p>
+                                    <div style="height:10px"></div>
+                                    <p class="fineprint"><b>Address:</b> <span class="fine">[Add your address
+                                            here]</span></p>
+                                    <p class="fineprint"><b>Email:</b> <span
+                                            class="fine">hello@miracletech.example</span></p>
+                                    <p class="fineprint"><b>Working with:</b> Startups • Government • Education • NGOs •
+                                        Individuals</p>
+                                    <p class="fineprint">
+                                        <a href="locations.html">View all office locations →</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div style="height:12px"></div>
+                            <div class="fineprint">Looking forward: we’re not just building software — we’re building
+                                solutions that change lives.</div>
+                        </div>
+
+                        <form id="contactForm" class="card" style="background: rgba(0,0,0,.12)" autocomplete="on">
+                            <div class="cardInner">
+                                <div class="grid2">
+                                    <div class="field">
+                                        <label for="name">Name</label>
+                                        <input id="name" name="name" placeholder="Your name" required />
+                                    </div>
+                                    <div class="field">
+                                        <label for="email">Email</label>
+                                        <input id="email" name="email" type="email" placeholder="you@company.com"
+                                            required />
+                                    </div>
+                                </div>
+                                <div style="height:12px"></div>
+                                <div class="field">
+                                    <label for="topic">What are you building?</label>
+                                    <input id="topic" name="topic"
+                                        placeholder="App, platform, automation, modernization…" required />
+                                </div>
+                                <div style="height:12px"></div>
+                                <div class="field">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" name="message"
+                                        placeholder="A few details about goals, timeline, and what success looks like."
+                                        required></textarea>
+                                </div>
+                                <div style="height:14px"></div>
+                                <button class="btn btnPrimary" type="submit">Send message <span
+                                        aria-hidden="true">↗</span></button>
+                                <div id="formNote" class="fineprint" style="margin-top:10px"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container foot">
+            <div>
+                <div class="brand" style="gap:12px">
+                    <span class="logo" aria-hidden="true" style="width:34px;height:34px"></span>
+                    <div>
+                        <strong>Miracle Tech Inc.</strong>
+                        <span>Changing the world in one click</span>
+                    </div>
+                </div>
+                <div style="height:10px"></div>
+                <div class="fineprint">© <span id="year"></span> Miracle Tech Inc. All rights reserved.</div>
+            </div>
+            <div class="footLinks" aria-label="Footer">
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="vision.html">Vision</a>
+                <a href="locations.html">Locations</a>
+                <a href="locations.html">Locations</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="assets/js/main.js"></script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/69487805420bc819787efed6/1jd1h9lia';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+
+</html>

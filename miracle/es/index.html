@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Miracle Tech Inc. — Cambiando el mundo con un solo clic." />
+    <title>Miracle Tech Inc. — Inicio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <!-- From /es/ to /assets/ is one level up -->
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+
+<body>
+    <header class="nav" role="banner">
+        <div class="container navInner">
+            <a class="brand" href="index.html" aria-label="Ir al inicio">
+                <span class="logo" aria-hidden="true"></span>
+                <div>
+                    <strong>Miracle Tech Inc.</strong>
+                    <span>Cambiando el mundo con un solo clic</span>
+                </div>
+            </a>
+
+            <nav class="navLinks" aria-label="Principal">
+                <a class="active" href="index.html">Inicio</a>
+                <a href="about.html">Acerca de</a>
+                <a href="services.html">Servicios</a>
+                <a href="vision.html">Visión</a>
+                <a href="portfolio.html">Portafolio</a>
+                <a href="locations.html">Ubicaciones</a>
+            </nav>
+
+            <div class="navCtas">
+                <!-- Language switcher (handled by main.js; no hard links needed here) -->
+                <div class="langSwitch" data-lang-switch>
+                    <a href="#" data-lang="en">EN</a>
+                    <a href="#" data-lang="fr">FR</a>
+                    <a href="#" data-lang="id">ID</a>
+                    <a href="#" data-lang="es" aria-current="true">ES</a>
+                </div>
+
+                <a class="btn" href="services.html">Explorar <span aria-hidden="true">→</span></a>
+                <a class="btn btnPrimary" href="#contact">Hablemos <span aria-hidden="true">↗</span></a>
+
+                <button class="hamburger" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"
+                    aria-controls="drawer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile drawer -->
+    <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Menú móvil">
+        <div class="backdrop" id="backdrop"></div>
+        <div class="panel">
+            <div class="panelTop">
+                <div class="brand" style="gap:10px">
+                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <div>
+                        <strong style="font-size:14px">Miracle Tech Inc.</strong>
+                        <span style="font-size:11px">Cambiando el mundo con un solo clic</span>
+                    </div>
+                </div>
+                <button class="btn" id="closeBtn" aria-label="Cerrar menú">Cerrar</button>
+            </div>
+
+            <!-- Mobile language switcher (also handled by main.js if you add data-lang-switch here) -->
+            <div style="padding: 8px">
+                <div class="langSwitch" aria-label="Selector de idioma (móvil)" data-lang-switch>
+                    <a href="#" data-lang="en">EN</a>
+                    <a href="#" data-lang="fr">FR</a>
+                    <a href="#" data-lang="id">ID</a>
+                    <a href="#" data-lang="es" aria-current="true">ES</a>
+                </div>
+            </div>
+
+            <nav class="panelNav" aria-label="Móvil">
+                <a href="index.html">Inicio</a>
+                <a href="about.html">Acerca de</a>
+                <a href="services.html">Servicios</a>
+                <a href="vision.html">Visión</a>
+                <a href="portfolio.html">Portafolio</a>
+                <a href="locations.html">Ubicaciones</a>
+                <a href="#contact">Contacto</a>
+            </nav>
+
+            <div class="fineprint" style="padding:8px">Consejo: reemplaza la dirección y el correo de ejemplo.</div>
+        </div>
+    </div>
+
+    <main id="top">
+        <section class="hero">
+            <div class="container heroGrid">
+                <div class="reveal">
+                    <div class="eyebrow">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span>Desarrollo de software e innovación digital</span>
+                    </div>
+                    <h1><span class="gradText">Tecnología potente y significativa</span> — creada para escalar.</h1>
+                    <p class="sub">
+                        Miracle Tech Inc. diseña y desarrolla aplicaciones móviles, web y de escritorio que ayudan a
+                        organizaciones y personas a resolver problemas reales con software inteligente, confiable y
+                        escalable.
+                    </p>
+                    <div class="heroCtas">
+                        <a class="btn btnPrimary" href="#contact">Iniciar un proyecto <span
+                                aria-hidden="true">↗</span></a>
+                        <a class="btn" href="about.html">Saber más <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="heroMeta" aria-label="Destacados">
+                        <span class="pill">Web • Móvil • Escritorio</span>
+                        <span class="pill">UX/UI y estrategia de producto</span>
+                        <span class="pill">Automatización • Cloud • Integraciones</span>
+                    </div>
+                </div>
+
+                <div class="heroRight reveal" aria-label="Visualización interactiva">
+                    <div class="glassHeader" aria-hidden="true">
+                        <div class="mini">
+                            <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span>Vista previa de innovación</span>
+                        </div>
+                        <span class="muted12">Canvas • Tiempo real</span>
+                    </div>
+
+                    <canvas id="hero3d"></canvas>
+
+                    <div class="heroCard" aria-hidden="true">
+                        <div class="miniCard">
+                            <b>Útil. Intuitivo. Impactante.</b>
+                            <p>La tecnología no debería ser complicada — debería crear oportunidades.</p>
+                        </div>
+                        <div class="miniCard">
+                            <b>Sistemas listos para el futuro</b>
+                            <p>Arquitectura modular, bases escalables y entrega segura.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="marqueeWrap" aria-label="Con quién trabajamos">
+                <div class="container" style="overflow:hidden">
+                    <div class="marquee" aria-hidden="true">
+                        <span><b>Colaboramos con</b>Empresas y startups</span>
+                        <span><b>Colaboramos con</b>Gobierno e instituciones públicas</span>
+                        <span><b>Colaboramos con</b>Escuelas y educación</span>
+                        <span><b>Colaboramos con</b>ONGs y sin fines de lucro</span>
+                        <span><b>Colaboramos con</b>Personas e innovadores</span>
+                        <span><b>Colaboramos con</b>Empresas y startups</span>
+                        <span><b>Colaboramos con</b>Gobierno e instituciones públicas</span>
+                        <span><b>Colaboramos con</b>Escuelas y educación</span>
+                        <span><b>Colaboramos con</b>ONGs y sin fines de lucro</span>
+                        <span><b>Colaboramos con</b>Personas e innovadores</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Home highlights -->
+        <section>
+            <div class="container">
+                <div class="sectionHead reveal">
+                    <div>
+                        <div class="kicker">De un vistazo</div>
+                        <div class="h2">Lo que hacemos mejor</div>
+                    </div>
+                    <p class="lead">Del concepto al lanzamiento y más allá, apoyamos a nuestros socios en cada etapa de
+                        su
+                        transformación digital.</p>
+                </div>
+
+                <div class="grid3">
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Construir</h3>
+                            <p>Aplicaciones web, móviles y de escritorio con arquitectura escalable.</p>
+                        </div>
+                    </article>
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Diseñar</h3>
+                            <p>UX/UI que hace simples los flujos complejos.</p>
+                        </div>
+                    </article>
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Transformar</h3>
+                            <p>Automatización, integraciones y plataformas cloud para modernizar sistemas.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <div class="container">
+                <div class="sectionHead reveal">
+                    <div>
+                        <div class="kicker">Contacto</div>
+                        <div class="h2">¿Tienes un proyecto en mente?</div>
+                    </div>
+                    <p class="lead">Cuéntanos qué estás construyendo. Responderemos con preguntas útiles y un siguiente
+                        paso claro.</p>
+                </div>
+
+                <div class="contactWrap reveal">
+                    <div class="contactInner">
+                        <div>
+                            <div class="card" style="background: rgba(0,0,0,.14)">
+                                <div class="cardInner">
+                                    <h3>Miracle Tech Inc.</h3>
+                                    <p style="margin-top:6px">Cambiando el mundo con un solo clic</p>
+                                    <div style="height:10px"></div>
+
+                                    <p class="fineprint"><b>Dirección:</b> <span class="fine">[Agrega tu dirección
+                                            aquí]</span></p>
+                                    <p class="fineprint"><b>Email:</b> <span
+                                            class="fine">hola@miracletech.example</span></p>
+
+                                    <p class="fineprint"><b>Trabajamos con:</b> Startups • Gobierno • Educación • ONGs •
+                                        Personas</p>
+                                    <p class="fineprint"><a href="locations.html">Ver todas las oficinas →</a></p>
+                                </div>
+                            </div>
+
+                            <div style="height:12px"></div>
+                            <div class="fineprint">Mirando al futuro: no solo construimos software — construimos
+                                soluciones que cambian vidas.</div>
+                        </div>
+
+                        <form id="contactForm" class="card" style="background: rgba(0,0,0,.12)" autocomplete="on">
+                            <div class="cardInner">
+                                <div class="grid2">
+                                    <div class="field">
+                                        <label for="name">Nombre</label>
+                                        <input id="name" name="name" placeholder="Tu nombre" required />
+                                    </div>
+                                    <div class="field">
+                                        <label for="email">Correo</label>
+                                        <input id="email" name="email" type="email" placeholder="tu@empresa.com"
+                                            required />
+                                    </div>
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="field">
+                                    <label for="topic">¿Qué estás construyendo?</label>
+                                    <input id="topic" name="topic"
+                                        placeholder="App, plataforma, automatización, modernización…" required />
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="field">
+                                    <label for="message">Mensaje</label>
+                                    <textarea id="message" name="message"
+                                        placeholder="Algunos detalles sobre objetivos, tiempos y qué sería éxito."
+                                        required></textarea>
+                                </div>
+
+                                <div style="height:14px"></div>
+
+                                <button class="btn btnPrimary" type="submit">Enviar mensaje <span
+                                        aria-hidden="true">↗</span></button>
+                                <div id="formNote" class="fineprint" style="margin-top:10px"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container foot">
+            <div>
+                <div class="brand" style="gap:12px">
+                    <span class="logo" aria-hidden="true" style="width:34px;height:34px"></span>
+                    <div>
+                        <strong>Miracle Tech Inc.</strong>
+                        <span>Cambiando el mundo con un solo clic</span>
+                    </div>
+                </div>
+                <div style="height:10px"></div>
+                <div class="fineprint">© <span id="year"></span> Miracle Tech Inc. Todos los derechos reservados.</div>
+            </div>
+
+            <div class="footLinks" aria-label="Footer">
+                <a href="about.html">Acerca de</a>
+                <a href="services.html">Servicios</a>
+                <a href="vision.html">Visión</a>
+                <a href="portfolio.html">Portafolio</a>
+                <a href="locations.html">Ubicaciones</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Keep ONLY this script on language pages -->
+    <script type="module" src="../assets/js/main.js"></script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/69487805420bc819787efed6/1jd1h9lia';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+
+</html>

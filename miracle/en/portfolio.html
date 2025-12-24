@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio — Miracle Tech Inc." />
+    <title>Miracle Tech Inc. — Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+
+<body>
+    <header class="nav" role="banner">
+        <div class="container navInner">
+            <a class="brand" href="index.html" aria-label="Go to home">
+                <span class="logo" aria-hidden="true"></span>
+                <div>
+                    <strong>Miracle Tech Inc.</strong>
+                    <span>Changing the world in one click</span>
+                </div>
+            </a>
+
+            <nav class="navLinks" aria-label="Primary">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="vision.html">Vision</a>
+                <a class="active" href="portfolio.html">Portfolio</a>
+                <a href="locations.html">Locations</a>
+            </nav>
+
+            <div class="navCtas">
+                <!-- Language switcher (main.js sets hrefs) -->
+                <div class="langSwitch" data-lang-switch>
+                    <a href="#" data-lang="en" aria-current="true">EN</a>
+                    <a href="#" data-lang="fr">FR</a>
+                    <a href="#" data-lang="id">ID</a>
+                    <a href="#" data-lang="es">ES</a>
+                </div>
+
+                <a class="btn btnPrimary" href="index.html#contact">Contact us ↗</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="pageHero">
+            <div class="container">
+                <div class="reveal">
+                    <div class="kicker">Portfolio</div>
+                    <h1 class="pageTitle">Projects we’ve delivered</h1>
+                    <p class="lead">A selection of real solutions built for organizations across regions and industries.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="filters reveal">
+                    <button class="filterBtn" data-filter="all" aria-current="true">All</button>
+                    <button class="filterBtn" data-filter="web">Web</button>
+                    <button class="filterBtn" data-filter="mobile">Mobile</button>
+                    <button class="filterBtn" data-filter="automation">Automation</button>
+                    <button class="filterBtn" data-filter="cloud">Cloud</button>
+                </div>
+
+                <!-- Optional but professional: search -->
+                <div class="portfolioTop reveal" style="margin-top:12px">
+                    <input id="projectSearch" class="searchInput" type="search" placeholder="Search projects…" />
+                </div>
+
+                <!-- Projects grid (JS will fill this) -->
+                <div id="projectsGrid" class="grid3" style="margin-top:16px"></div>
+
+                <!-- Optional: Project modal (recommended if your JS supports it) -->
+                <div id="projectModal" class="modal" aria-hidden="true">
+                    <div class="modalBackdrop" data-close></div>
+                    <div class="modalPanel" role="dialog" aria-modal="true" aria-label="Project details">
+                        <div class="modalHead">
+                            <div>
+                                <div class="kicker" id="modalKicker">Project</div>
+                                <div class="h2" id="modalTitle" style="font-size:22px; margin-top:6px"></div>
+                            </div>
+                            <button class="btn" data-close>Close</button>
+                        </div>
+                        <div class="modalBody">
+                            <p class="lead" id="modalSummary"></p>
+
+                            <div class="metaRow" style="margin-top:10px">
+                                <span id="modalMetaLeft"></span>
+                                <span id="modalMetaRight"></span>
+                            </div>
+
+                            <div style="height:12px"></div>
+                            <div id="modalTags" class="chipRow"></div>
+
+                            <div style="height:12px"></div>
+                            <ul id="modalHighlights" class="list"></ul>
+
+                            <div style="height:12px"></div>
+                            <a id="modalLink" class="btn btnPrimary" target="_blank" rel="noopener"
+                                style="display:none">Visit ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container foot">
+            <div class="fineprint">© <span id="year"></span> Miracle Tech Inc. All rights reserved.</div>
+            <div class="footLinks">
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="vision.html">Vision</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="locations.html">Locations</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="../assets/js/main.js"></script>
+</body>
+
+</html>

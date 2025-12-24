@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Miracle Tech Inc. — Mengubah dunia dalam satu klik." />
+    <title>Miracle Tech Inc. — Beranda</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <!-- From /id/ to /assets/ is one level up -->
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+
+<body>
+    <header class="nav" role="banner">
+        <div class="container navInner">
+            <a class="brand" href="index.html" aria-label="Kembali ke beranda">
+                <span class="logo" aria-hidden="true"></span>
+                <div>
+                    <strong>Miracle Tech Inc.</strong>
+                    <span>Mengubah dunia dalam satu klik</span>
+                </div>
+            </a>
+
+            <nav class="navLinks" aria-label="Navigasi utama">
+                <a class="active" href="index.html">Beranda</a>
+                <a href="about.html">Tentang</a>
+                <a href="services.html">Layanan</a>
+                <a href="vision.html">Visi</a>
+                <a href="portfolio.html">Portofolio</a>
+                <a href="locations.html">Lokasi</a>
+            </nav>
+
+            <div class="navCtas">
+                <!-- Language switcher (handled by main.js) -->
+                <div class="langSwitch" data-lang-switch>
+                    <a href="#" data-lang="en">EN</a>
+                    <a href="#" data-lang="fr">FR</a>
+                    <a href="#" data-lang="id" aria-current="true">ID</a>
+                    <a href="#" data-lang="es">ES</a>
+                </div>
+
+                <a class="btn" href="services.html">Jelajahi <span aria-hidden="true">→</span></a>
+                <a class="btn btnPrimary" href="#contact">Hubungi kami <span aria-hidden="true">↗</span></a>
+
+                <button class="hamburger" id="menuBtn" aria-label="Buka menu" aria-expanded="false"
+                    aria-controls="drawer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile drawer -->
+    <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Menu mobile">
+        <div class="backdrop" id="backdrop"></div>
+        <div class="panel">
+            <div class="panelTop">
+                <div class="brand" style="gap:10px">
+                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <div>
+                        <strong style="font-size:14px">Miracle Tech Inc.</strong>
+                        <span style="font-size:11px">Mengubah dunia dalam satu klik</span>
+                    </div>
+                </div>
+                <button class="btn" id="closeBtn" aria-label="Tutup menu">Tutup</button>
+            </div>
+
+            <!-- Mobile language switcher (let main.js build correct links too) -->
+            <div style="padding: 8px">
+                <div class="langSwitch" aria-label="Pemilih bahasa (mobile)" data-lang-switch>
+                    <a href="#" data-lang="en">EN</a>
+                    <a href="#" data-lang="fr">FR</a>
+                    <a href="#" data-lang="id" aria-current="true">ID</a>
+                    <a href="#" data-lang="es">ES</a>
+                </div>
+            </div>
+
+            <nav class="panelNav" aria-label="Mobile">
+                <a href="index.html">Beranda</a>
+                <a href="about.html">Tentang</a>
+                <a href="services.html">Layanan</a>
+                <a href="vision.html">Visi</a>
+                <a href="portfolio.html">Portofolio</a>
+                <a href="locations.html">Lokasi</a>
+                <a href="#contact">Kontak</a>
+            </nav>
+
+            <div class="fineprint" style="padding:8px">Tip: Ganti alamat & email placeholder.</div>
+        </div>
+    </div>
+
+    <main id="top">
+        <section class="hero">
+            <div class="container heroGrid">
+                <div class="reveal">
+                    <div class="eyebrow">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span>Pengembangan software & inovasi digital</span>
+                    </div>
+                    <h1><span class="gradText">Teknologi yang kuat dan bermakna</span> — siap untuk berkembang.</h1>
+                    <p class="sub">
+                        Miracle Tech Inc. merancang dan membangun aplikasi mobile, web, dan desktop yang membantu
+                        organisasi dan
+                        individu memecahkan masalah nyata melalui software yang cerdas, andal, dan scalable.
+                    </p>
+                    <div class="heroCtas">
+                        <a class="btn btnPrimary" href="#contact">Mulai proyek <span aria-hidden="true">↗</span></a>
+                        <a class="btn" href="about.html">Pelajari lebih lanjut <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="heroMeta" aria-label="Sorotan">
+                        <span class="pill">Web • Mobile • Desktop</span>
+                        <span class="pill">UX/UI & strategi produk</span>
+                        <span class="pill">Otomasi • Cloud • Integrasi</span>
+                    </div>
+                </div>
+
+                <div class="heroRight reveal" aria-label="Visualisasi hero interaktif">
+                    <div class="glassHeader" aria-hidden="true">
+                        <div class="mini">
+                            <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span>Pratinjau inovasi</span>
+                        </div>
+                        <span class="muted12">Canvas • Real-time</span>
+                    </div>
+
+                    <canvas id="hero3d"></canvas>
+
+                    <div class="heroCard" aria-hidden="true">
+                        <div class="miniCard">
+                            <b>Berguna. Intuitif. Berdampak.</b>
+                            <p>Teknologi tidak harus rumit — teknologi harus membuka peluang.</p>
+                        </div>
+                        <div class="miniCard">
+                            <b>Sistem siap masa depan</b>
+                            <p>Arsitektur modular, fondasi scalable, pengiriman yang aman.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="marqueeWrap" aria-label="Siapa yang kami bantu">
+                <div class="container" style="overflow:hidden">
+                    <div class="marquee" aria-hidden="true">
+                        <span><b>Kami berkolaborasi dengan</b>Perusahaan & Startup</span>
+                        <span><b>Kami berkolaborasi dengan</b>Pemerintah & Institusi Publik</span>
+                        <span><b>Kami berkolaborasi dengan</b>Sekolah & Pendidikan</span>
+                        <span><b>Kami berkolaborasi dengan</b>NGO & Non-profit</span>
+                        <span><b>Kami berkolaborasi dengan</b>Individu & Inovator</span>
+                        <span><b>Kami berkolaborasi dengan</b>Perusahaan & Startup</span>
+                        <span><b>Kami berkolaborasi dengan</b>Pemerintah & Institusi Publik</span>
+                        <span><b>Kami berkolaborasi dengan</b>Sekolah & Pendidikan</span>
+                        <span><b>Kami berkolaborasi dengan</b>NGO & Non-profit</span>
+                        <span><b>Kami berkolaborasi dengan</b>Individu & Inovator</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Highlights -->
+        <section>
+            <div class="container">
+                <div class="sectionHead reveal">
+                    <div>
+                        <div class="kicker">Sekilas</div>
+                        <div class="h2">Yang paling kami kuasai</div>
+                    </div>
+                    <p class="lead">Dari konsep hingga peluncuran dan seterusnya, kami mendampingi mitra di setiap tahap
+                        perjalanan
+                        digital.</p>
+                </div>
+
+                <div class="grid3">
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Bangun</h3>
+                            <p>Aplikasi web, mobile, dan desktop dengan arsitektur yang scalable.</p>
+                        </div>
+                    </article>
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Desain</h3>
+                            <p>UX/UI yang membuat alur kerja kompleks terasa sederhana.</p>
+                        </div>
+                    </article>
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Transformasi</h3>
+                            <p>Otomasi, integrasi, dan cloud untuk memodernisasi sistem.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <div class="container">
+                <div class="sectionHead reveal">
+                    <div>
+                        <div class="kicker">Kontak</div>
+                        <div class="h2">Punya proyek?</div>
+                    </div>
+                    <p class="lead">Ceritakan apa yang Anda bangun. Kami akan merespons dengan pertanyaan yang tepat dan
+                        langkah
+                        berikutnya yang jelas.</p>
+                </div>
+
+                <div class="contactWrap reveal">
+                    <div class="contactInner">
+                        <div>
+                            <div class="card" style="background: rgba(0,0,0,.14)">
+                                <div class="cardInner">
+                                    <h3>Miracle Tech Inc.</h3>
+                                    <p style="margin-top:6px">Mengubah dunia dalam satu klik</p>
+                                    <div style="height:10px"></div>
+
+                                    <p class="fineprint"><b>Alamat:</b> <span class="fine">[Tambahkan alamat Anda di
+                                            sini]</span></p>
+                                    <p class="fineprint"><b>Email:</b> <span
+                                            class="fine">halo@miracletech.example</span></p>
+
+                                    <p class="fineprint"><b>Bekerja dengan:</b> Startup • Pemerintah • Pendidikan • NGO
+                                        • Individu</p>
+                                    <p class="fineprint"><a href="locations.html">Lihat semua lokasi kantor →</a></p>
+                                </div>
+                            </div>
+
+                            <div style="height:12px"></div>
+                            <div class="fineprint">Ke depan: kami bukan hanya membuat software — kami membangun solusi
+                                yang mengubah
+                                hidup.</div>
+                        </div>
+
+                        <form id="contactForm" class="card" style="background: rgba(0,0,0,.12)" autocomplete="on">
+                            <div class="cardInner">
+                                <div class="grid2">
+                                    <div class="field">
+                                        <label for="name">Nama</label>
+                                        <input id="name" name="name" placeholder="Nama Anda" required />
+                                    </div>
+                                    <div class="field">
+                                        <label for="email">Email</label>
+                                        <input id="email" name="email" type="email" placeholder="anda@perusahaan.com"
+                                            required />
+                                    </div>
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="field">
+                                    <label for="topic">Apa yang Anda bangun?</label>
+                                    <input id="topic" name="topic"
+                                        placeholder="Aplikasi, platform, otomasi, modernisasi…" required />
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="field">
+                                    <label for="message">Pesan</label>
+                                    <textarea id="message" name="message"
+                                        placeholder="Detail singkat tentang tujuan, timeline, dan definisi sukses."
+                                        required></textarea>
+                                </div>
+
+                                <div style="height:14px"></div>
+
+                                <button class="btn btnPrimary" type="submit">Kirim pesan <span
+                                        aria-hidden="true">↗</span></button>
+                                <div id="formNote" class="fineprint" style="margin-top:10px"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container foot">
+            <div>
+                <div class="brand" style="gap:12px">
+                    <span class="logo" aria-hidden="true" style="width:34px;height:34px"></span>
+                    <div>
+                        <strong>Miracle Tech Inc.</strong>
+                        <span>Mengubah dunia dalam satu klik</span>
+                    </div>
+                </div>
+                <div style="height:10px"></div>
+                <div class="fineprint">© <span id="year"></span> Miracle Tech Inc. Hak cipta dilindungi.</div>
+            </div>
+
+            <div class="footLinks" aria-label="Footer">
+                <a href="about.html">Tentang</a>
+                <a href="services.html">Layanan</a>
+                <a href="vision.html">Visi</a>
+                <a href="portfolio.html">Portofolio</a>
+                <a href="locations.html">Lokasi</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Keep ONLY this script on language pages -->
+    <script type="module" src="../assets/js/main.js"></script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/69487805420bc819787efed6/1jd1h9lia';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+
+</html>

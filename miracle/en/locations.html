@@ -12,14 +12,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
 </head>
 
 <body>
     <header class="nav" role="banner">
         <div class="container navInner">
-            <a class="brand" href="index.html">
-                <span class="logo"></span>
+            <a class="brand" href="index.html" aria-label="Go to home">
+                <span class="logo" aria-hidden="true"></span>
                 <div>
                     <strong>Miracle Tech Inc.</strong>
                     <span>Changing the world in one click</span>
@@ -31,10 +31,19 @@
                 <a href="about.html">About</a>
                 <a href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
+                <a href="portfolio.html">Portfolio</a>
                 <a class="active" href="locations.html">Locations</a>
             </nav>
 
             <div class="navCtas">
+                <!-- Language switcher (main.js sets hrefs) -->
+                <div class="langSwitch" data-lang-switch>
+                    <a href="#" data-lang="en" aria-current="true">EN</a>
+                    <a href="#" data-lang="fr">FR</a>
+                    <a href="#" data-lang="id">ID</a>
+                    <a href="#" data-lang="es">ES</a>
+                </div>
+
                 <a class="btn btnPrimary" href="index.html#contact">Contact us ↗</a>
             </div>
         </div>
@@ -57,7 +66,6 @@
         <section>
             <div class="container">
                 <div class="grid3">
-
                     <!-- USA -->
                     <article class="card reveal">
                         <div class="cardInner">
@@ -110,10 +118,10 @@
                             </a>
                         </div>
                     </article>
-
                 </div>
 
                 <div style="height:24px"></div>
+
                 <div class="card reveal">
                     <div class="cardInner">
                         <h3>Working globally</h3>
@@ -125,7 +133,6 @@
                         </p>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
@@ -135,15 +142,17 @@
             <div class="fineprint">© <span id="year"></span> Miracle Tech Inc. All rights reserved.</div>
             <div class="footLinks">
                 <a href="index.html">Home</a>
+                <a href="about.html">About</a>
                 <a href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
+                <a href="portfolio.html">Portfolio</a>
                 <a href="locations.html">Locations</a>
                 <a href="index.html#contact">Contact</a>
             </div>
         </div>
     </footer>
 
-    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="../assets/js/main.js"></script>
 
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">

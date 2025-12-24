@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Visión — Miracle Tech Inc." />
+    <title>Miracle Tech Inc. — Visión</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+
+<body>
+    <header class="nav" role="banner">
+        <div class="container navInner">
+            <a class="brand" href="index.html" aria-label="Ir al inicio">
+                <span class="logo" aria-hidden="true"></span>
+                <div>
+                    <strong>Miracle Tech Inc.</strong>
+                    <span>Cambiando el mundo con un solo clic</span>
+                </div>
+            </a>
+
+            <nav class="navLinks" aria-label="Principal">
+                <a href="index.html">Inicio</a>
+                <a href="about.html">Sobre nosotros</a>
+                <a href="services.html">Servicios</a>
+                <a class="active" href="vision.html">Visión</a>
+                <a href="portfolio.html">Portafolio</a>
+                <a href="locations.html">Ubicaciones</a>
+            </nav>
+
+            <div class="navCtas">
+                <!-- Language switcher (main.js sets correct hrefs) -->
+                <div class="langSwitch" data-lang-switch>
+                    <a href="#" data-lang="en">EN</a>
+                    <a href="#" data-lang="fr">FR</a>
+                    <a href="#" data-lang="id">ID</a>
+                    <a href="#" data-lang="es" aria-current="true">ES</a>
+                </div>
+
+                <a class="btn" href="services.html">Servicios <span aria-hidden="true">→</span></a>
+                <a class="btn btnPrimary" href="index.html#contact">Hablemos <span aria-hidden="true">↗</span></a>
+
+                <button class="hamburger" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"
+                    aria-controls="drawer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile drawer -->
+    <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Menú móvil">
+        <div class="backdrop" id="backdrop"></div>
+        <div class="panel">
+            <div class="panelTop">
+                <div class="brand" style="gap:10px">
+                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <div>
+                        <strong style="font-size:14px">Miracle Tech Inc.</strong>
+                        <span style="font-size:11px">Cambiando el mundo con un solo clic</span>
+                    </div>
+                </div>
+                <button class="btn" id="closeBtn" aria-label="Cerrar menú">Cerrar</button>
+            </div>
+
+            <!-- Mobile language switcher -->
+            <div style="padding: 8px">
+                <div class="langSwitch" aria-label="Selector de idioma (móvil)">
+                    <a href="../en/vision.html">EN</a>
+                    <a href="../fr/vision.html">FR</a>
+                    <a href="../id/vision.html">ID</a>
+                    <a href="../es/vision.html" aria-current="true">ES</a>
+                </div>
+            </div>
+
+            <nav class="panelNav" aria-label="Móvil">
+                <a href="index.html">Inicio</a>
+                <a href="about.html">Sobre nosotros</a>
+                <a href="services.html">Servicios</a>
+                <a href="vision.html">Visión</a>
+                <a href="portfolio.html">Portafolio</a>
+                <a href="locations.html">Ubicaciones</a>
+                <a href="index.html#contact">Contacto</a>
+            </nav>
+        </div>
+    </div>
+
+    <main>
+        <section class="pageHero">
+            <div class="container">
+                <div class="reveal">
+                    <div class="kicker">Visión</div>
+                    <h1 class="pageTitle">Nuestro propósito y dirección</h1>
+                    <p class="lead">Imaginamos un mundo donde la tecnología sea accesible, inclusiva y transformadora.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="grid3">
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Nuestra visión</h3>
+                            <ul class="list">
+                                <li>Soluciones digitales que simplifican la vida diaria</li>
+                                <li>Innovación que llega a cada comunidad</li>
+                                <li>Tecnología que empodera a las personas, no a los sistemas</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Nuestra misión</h3>
+                            <ul class="list">
+                                <li>Crear software de alta calidad y preparado para el futuro</li>
+                                <li>Impulsar la innovación en todos los sectores</li>
+                                <li>Apoyar el desarrollo social y económico mediante tecnología</li>
+                                <li>Construir herramientas digitales con impacto real y duradero</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Valores</h3>
+                            <ul class="list">
+                                <li>Innovación</li>
+                                <li>Integridad</li>
+                                <li>Excelencia</li>
+                                <li>Impacto</li>
+                                <li>Inclusión</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+
+                <div style="height:14px"></div>
+
+                <div class="stats">
+                    <div class="statPanel reveal">
+                        <div class="statInner">
+                            <p class="bigNum"><span id="countProjects">0</span><small>+ soluciones entregadas</small>
+                            </p>
+                            <p>Desde MVPs hasta plataformas críticas, entregamos software confiable que crece con tus
+                                necesidades.</p>
+                        </div>
+                    </div>
+
+                    <div class="statPanel reveal">
+                        <div class="slider" aria-label="Carrusel de testimonios">
+                            <div class="quote active" data-quote>
+                                <div class="text">“Escucharon antes de construir y entregaron una solución intuitiva
+                                    desde el primer día.”</div>
+                                <div class="who">Aliado — Organización educativa</div>
+                            </div>
+                            <div class="quote" data-quote>
+                                <div class="text">“Comunicación clara, ingeniería sólida y un compromiso real con el
+                                    impacto.”</div>
+                                <div class="who">Aliado — Equipo sin fines de lucro</div>
+                            </div>
+                            <div class="quote" data-quote>
+                                <div class="text">“Rápido, seguro y escalable — la experiencia del producto coincidió
+                                    con nuestra ambición.”</div>
+                                <div class="who">Aliado — Fundador de startup</div>
+                            </div>
+                            <div class="dots" role="tablist" aria-label="Testimonios">
+                                <button class="dotBtn" aria-label="Mostrar testimonio 1" aria-current="true"></button>
+                                <button class="dotBtn" aria-label="Mostrar testimonio 2" aria-current="false"></button>
+                                <button class="dotBtn" aria-label="Mostrar testimonio 3" aria-current="false"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="height:18px"></div>
+
+                <div class="card reveal">
+                    <div class="cardInner">
+                        <h3>Nuestro compromiso</h3>
+                        <ul class="list">
+                            <li>Escuchar antes de construir</li>
+                            <li>Diseñar con intención</li>
+                            <li>Entregar soluciones confiables y seguras</li>
+                            <li>Innovar de forma responsable</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container foot">
+            <div class="fineprint">© <span id="year"></span> Miracle Tech Inc. Todos los derechos reservados.</div>
+            <div class="footLinks">
+                <a href="about.html">Sobre nosotros</a>
+                <a href="services.html">Servicios</a>
+                <a href="vision.html">Visión</a>
+                <a href="portfolio.html">Portafolio</a>
+                <a href="locations.html">Ubicaciones</a>
+                <a href="index.html#contact">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="../assets/js/main.js"></script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/69487805420bc819787efed6/1jd1h9lia';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+
+</html>
