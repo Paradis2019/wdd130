@@ -280,7 +280,7 @@ section{ padding: 70px 0; position:relative; }
 }
 .statPanel:after{ content:""; position:absolute; left:0; right:0; top:-1px; height:1px; background: var(--gradC); opacity:.55; }
 .statInner{ padding: 18px; position:relative; }
-.bigNum{ font-size: 44px; letter-spacing: -.05em; font-weight: 760; margin: 0; }
+.bigNum{ font-size: 44px; letter-spacing: -.04em; font-weight: 760; margin: 0; }
 .bigNum small{ font-size: 14px; font-weight: 600; color: rgba(255,255,255,.65); }
 .statInner p{ margin: 8px 0 0; color: var(--muted); line-height:1.7; }
 

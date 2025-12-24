@@ -15,9 +15,8 @@
     <!-- Correct path from /en/ -->
     <link rel="stylesheet" href="../assets/css/styles.css" />
 
-    <!-- Make sure the canvas always has a visible size -->
+    <!-- Safe fallback to keep the canvas visible -->
     <style>
-        /* safe fallback in case CSS misses height */
         .heroRight {
             position: relative;
             min-height: 420px;
@@ -54,7 +53,7 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher (JS will build correct links automatically) -->
+                <!-- Language switcher (main.js will build correct hrefs) -->
                 <div class="langSwitch" data-lang-switch>
                     <a href="#" data-lang="en" aria-current="true">EN</a>
                     <a href="#" data-lang="fr">FR</a>
@@ -94,7 +93,6 @@
             </div>
 
             <div style="padding: 8px">
-                <!-- Mobile language switcher (let JS update these too if you want) -->
                 <div class="langSwitch" data-lang-switch aria-label="Language switcher (mobile)">
                     <a href="#" data-lang="en" aria-current="true">EN</a>
                     <a href="#" data-lang="fr">FR</a>
@@ -118,6 +116,7 @@
     </div>
 
     <main id="top">
+        <!-- HERO -->
         <section class="hero">
             <div class="container heroGrid">
                 <div class="reveal">
@@ -128,8 +127,8 @@
                     <h1><span class="gradText">Powerful, meaningful</span> technology — built to scale.</h1>
                     <p class="sub">
                         Miracle Tech Inc. designs and builds mobile, web, and desktop applications that help
-                        organizations and individuals solve real-world problems through smart, reliable, and scalable
-                        software.
+                        organizations and
+                        individuals solve real-world problems through smart, reliable, and scalable software.
                     </p>
                     <div class="heroCtas">
                         <a class="btn btnPrimary" href="#contact">Start a project <span aria-hidden="true">↗</span></a>
@@ -151,7 +150,6 @@
                         <span class="muted12">Canvas • Real-time</span>
                     </div>
 
-                    <!-- Canvas MUST stay here -->
                     <canvas id="hero3d" aria-hidden="true"></canvas>
 
                     <div class="heroCard" aria-hidden="true">
@@ -175,13 +173,204 @@
                         <span><b>We collaborate with</b>Schools & Education</span>
                         <span><b>We collaborate with</b>NGOs & Non-profits</span>
                         <span><b>We collaborate with</b>Individuals & Innovators</span>
+                        <span><b>We collaborate with</b>Companies & Startups</span>
+                        <span><b>We collaborate with</b>Government & Public Institutions</span>
+                        <span><b>We collaborate with</b>Schools & Education</span>
+                        <span><b>We collaborate with</b>NGOs & Non-profits</span>
+                        <span><b>We collaborate with</b>Individuals & Innovators</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Your other sections stay the same... -->
-        <!-- Contact section etc -->
+        <!-- HIGHLIGHTS -->
+        <section>
+            <div class="container">
+                <div class="sectionHead reveal">
+                    <div>
+                        <div class="kicker">Highlights</div>
+                        <div class="h2">What we do best</div>
+                    </div>
+                    <p class="lead">
+                        From concept to launch and beyond, we support partners at every stage of the digital journey.
+                    </p>
+                </div>
+
+                <div class="grid3">
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Build</h3>
+                            <p>Web, mobile, and desktop apps with scalable architecture.</p>
+                        </div>
+                    </article>
+
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Design</h3>
+                            <p>UX/UI that makes complex workflows feel simple.</p>
+                        </div>
+                    </article>
+
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Transform</h3>
+                            <p>Automation, integrations, and cloud modernization.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS / TESTIMONIALS -->
+        <section>
+            <div class="container">
+                <div class="sectionHead reveal">
+                    <div>
+                        <div class="kicker">Proof</div>
+                        <div class="h2">Reliable delivery, measurable impact</div>
+                    </div>
+                    <p class="lead">
+                        From MVPs to mission-critical platforms, we ship software that evolves with your needs.
+                    </p>
+                </div>
+
+                <div class="stats">
+                    <div class="statPanel reveal">
+                        <div class="statInner">
+                            <p class="bigNum">
+                                <span class="bigNumValue">
+                                    <span id="countProjects" data-target="12">0</span><span class="plus">+</span>
+                                </span>
+                                <small>solutions shipped</small>
+                            </p>
+                            <p>From MVPs to mission-critical platforms, we deliver reliable software that grows with
+                                your needs.</p>
+                        </div>
+                    </div>
+
+                    <div class="statPanel reveal">
+                        <div class="slider" aria-label="Testimonial slider">
+                            <div class="quote active" data-quote>
+                                <div class="text">“They listened before building and delivered a solution that felt
+                                    intuitive from day one.”</div>
+                                <div class="who">Partner — Education organization</div>
+                            </div>
+                            <div class="quote" data-quote>
+                                <div class="text">“Clear communication, strong engineering, and a real commitment to
+                                    impact.”</div>
+                                <div class="who">Partner — Non-profit team</div>
+                            </div>
+                            <div class="quote" data-quote>
+                                <div class="text">“Fast, secure, and scalable — the product experience matched our
+                                    ambition.”</div>
+                                <div class="who">Partner — Startup founder</div>
+                            </div>
+
+                            <div class="dots" role="tablist" aria-label="Testimonials">
+                                <button class="dotBtn" aria-label="Show testimonial 1" aria-current="true"></button>
+                                <button class="dotBtn" aria-label="Show testimonial 2" aria-current="false"></button>
+                                <button class="dotBtn" aria-label="Show testimonial 3" aria-current="false"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="height:18px"></div>
+
+                <div class="card reveal">
+                    <div class="cardInner">
+                        <h3>Our commitment</h3>
+                        <ul class="list">
+                            <li>Listening before building</li>
+                            <li>Designing with intention</li>
+                            <li>Delivering reliable, secure solutions</li>
+                            <li>Innovating responsibly</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <div class="container">
+                <div class="sectionHead reveal">
+                    <div>
+                        <div class="kicker">Contact</div>
+                        <div class="h2">Have a project?</div>
+                    </div>
+                    <p class="lead">
+                        Tell us what you’re building. We’ll respond with the right questions and a clear next step.
+                    </p>
+                </div>
+
+                <div class="contactWrap reveal">
+                    <div class="contactInner">
+                        <div>
+                            <div class="card" style="background: rgba(0,0,0,.14)">
+                                <div class="cardInner">
+                                    <h3>Miracle Tech Inc.</h3>
+                                    <p style="margin-top:6px">Changing the world in one click</p>
+                                    <div style="height:10px"></div>
+
+                                    <p class="fineprint"><b>Address:</b> <span class="fine">[Add your address
+                                            here]</span></p>
+                                    <p class="fineprint"><b>Email:</b> <span
+                                            class="fine">hello@miracletech.example</span></p>
+
+                                    <p class="fineprint"><b>Working with:</b> Startups • Government • Education • NGOs •
+                                        Individuals</p>
+                                    <p class="fineprint"><a href="locations.html">See office locations →</a></p>
+                                </div>
+                            </div>
+
+                            <div style="height:12px"></div>
+                            <div class="fineprint">We don’t just build software — we build solutions that create
+                                opportunity.</div>
+                        </div>
+
+                        <form id="contactForm" class="card" style="background: rgba(0,0,0,.12)" autocomplete="on">
+                            <div class="cardInner">
+                                <div class="grid2">
+                                    <div class="field">
+                                        <label for="name">Name</label>
+                                        <input id="name" name="name" placeholder="Your name" required />
+                                    </div>
+                                    <div class="field">
+                                        <label for="email">Email</label>
+                                        <input id="email" name="email" type="email" placeholder="you@company.com"
+                                            required />
+                                    </div>
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="field">
+                                    <label for="topic">What are you building?</label>
+                                    <input id="topic" name="topic"
+                                        placeholder="App, platform, automation, modernization…" required />
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="field">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" name="message"
+                                        placeholder="Quick details about goals, timeline, and what success looks like."
+                                        required></textarea>
+                                </div>
+
+                                <div style="height:14px"></div>
+
+                                <button class="btn btnPrimary" type="submit">Send message <span
+                                        aria-hidden="true">↗</span></button>
+                                <div id="formNote" class="fineprint" style="margin-top:10px"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -208,8 +397,49 @@
         </div>
     </footer>
 
-    <!-- Correct path from /en/ -->
     <script type="module" src="../assets/js/main.js"></script>
+
+    <!-- Counter animation: 0 → 12 (the + is already in HTML) -->
+    <script>
+        (function () {
+            const el = document.getElementById("countProjects");
+            if (!el) return;
+
+            const target = Number(el.getAttribute("data-target") || "12");
+            const duration = 1100;
+
+            const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (reduceMotion) {
+                el.textContent = String(target);
+                return;
+            }
+
+            const animate = () => {
+                const start = performance.now();
+                const tick = (now) => {
+                    const t = Math.min(1, (now - start) / duration);
+                    // easeOutCubic
+                    const eased = 1 - Math.pow(1 - t, 3);
+                    el.textContent = String(Math.floor(eased * target));
+                    if (t < 1) requestAnimationFrame(tick);
+                    else el.textContent = String(target);
+                };
+                requestAnimationFrame(tick);
+            };
+
+            // Animate when visible
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((e) => {
+                    if (e.isIntersecting) {
+                        animate();
+                        io.disconnect();
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            io.observe(el);
+        })();
+    </script>
 
     <!-- Tawk -->
     <script type="text/javascript">
