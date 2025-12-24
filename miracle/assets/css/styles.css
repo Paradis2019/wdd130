@@ -460,3 +460,32 @@ footer{ padding: 34px 0 52px; color: rgba(255,255,255,.55); border-top: 1px soli
 }
 .langSwitch a{ color: rgba(255,255,255,.6); }
 .langSwitch a:hover{ color: rgba(255,255,255,.95); }
+
+/* ==== Vision bigNum === */
+
+.bigNum{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.bigNumValue{
+  display:inline-flex;
+  align-items:baseline;
+  line-height:1;
+}
+
+.bigNumValue #countProjects{
+  line-height:1;
+}
+
+.bigNumValue .plus{
+  margin-left:2px;
+  line-height:1;
+}
+
+.bigNum small{
+  white-space:nowrap;
+  line-height:1.2;
+}
