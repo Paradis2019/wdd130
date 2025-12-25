@@ -346,7 +346,7 @@ const reduceMotion =
 ================================ */
 
 
-/* Hologram */
+/* Hologram 
 
 async function initHeroHologram() {
   const canvas = document.getElementById("hero3d");
@@ -522,11 +522,11 @@ async function initHeroHologram() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initHeroHologram().catch((e) => console.error("Hologram error:", e));
-});
+}); */
 
 /* ------------------------*/
 
-/*  DOMContentLoaded  
+/*  DOMContentLoaded  */
 
 async function initHeroWebGL() {
   const canvas = document.getElementById("hero3d");
