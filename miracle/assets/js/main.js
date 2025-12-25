@@ -344,7 +344,302 @@ const reduceMotion =
 /* ===============================
    Hero "3D" Canvas (2D animated)
 ================================ */
-(function heroCanvasInit() {
+
+
+/* Hologram */
+
+async function initHeroHologram() {
+  const canvas = document.getElementById("hero3d");
+  if (!canvas) return;
+
+  const THREE = await import("https://unpkg.com/three@0.160.0/build/three.module.js");
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true,
+    powerPreference: "high-performance",
+  });
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+  camera.position.set(0, 0.2, 4.2);
+
+  // Light is optional for MeshBasicMaterial, but good if you change materials later
+  const ambient = new THREE.AmbientLight(0xffffff, 1.0);
+  scene.add(ambient);
+
+  // Load image (IMPORTANT: correct relative path from /en/ -> ../assets/...)
+  const texLoader = new THREE.TextureLoader();
+  const tex = await new Promise((resolve, reject) => {
+    texLoader.load(
+      "../assets/img/hologram.png",
+      resolve,
+      undefined,
+      reject
+    );
+  });
+
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 8;
+
+  // --- Hologram shader (scanlines + flicker + soft glow feel) ---
+  const holoMat = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending, // glow-like
+    uniforms: {
+      uTex: { value: tex },
+      uTime: { value: 0 },
+      uOpacity: { value: 0.75 },
+      uTint: { value: new THREE.Color("#41d9ff") }, // hologram cyan
+      uLineDensity: { value: 240.0 },
+      uFlicker: { value: 0.10 },
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      varying float vWobble;
+
+      uniform float uTime;
+
+      void main(){
+        vUv = uv;
+        vec3 p = position;
+
+        // subtle 3D wobble
+        float t = uTime * 0.9;
+        p.x += sin(t + position.y * 2.0) * 0.03;
+        p.y += cos(t * 0.7 + position.x * 2.0) * 0.02;
+
+        vWobble = (sin(t + position.y * 3.0) + 1.0) * 0.5;
+
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+      }
+    `,
+    fragmentShader: `
+      varying vec2 vUv;
+      varying float vWobble;
+
+      uniform sampler2D uTex;
+      uniform float uTime;
+      uniform float uOpacity;
+      uniform vec3 uTint;
+      uniform float uLineDensity;
+      uniform float uFlicker;
+
+      float rand(vec2 co){
+        return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+      }
+
+      void main(){
+        vec4 tex = texture2D(uTex, vUv);
+
+        // If your png has transparency, use it
+        float alpha = tex.a;
+
+        // scanlines
+        float lines = sin((vUv.y * uLineDensity) + (uTime * 12.0)) * 0.5 + 0.5;
+        float lineMask = mix(0.55, 1.0, lines);
+
+        // subtle noise shimmer
+        float n = rand(vUv + uTime) * 0.12 + 0.94;
+
+        // flicker
+        float flick = 1.0 - (rand(vec2(uTime, vUv.y)) * uFlicker);
+
+        // edge glow (fake, based on alpha)
+        float edge = smoothstep(0.05, 0.65, alpha) * 0.65 + 0.35;
+
+        vec3 color = uTint;
+        color *= lineMask * n * flick;
+        color *= edge;
+
+        float outA = alpha * uOpacity;
+
+        // Add a little brightness from the image itself
+        color += tex.rgb * 0.15;
+
+        gl_FragColor = vec4(color, outA);
+      }
+    `,
+  });
+
+  // Plane with your image ratio
+  const imgW = tex.image.width || 1024;
+  const imgH = tex.image.height || 1024;
+  const aspect = imgW / imgH;
+
+  const geo = new THREE.PlaneGeometry(2.0 * aspect, 2.0, 1, 1);
+  const holo = new THREE.Mesh(geo, holoMat);
+  holo.position.set(0, 0.05, 0);
+  scene.add(holo);
+
+  // “Ghost” back layer for extra 3D depth
+  const ghost = new THREE.Mesh(
+    geo.clone(),
+    holoMat.clone()
+  );
+  ghost.material.uniforms.uOpacity.value = 0.35;
+  ghost.scale.set(1.02, 1.02, 1.02);
+  ghost.position.set(0.05, -0.03, -0.12);
+  scene.add(ghost);
+
+  // Resize (this is critical to avoid “partial page / blank canvas” issues)
+  function resize() {
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(w, h, false);
+
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener("resize", resize, { passive: true });
+
+  // Animate
+  let raf = 0;
+  function tick(t) {
+    const time = t * 0.001;
+
+    holoMat.uniforms.uTime.value = time;
+    ghost.material.uniforms.uTime.value = time;
+
+    // slow 3D movement
+    holo.rotation.y = Math.sin(time * 0.55) * 0.25;
+    holo.rotation.x = Math.sin(time * 0.35) * 0.10;
+
+    ghost.rotation.y = holo.rotation.y * 0.95;
+    ghost.rotation.x = holo.rotation.x * 0.95;
+
+    renderer.render(scene, camera);
+    raf = requestAnimationFrame(tick);
+  }
+  raf = requestAnimationFrame(tick);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initHeroHologram().catch((e) => console.error("Hologram error:", e));
+});
+
+/* ------------------------*/
+
+/*  DOMContentLoaded  
+
+async function initHeroWebGL() {
+  const canvas = document.getElementById("hero3d");
+  if (!canvas) return;
+
+  // Load Three.js (module) from CDN
+  const THREE = await import("https://unpkg.com/three@0.160.0/build/three.module.js");
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true,
+    powerPreference: "high-performance",
+  });
+
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+  camera.position.z = 5;
+
+  // Particles
+  const COUNT = 1200;
+  const positions = new Float32Array(COUNT * 3);
+  const speeds = new Float32Array(COUNT);
+
+  for (let i = 0; i < COUNT; i++) {
+    const i3 = i * 3;
+    // spread in a soft sphere-ish volume
+    positions[i3 + 0] = (Math.random() - 0.5) * 6;
+    positions[i3 + 1] = (Math.random() - 0.5) * 3.8;
+    positions[i3 + 2] = (Math.random() - 0.5) * 4;
+    speeds[i] = 0.15 + Math.random() * 0.35;
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+  const material = new THREE.PointsMaterial({
+    size: 0.018,
+    sizeAttenuation: true,
+    transparent: true,
+    opacity: 0.9,
+    depthWrite: false,
+  });
+
+  const points = new THREE.Points(geometry, material);
+  scene.add(points);
+
+  // Resize properly (IMPORTANT)
+  function resize() {
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(w, h, false);
+
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+
+  resize();
+  window.addEventListener("resize", resize, { passive: true });
+
+  let raf = 0;
+  let last = performance.now();
+
+  function animate(now) {
+    const dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+
+    // gentle rotation
+    points.rotation.y += dt * 0.12;
+    points.rotation.x += dt * 0.05;
+
+    // subtle floating motion
+    const pos = geometry.attributes.position.array;
+    for (let i = 0; i < COUNT; i++) {
+      const i3 = i * 3;
+      pos[i3 + 1] += Math.sin(now * 0.001 + i) * dt * 0.02 * speeds[i];
+
+      // keep particles in bounds
+      if (pos[i3 + 1] > 2) pos[i3 + 1] = -2;
+      if (pos[i3 + 1] < -2) pos[i3 + 1] = 2;
+    }
+    geometry.attributes.position.needsUpdate = true;
+
+    renderer.render(scene, camera);
+    raf = requestAnimationFrame(animate);
+  }
+
+  raf = requestAnimationFrame(animate);
+
+  // Pause when tab is hidden (optional but good)
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) cancelAnimationFrame(raf);
+    else {
+      last = performance.now();
+      raf = requestAnimationFrame(animate);
+    }
+  });
+}
+
+// Call this along with your other init code
+document.addEventListener("DOMContentLoaded", () => {
+  initHeroWebGL().catch((e) => console.error("Hero WebGL error:", e));
+});
+
+/* ------------------------- */
+
+/* Canvas backup */
+
+/* (function heroCanvasInit() {
   const heroCanvas = document.getElementById("hero3d");
   if (!heroCanvas) return;
 
@@ -475,4 +770,4 @@ const reduceMotion =
   }
 
   requestAnimationFrame(draw);
-})();
+})(); */
