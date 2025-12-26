@@ -36,12 +36,19 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher (main.js sets hrefs) -->
-                <div class="langSwitch" data-lang-switch>
-                    <a href="#" data-lang="en" aria-current="true">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id">ID</a>
-                    <a href="#" data-lang="es">ES</a>
+                <!-- ✅ Language dropdown (main.js sets hrefs automatically) -->
+                <div class="langDropdown" data-lang-switch>
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>EN</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                    </div>
                 </div>
 
                 <a class="btn" href="about.html">About <span aria-hidden="true">→</span></a>
@@ -61,6 +68,7 @@
         </div>
     </header>
 
+    <!-- ✅ Mobile drawer -->
     <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
         <div class="backdrop" id="backdrop"></div>
         <div class="panel">
@@ -75,13 +83,20 @@
                 <button class="btn" id="closeBtn" aria-label="Close menu">Close</button>
             </div>
 
-            <!-- Mobile language switcher -->
+            <!-- ✅ Mobile language dropdown -->
             <div style="padding: 8px">
-                <div class="langSwitch" aria-label="Language switcher (mobile)">
-                    <a href="../en/services.html" aria-current="true">EN</a>
-                    <a href="../fr/services.html">FR</a>
-                    <a href="../id/services.html">ID</a>
-                    <a href="../es/services.html">ES</a>
+                <div class="langDropdown" data-lang-switch aria-label="Language dropdown (mobile)">
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>EN</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                    </div>
                 </div>
             </div>
 

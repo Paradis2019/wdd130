@@ -452,14 +452,81 @@ footer{ padding: 34px 0 52px; color: rgba(255,255,255,.55); border-top: 1px soli
 .modalHead{ display:flex; justify-content:space-between; gap:14px; align-items:flex-start; padding: 18px; border-bottom: 1px solid rgba(255,255,255,.10); }
 .modalBody{ padding: 18px; }
 
-/* Language */
-.langSwitch{
+/* ======== Language dropdown ========*/
+
+.langDropdown{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+}
+
+.langBtn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.86);
+  cursor:pointer;
+  font: inherit;
+}
+
+.langBtn:hover{
+  background: rgba(255,255,255,.085);
+  border-color: rgba(255,255,255,.18);
+}
+
+.langCaret{
+  opacity:.75;
+  font-size:12px;
+  transform: translateY(-1px);
+}
+
+.langMenu{
+  position:absolute;
+  top: calc(100% + 10px);
+  right:0;
+  width: 200px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(12,13,18,.88);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 22px 70px rgba(0,0,0,.35);
+  padding: 8px;
+  display:none;
+  z-index: 999;
+}
+
+.langDropdown.open .langMenu{ display:block; }
+
+.langMenu a{
+  display:flex;
+  padding:10px 12px;
+  border-radius: 14px;
+  color: rgba(255,255,255,.82);
+  font-size: 13px;
+}
+
+.langMenu a:hover{
+  background: rgba(255,255,255,.06);
+}
+
+.langMenu a[aria-current="true"]{
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+/* Language Backup */
+
+/*.langSwitch{
   display:flex;
   gap:10px;
   font-size:12px;
 }
 .langSwitch a{ color: rgba(255,255,255,.6); }
-.langSwitch a:hover{ color: rgba(255,255,255,.95); }
+.langSwitch a:hover{ color: rgba(255,255,255,.95); } */
 
 /* ==== Vision bigNum === */
 

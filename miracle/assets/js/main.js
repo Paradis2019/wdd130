@@ -1,13 +1,47 @@
 /* ===============================
-   main.js (SAFE FIXED VERSION)
-   - Fixes blank pages caused by .reveal opacity:0
-   - Adds reduceMotion definition
-   - Robust reveal + portfolio + lang switch + hero canvas
+   main.js (SAFE FIXED VERSION v2)
+   - Prevents blank pages (reveal failsafe)
+   - One language system (dropdown + normal links)
+   - Correct GitHub Pages base path (/miracle/)
+   - Robust drawer / portfolio / hero webgl
 ================================ */
 
 const reduceMotion =
   window.matchMedia &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ===============================
+   Helpers
+================================ */
+const SUPPORTED_LANGS = ["en", "fr", "id", "es"];
+
+function getPathParts() {
+  return window.location.pathname.split("/").filter(Boolean);
+}
+
+// Base path before language folder.
+// Example GH Pages: /miracle/en/index.html
+// -> base = "/miracle"
+function getBasePath() {
+  const parts = getPathParts();
+  const langIndex = parts.findIndex((p) => SUPPORTED_LANGS.includes(p));
+  if (langIndex === -1) {
+    // Not inside /en|fr|id|es, assume first segment is repo base if exists
+    return parts.length ? `/${parts[0]}` : "";
+  }
+  const baseParts = parts.slice(0, langIndex);
+  return baseParts.length ? `/${baseParts.join("/")}` : "";
+}
+
+function getCurrentLangAndPage() {
+  const parts = getPathParts();
+  const langIndex = parts.findIndex((p) => SUPPORTED_LANGS.includes(p));
+  if (langIndex === -1) return { lang: "en", page: "index.html" };
+
+  const lang = parts[langIndex];
+  const page = parts[langIndex + 1] || "index.html";
+  return { lang, page };
+}
 
 /* ===============================
    Reveal animations (IMPORTANT)
@@ -16,13 +50,18 @@ const reduceMotion =
   const items = Array.from(document.querySelectorAll(".reveal"));
   if (!items.length) return;
 
-  // If user prefers reduced motion, show everything immediately
+  // failsafe: if anything crashes, never keep content hidden
+  const FAILSAFE_MS = 1200;
+  const failsafe = setTimeout(() => {
+    items.forEach((el) => el.classList.add("in"));
+  }, FAILSAFE_MS);
+
   if (reduceMotion) {
     items.forEach((el) => el.classList.add("in"));
+    clearTimeout(failsafe);
     return;
   }
 
-  // IntersectionObserver supported
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(
       (entries) => {
@@ -37,11 +76,12 @@ const reduceMotion =
     );
 
     items.forEach((el) => io.observe(el));
+    clearTimeout(failsafe);
     return;
   }
 
-  // Fallback: show everything
   items.forEach((el) => el.classList.add("in"));
+  clearTimeout(failsafe);
 })();
 
 /* ===============================
@@ -121,14 +161,12 @@ const reduceMotion =
           <h3>Portfolio data not loading</h3>
           <p class="fineprint" style="margin-top:6px">
             Could not load <b>${dataUrl}</b>.<br/>
-            If you opened this via <b>file://</b>, fetch may be blocked.
+            If you opened this with <b>file://</b>, fetch is blocked.
             Use a local server (VS Code Live Server / python -m http.server).
           </p>
         </div>
       </article>
     `;
-    // make sure reveal doesn't keep this hidden
-    grid.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
     return;
   }
 
@@ -140,7 +178,7 @@ const reduceMotion =
     const t = normalize(tag);
     if (!t) return false;
     if (projectTags(p).includes(t)) return true;
-    return normalize(p.type) === t; // optional future support
+    return normalize(p.type) === t;
   };
 
   function matches(p) {
@@ -184,9 +222,7 @@ const reduceMotion =
           </div>
 
           <div style="height:12px"></div>
-          <button class="btn btnPrimary" type="button" data-open="${
-            p.id
-          }">View details ↗</button>
+          <button class="btn btnPrimary" type="button" data-open="${p.id}">View details ↗</button>
         </div>
       </article>
     `
@@ -201,23 +237,13 @@ const reduceMotion =
       </article>
     `;
 
-    // Ensure new reveals become visible (observer might not catch injected nodes quickly)
+    // injected reveals -> show immediately
     grid.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
   }
 
   function openModal(p) {
     if (!modal) return;
-
-    // guard if modal markup missing
-    if (
-      !modalTitle ||
-      !modalSummary ||
-      !modalTags ||
-      !modalHighlights ||
-      !modalMetaLeft ||
-      !modalMetaRight ||
-      !modalLink
-    )
+    if (!modalTitle || !modalSummary || !modalTags || !modalHighlights || !modalMetaLeft || !modalMetaRight || !modalLink)
       return;
 
     modalTitle.textContent = p.title || "Project";
@@ -226,13 +252,8 @@ const reduceMotion =
     modalMetaLeft.textContent = p.country ? `Location: ${p.country}` : "";
     modalMetaRight.textContent = p.year ? `Year: ${p.year}` : "";
 
-    modalTags.innerHTML = (p.stack || [])
-      .map((s) => `<span class="chip">${s}</span>`)
-      .join("");
-
-    modalHighlights.innerHTML = (p.highlights || [])
-      .map((h) => `<li>${h}</li>`)
-      .join("");
+    modalTags.innerHTML = (p.stack || []).map((s) => `<span class="chip">${s}</span>`).join("");
+    modalHighlights.innerHTML = (p.highlights || []).map((h) => `<li>${h}</li>`).join("");
 
     if (p.link && String(p.link).trim()) {
       modalLink.href = p.link;
@@ -268,9 +289,7 @@ const reduceMotion =
     filterBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         activeFilter = btn.dataset.filter || "all";
-        filterBtns.forEach((b) =>
-          b.setAttribute("aria-current", String(b === btn))
-        );
+        filterBtns.forEach((b) => b.setAttribute("aria-current", String(b === btn)));
         render();
       });
     });
@@ -306,468 +325,163 @@ const reduceMotion =
 })();
 
 /* ===============================
-   Language switcher (supports /miracle/ subfolder)
+   Language dropdown (ONLY ONE SYSTEM)
+   - Updates links for current page
+   - Works in /miracle/ subfolder
 ================================ */
-(function langSwitchInit() {
+(function langDropdownInit() {
   const switchers = document.querySelectorAll("[data-lang-switch]");
   if (!switchers.length) return;
 
-  const supported = ["en", "fr", "id", "es"];
-  const parts = window.location.pathname.split("/").filter(Boolean);
+  const base = getBasePath();
+  const { lang: currentLang, page } = getCurrentLangAndPage();
 
-  // Find language folder
-  const langIndex = parts.findIndex((p) => supported.includes(p));
-  if (langIndex === -1) return;
+  switchers.forEach((wrap) => {
+    // If dropdown UI exists
+    const btn = wrap.querySelector(".langBtn");
+    const menu = wrap.querySelector(".langMenu");
+    const current = wrap.querySelector("[data-lang-current]");
 
-  const currentLang = parts[langIndex];
-  const page = parts[langIndex + 1] || "index.html";
+    if (current) current.textContent = currentLang.toUpperCase();
 
-  // Base path before language folder:
-  // /REPO/en/services.html -> baseParts=["REPO"] -> base="/REPO"
-  // /en/services.html      -> baseParts=[]      -> base=""
-  const baseParts = parts.slice(0, langIndex);
-  const base = baseParts.length ? "/" + baseParts.join("/") : "";
-
-  switchers.forEach((sw) => {
-    sw.querySelectorAll("a[data-lang]").forEach((a) => {
+    // Rewrite all language links inside this switcher
+    wrap.querySelectorAll("a[data-lang]").forEach((a) => {
       const lang = a.dataset.lang;
-      if (!supported.includes(lang)) return;
-
+      if (!SUPPORTED_LANGS.includes(lang)) return;
       a.href = `${base}/${lang}/${page}`.replace(/\/{2,}/g, "/");
-      if (lang === currentLang) a.setAttribute("aria-current", "true");
-      else a.removeAttribute("aria-current");
+      a.setAttribute("aria-current", lang === currentLang ? "true" : "false");
     });
+
+    // Dropdown open/close behavior
+    if (btn && menu) {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const isOpen = wrap.classList.toggle("open");
+        btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!wrap.contains(e.target)) {
+          wrap.classList.remove("open");
+          btn.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          wrap.classList.remove("open");
+          btn.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
   });
 })();
 
-
 /* ===============================
-   Hero "3D" Canvas (2D animated)
+   Hero WebGL (Three.js) - safe init
 ================================ */
-
-
-/* Hologram 
-
-async function initHeroHologram() {
-  const canvas = document.getElementById("hero3d");
-  if (!canvas) return;
-
-  const THREE = await import("https://unpkg.com/three@0.160.0/build/three.module.js");
-
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: true,
-    alpha: true,
-    powerPreference: "high-performance",
-  });
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
-  camera.position.set(0, 0.2, 4.2);
-
-  // Light is optional for MeshBasicMaterial, but good if you change materials later
-  const ambient = new THREE.AmbientLight(0xffffff, 1.0);
-  scene.add(ambient);
-
-  // Load image (IMPORTANT: correct relative path from /en/ -> ../assets/...)
-  const texLoader = new THREE.TextureLoader();
-  const tex = await new Promise((resolve, reject) => {
-    texLoader.load(
-      "../assets/img/hologram.png",
-      resolve,
-      undefined,
-      reject
-    );
-  });
-
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 8;
-
-  // --- Hologram shader (scanlines + flicker + soft glow feel) ---
-  const holoMat = new THREE.ShaderMaterial({
-    transparent: true,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending, // glow-like
-    uniforms: {
-      uTex: { value: tex },
-      uTime: { value: 0 },
-      uOpacity: { value: 0.75 },
-      uTint: { value: new THREE.Color("#41d9ff") }, // hologram cyan
-      uLineDensity: { value: 240.0 },
-      uFlicker: { value: 0.10 },
-    },
-    vertexShader: `
-      varying vec2 vUv;
-      varying float vWobble;
-
-      uniform float uTime;
-
-      void main(){
-        vUv = uv;
-        vec3 p = position;
-
-        // subtle 3D wobble
-        float t = uTime * 0.9;
-        p.x += sin(t + position.y * 2.0) * 0.03;
-        p.y += cos(t * 0.7 + position.x * 2.0) * 0.02;
-
-        vWobble = (sin(t + position.y * 3.0) + 1.0) * 0.5;
-
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-      }
-    `,
-    fragmentShader: `
-      varying vec2 vUv;
-      varying float vWobble;
-
-      uniform sampler2D uTex;
-      uniform float uTime;
-      uniform float uOpacity;
-      uniform vec3 uTint;
-      uniform float uLineDensity;
-      uniform float uFlicker;
-
-      float rand(vec2 co){
-        return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
-      }
-
-      void main(){
-        vec4 tex = texture2D(uTex, vUv);
-
-        // If your png has transparency, use it
-        float alpha = tex.a;
-
-        // scanlines
-        float lines = sin((vUv.y * uLineDensity) + (uTime * 12.0)) * 0.5 + 0.5;
-        float lineMask = mix(0.55, 1.0, lines);
-
-        // subtle noise shimmer
-        float n = rand(vUv + uTime) * 0.12 + 0.94;
-
-        // flicker
-        float flick = 1.0 - (rand(vec2(uTime, vUv.y)) * uFlicker);
-
-        // edge glow (fake, based on alpha)
-        float edge = smoothstep(0.05, 0.65, alpha) * 0.65 + 0.35;
-
-        vec3 color = uTint;
-        color *= lineMask * n * flick;
-        color *= edge;
-
-        float outA = alpha * uOpacity;
-
-        // Add a little brightness from the image itself
-        color += tex.rgb * 0.15;
-
-        gl_FragColor = vec4(color, outA);
-      }
-    `,
-  });
-
-  // Plane with your image ratio
-  const imgW = tex.image.width || 1024;
-  const imgH = tex.image.height || 1024;
-  const aspect = imgW / imgH;
-
-  const geo = new THREE.PlaneGeometry(2.0 * aspect, 2.0, 1, 1);
-  const holo = new THREE.Mesh(geo, holoMat);
-  holo.position.set(0, 0.05, 0);
-  scene.add(holo);
-
-  // “Ghost” back layer for extra 3D depth
-  const ghost = new THREE.Mesh(
-    geo.clone(),
-    holoMat.clone()
-  );
-  ghost.material.uniforms.uOpacity.value = 0.35;
-  ghost.scale.set(1.02, 1.02, 1.02);
-  ghost.position.set(0.05, -0.03, -0.12);
-  scene.add(ghost);
-
-  // Resize (this is critical to avoid “partial page / blank canvas” issues)
-  function resize() {
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
-    const w = canvas.clientWidth;
-    const h = canvas.clientHeight;
-
-    renderer.setPixelRatio(dpr);
-    renderer.setSize(w, h, false);
-
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-  }
-  resize();
-  window.addEventListener("resize", resize, { passive: true });
-
-  // Animate
-  let raf = 0;
-  function tick(t) {
-    const time = t * 0.001;
-
-    holoMat.uniforms.uTime.value = time;
-    ghost.material.uniforms.uTime.value = time;
-
-    // slow 3D movement
-    holo.rotation.y = Math.sin(time * 0.55) * 0.25;
-    holo.rotation.x = Math.sin(time * 0.35) * 0.10;
-
-    ghost.rotation.y = holo.rotation.y * 0.95;
-    ghost.rotation.x = holo.rotation.x * 0.95;
-
-    renderer.render(scene, camera);
-    raf = requestAnimationFrame(tick);
-  }
-  raf = requestAnimationFrame(tick);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  initHeroHologram().catch((e) => console.error("Hologram error:", e));
-}); */
-
-/* ------------------------*/
-
-/*  DOMContentLoaded  */
+let __heroWebglStarted = false;
 
 async function initHeroWebGL() {
+  if (__heroWebglStarted) return;
+  __heroWebglStarted = true;
+
   const canvas = document.getElementById("hero3d");
   if (!canvas) return;
 
-  // Load Three.js (module) from CDN
-  const THREE = await import("https://unpkg.com/three@0.160.0/build/three.module.js");
+  try {
+    const THREE = await import("https://unpkg.com/three@0.160.0/build/three.module.js");
 
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: true,
-    alpha: true,
-    powerPreference: "high-performance",
-  });
-
-  const scene = new THREE.Scene();
-
-  const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
-  camera.position.z = 5;
-
-  // Particles
-  const COUNT = 1200;
-  const positions = new Float32Array(COUNT * 3);
-  const speeds = new Float32Array(COUNT);
-
-  for (let i = 0; i < COUNT; i++) {
-    const i3 = i * 3;
-    // spread in a soft sphere-ish volume
-    positions[i3 + 0] = (Math.random() - 0.5) * 6;
-    positions[i3 + 1] = (Math.random() - 0.5) * 3.8;
-    positions[i3 + 2] = (Math.random() - 0.5) * 4;
-    speeds[i] = 0.15 + Math.random() * 0.35;
-  }
-
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-
-  const material = new THREE.PointsMaterial({
-    size: 0.018,
-    sizeAttenuation: true,
-    transparent: true,
-    opacity: 0.9,
-    depthWrite: false,
-  });
-
-  const points = new THREE.Points(geometry, material);
-  scene.add(points);
-
-  // Resize properly (IMPORTANT)
-  function resize() {
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
-    const w = canvas.clientWidth;
-    const h = canvas.clientHeight;
-
-    renderer.setPixelRatio(dpr);
-    renderer.setSize(w, h, false);
-
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-  }
-
-  resize();
-  window.addEventListener("resize", resize, { passive: true });
-
-  let raf = 0;
-  let last = performance.now();
-
-  function animate(now) {
-    const dt = Math.min(0.05, (now - last) / 1000);
-    last = now;
-
-    // gentle rotation
-    points.rotation.y += dt * 0.12;
-    points.rotation.x += dt * 0.05;
-
-    // subtle floating motion
-    const pos = geometry.attributes.position.array;
-    for (let i = 0; i < COUNT; i++) {
-      const i3 = i * 3;
-      pos[i3 + 1] += Math.sin(now * 0.001 + i) * dt * 0.02 * speeds[i];
-
-      // keep particles in bounds
-      if (pos[i3 + 1] > 2) pos[i3 + 1] = -2;
-      if (pos[i3 + 1] < -2) pos[i3 + 1] = 2;
-    }
-    geometry.attributes.position.needsUpdate = true;
-
-    renderer.render(scene, camera);
-    raf = requestAnimationFrame(animate);
-  }
-
-  raf = requestAnimationFrame(animate);
-
-  // Pause when tab is hidden (optional but good)
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) cancelAnimationFrame(raf);
-    else {
-      last = performance.now();
-      raf = requestAnimationFrame(animate);
-    }
-  });
-}
-
-// Call this along with your other init code
-document.addEventListener("DOMContentLoaded", () => {
-  initHeroWebGL().catch((e) => console.error("Hero WebGL error:", e));
-});
-
-/* ------------------------- */
-
-/* Canvas backup */
-
-/* (function heroCanvasInit() {
-  const heroCanvas = document.getElementById("hero3d");
-  if (!heroCanvas) return;
-
-  if (reduceMotion) return;
-
-  // Make sure it has size (sometimes canvas is 0px height because parent collapses)
-  // Your CSS sets heroRight min-height, so this should be OK, but we still guard.
-  const ctx = heroCanvas.getContext("2d", { alpha: true });
-  if (!ctx) return;
-
-  let w = 1,
-    h = 1,
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-  function resize() {
-    const r = heroCanvas.getBoundingClientRect();
-    w = Math.max(1, Math.floor(r.width));
-    h = Math.max(1, Math.floor(r.height));
-
-    heroCanvas.width = Math.floor(w * dpr);
-    heroCanvas.height = Math.floor(h * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  window.addEventListener("resize", resize, { passive: true });
-  resize();
-
-  let mx = 0,
-    my = 0;
-  window.addEventListener(
-    "pointermove",
-    (e) => {
-      const r = heroCanvas.getBoundingClientRect();
-      if (!r.width || !r.height) return;
-      mx = ((e.clientX - r.left) / r.width) * 2 - 1;
-      my = ((e.clientY - r.top) / r.height) * 2 - 1;
-    },
-    { passive: true }
-  );
-
-  const N = 34;
-  const pts = Array.from({ length: N }, (_, i) => ({
-    a: Math.random() * Math.PI * 2,
-    r: 0.18 + Math.random() * 0.42,
-    s: 0.15 + Math.random() * 0.55,
-    o: 0.22 + Math.random() * 0.55,
-    p: i / N,
-  }));
-
-  function bg() {
-    const gx = w * (0.5 + mx * 0.08);
-    const gy = h * (0.45 + -my * 0.08);
-
-    const g = ctx.createRadialGradient(
-      gx,
-      gy,
-      0,
-      gx,
-      gy,
-      Math.max(w, h) * 0.85
-    );
-    g.addColorStop(0, "rgba(124,58,237,0.22)");
-    g.addColorStop(0.45, "rgba(59,130,246,0.14)");
-    g.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
-
-    const g2 = ctx.createRadialGradient(
-      w * 0.85,
-      h * 0.2,
-      0,
-      w * 0.85,
-      h * 0.2,
-      Math.max(w, h) * 0.8
-    );
-    g2.addColorStop(0, "rgba(34,197,94,0.10)");
-    g2.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = g2;
-    ctx.fillRect(0, 0, w, h);
-  }
-
-  function draw(t) {
-    t *= 0.001;
-    ctx.clearRect(0, 0, w, h);
-    bg();
-
-    const cx = w * 0.54 + mx * 18;
-    const cy = h * 0.52 + -my * 16;
-    const R = Math.min(w, h) * 0.42;
-
-    const pos = pts.map((p, idx) => {
-      const a = p.a + t * p.s + idx * 0.08;
-      const rr =
-        R * p.r * (0.85 + 0.2 * Math.sin(t * 0.8 + p.p * Math.PI * 2));
-      return {
-        x: cx + Math.cos(a) * rr,
-        y: cy + Math.sin(a * 1.02) * rr * 0.92,
-        o: p.o,
-      };
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: "high-performance",
     });
 
-    ctx.lineWidth = 1;
-    for (let i = 0; i < pos.length; i++) {
-      for (let j = i + 1; j < pos.length; j++) {
-        const dx = pos[i].x - pos[j].x;
-        const dy = pos[i].y - pos[j].y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < 120) {
-          const a = (1 - d / 120) * 0.22;
-          ctx.strokeStyle = `rgba(255,255,255,${a})`;
-          ctx.beginPath();
-          ctx.moveTo(pos[i].x, pos[i].y);
-          ctx.lineTo(pos[j].x, pos[j].y);
-          ctx.stroke();
-        }
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+    camera.position.z = 5;
+
+    const COUNT = 1200;
+    const positions = new Float32Array(COUNT * 3);
+    const speeds = new Float32Array(COUNT);
+
+    for (let i = 0; i < COUNT; i++) {
+      const i3 = i * 3;
+      positions[i3 + 0] = (Math.random() - 0.5) * 6;
+      positions[i3 + 1] = (Math.random() - 0.5) * 3.8;
+      positions[i3 + 2] = (Math.random() - 0.5) * 4;
+      speeds[i] = 0.15 + Math.random() * 0.35;
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+    const material = new THREE.PointsMaterial({
+      size: 0.018,
+      sizeAttenuation: true,
+      transparent: true,
+      opacity: 0.9,
+      depthWrite: false,
+    });
+
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
+
+    function resize() {
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      const w = canvas.clientWidth || 1;
+      const h = canvas.clientHeight || 1;
+
+      renderer.setPixelRatio(dpr);
+      renderer.setSize(w, h, false);
+
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+
+    let raf = 0;
+    let last = performance.now();
+
+    function animate(now) {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+
+      points.rotation.y += dt * 0.12;
+      points.rotation.x += dt * 0.05;
+
+      const pos = geometry.attributes.position.array;
+      for (let i = 0; i < COUNT; i++) {
+        const i3 = i * 3;
+        pos[i3 + 1] += Math.sin(now * 0.001 + i) * dt * 0.02 * speeds[i];
+        if (pos[i3 + 1] > 2) pos[i3 + 1] = -2;
+        if (pos[i3 + 1] < -2) pos[i3 + 1] = 2;
       }
+      geometry.attributes.position.needsUpdate = true;
+
+      renderer.render(scene, camera);
+      raf = requestAnimationFrame(animate);
     }
 
-    for (const p of pos) {
-      const r = 2 + p.o * 2.2;
-      ctx.fillStyle = `rgba(255,255,255,${0.22 + p.o * 0.35})`;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    raf = requestAnimationFrame(animate);
 
-    requestAnimationFrame(draw);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) cancelAnimationFrame(raf);
+      else {
+        last = performance.now();
+        raf = requestAnimationFrame(animate);
+      }
+    });
+  } catch (e) {
+    console.error("Hero WebGL error:", e);
+    // if WebGL fails, do nothing (page should still be visible)
   }
+}
 
-  requestAnimationFrame(draw);
-})(); */
+document.addEventListener("DOMContentLoaded", () => {
+  initHeroWebGL();
+});

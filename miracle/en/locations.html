@@ -36,18 +36,80 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher (main.js sets hrefs) -->
-                <div class="langSwitch" data-lang-switch>
-                    <a href="#" data-lang="en" aria-current="true">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id">ID</a>
-                    <a href="#" data-lang="es">ES</a>
+                <!-- ✅ Language dropdown (main.js sets hrefs automatically) -->
+                <div class="langDropdown" data-lang-switch>
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>EN</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                    </div>
                 </div>
 
                 <a class="btn btnPrimary" href="index.html#contact">Contact us ↗</a>
+
+                <!-- (Optional) hamburger if you use drawer on this page too -->
+                <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
+                    aria-controls="drawer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
             </div>
         </div>
     </header>
+
+    <!-- ✅ Mobile drawer (recommended if you have it on all pages) -->
+    <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
+        <div class="backdrop" id="backdrop"></div>
+        <div class="panel">
+            <div class="panelTop">
+                <div class="brand" style="gap:10px">
+                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <div>
+                        <strong style="font-size:14px">Miracle Tech Inc.</strong>
+                        <span style="font-size:11px">Changing the world in one click</span>
+                    </div>
+                </div>
+                <button class="btn" id="closeBtn" aria-label="Close menu">Close</button>
+            </div>
+
+            <!-- ✅ Mobile language dropdown -->
+            <div style="padding: 8px">
+                <div class="langDropdown" data-lang-switch aria-label="Language dropdown (mobile)">
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>EN</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="panelNav" aria-label="Mobile">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="vision.html">Vision</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="locations.html">Locations</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+    </div>
 
     <main>
         <section class="pageHero">
