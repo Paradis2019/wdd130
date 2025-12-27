@@ -36,18 +36,80 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher (main.js sets correct hrefs) -->
-                <div class="langSwitch" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr" aria-current="true">FR</a>
-                    <a href="#" data-lang="id">ID</a>
-                    <a href="#" data-lang="es">ES</a>
+                <!-- ✅ Language dropdown (handled by main.js) -->
+                <div class="langDropdown" data-lang-switch>
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>FR</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox" aria-label="Sélecteur de langue">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr" aria-current="true">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                    </div>
                 </div>
 
                 <a class="btn btnPrimary" href="index.html#contact">Nous contacter ↗</a>
+
+                <!-- ✅ Mobile hamburger -->
+                <button class="hamburger" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false"
+                    aria-controls="drawer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
             </div>
         </div>
     </header>
+
+    <!-- ✅ Mobile drawer -->
+    <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Menu mobile">
+        <div class="backdrop" id="backdrop"></div>
+        <div class="panel">
+            <div class="panelTop">
+                <div class="brand" style="gap:10px">
+                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <div>
+                        <strong style="font-size:14px">Miracle Tech Inc.</strong>
+                        <span style="font-size:11px">Changer le monde en un clic</span>
+                    </div>
+                </div>
+                <button class="btn" id="closeBtn" aria-label="Fermer le menu">Fermer</button>
+            </div>
+
+            <!-- Language switcher in drawer (also handled by main.js) -->
+            <div style="padding:8px">
+                <div class="langDropdown" data-lang-switch aria-label="Sélecteur de langue (mobile)">
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>FR</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr" aria-current="true">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="panelNav" aria-label="Mobile">
+                <a href="index.html">Accueil</a>
+                <a href="about.html">À propos</a>
+                <a href="services.html">Services</a>
+                <a href="vision.html">Vision</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="locations.html">Implantations</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+    </div>
 
     <main>
         <section class="pageHero">
@@ -55,8 +117,10 @@
                 <div class="reveal">
                     <div class="kicker">Portfolio</div>
                     <h1 class="pageTitle">Projets livrés</h1>
-                    <p class="lead">Une sélection de solutions concrètes conçues pour des organisations, des régions et
-                        des secteurs variés.</p>
+                    <p class="lead">
+                        Une sélection de solutions concrètes conçues pour des organisations, des régions et des secteurs
+                        variés.
+                    </p>
                 </div>
             </div>
         </section>
@@ -71,15 +135,12 @@
                     <button class="filterBtn" data-filter="cloud">Cloud</button>
                 </div>
 
-                <!-- Search -->
                 <div class="portfolioTop reveal" style="margin-top:12px">
                     <input id="projectSearch" class="searchInput" type="search" placeholder="Rechercher des projets…" />
                 </div>
 
-                <!-- Projects grid (JS fills this) -->
                 <div id="projectsGrid" class="grid3" style="margin-top:16px"></div>
 
-                <!-- Project modal -->
                 <div id="projectModal" class="modal" aria-hidden="true">
                     <div class="modalBackdrop" data-close></div>
                     <div class="modalPanel" role="dialog" aria-modal="true" aria-label="Détails du projet">

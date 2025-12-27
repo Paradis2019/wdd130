@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
 
-    <!-- From /es/ to /assets/ is one level up -->
     <link rel="stylesheet" href="../assets/css/styles.css" />
 </head>
 
@@ -37,12 +36,19 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher (handled by main.js; no hard links needed here) -->
-                <div class="langSwitch" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id">ID</a>
-                    <a href="#" data-lang="es" aria-current="true">ES</a>
+                <!-- ✅ Language dropdown (handled by main.js) -->
+                <div class="langDropdown" data-lang-switch>
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ES</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox" aria-label="Selector de idioma">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es" aria-current="true">Español (ES)</a>
+                    </div>
                 </div>
 
                 <a class="btn" href="services.html">Explorar <span aria-hidden="true">→</span></a>
@@ -76,13 +82,20 @@
                 <button class="btn" id="closeBtn" aria-label="Cerrar menú">Cerrar</button>
             </div>
 
-            <!-- Mobile language switcher (also handled by main.js if you add data-lang-switch here) -->
-            <div style="padding: 8px">
-                <div class="langSwitch" aria-label="Selector de idioma (móvil)" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id">ID</a>
-                    <a href="#" data-lang="es" aria-current="true">ES</a>
+            <!-- ✅ Mobile language dropdown (handled by main.js) -->
+            <div style="padding:8px">
+                <div class="langDropdown" data-lang-switch aria-label="Selector de idioma (móvil)">
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ES</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es" aria-current="true">Español (ES)</a>
+                    </div>
                 </div>
             </div>
 
@@ -135,7 +148,7 @@
                         <span class="muted12">Canvas • Tiempo real</span>
                     </div>
 
-                    <canvas id="hero3d"></canvas>
+                    <canvas id="hero3d" aria-hidden="true"></canvas>
 
                     <div class="heroCard" aria-hidden="true">
                         <div class="miniCard">
@@ -176,9 +189,10 @@
                         <div class="kicker">De un vistazo</div>
                         <div class="h2">Lo que hacemos mejor</div>
                     </div>
-                    <p class="lead">Del concepto al lanzamiento y más allá, apoyamos a nuestros socios en cada etapa de
-                        su
-                        transformación digital.</p>
+                    <p class="lead">
+                        Del concepto al lanzamiento y más allá, apoyamos a nuestros socios en cada etapa de su
+                        transformación digital.
+                    </p>
                 </div>
 
                 <div class="grid3">
@@ -212,8 +226,9 @@
                         <div class="kicker">Contacto</div>
                         <div class="h2">¿Tienes un proyecto en mente?</div>
                     </div>
-                    <p class="lead">Cuéntanos qué estás construyendo. Responderemos con preguntas útiles y un siguiente
-                        paso claro.</p>
+                    <p class="lead">
+                        Cuéntanos qué estás construyendo. Responderemos con preguntas útiles y un siguiente paso claro.
+                    </p>
                 </div>
 
                 <div class="contactWrap reveal">
@@ -237,8 +252,10 @@
                             </div>
 
                             <div style="height:12px"></div>
-                            <div class="fineprint">Mirando al futuro: no solo construimos software — construimos
-                                soluciones que cambian vidas.</div>
+                            <div class="fineprint">
+                                Mirando al futuro: no solo construimos software — construimos soluciones que cambian
+                                vidas.
+                            </div>
                         </div>
 
                         <form id="contactForm" class="card" style="background: rgba(0,0,0,.12)" autocomplete="on">
@@ -309,10 +326,9 @@
         </div>
     </footer>
 
-    <!-- Keep ONLY this script on language pages -->
     <script type="module" src="../assets/js/main.js"></script>
 
-    <!--Start of Tawk.to Script-->
+    <!-- Tawk.to Script -->
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
         (function () {
@@ -324,7 +340,6 @@
             s0.parentNode.insertBefore(s1, s0);
         })();
     </script>
-    <!--End of Tawk.to Script-->
 </body>
 
 </html>

@@ -36,12 +36,19 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher (main.js sets hrefs) -->
-                <div class="langSwitch" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id" aria-current="true">ID</a>
-                    <a href="#" data-lang="es">ES</a>
+                <!-- ✅ Language dropdown (handled by main.js) -->
+                <div class="langDropdown" data-lang-switch>
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ID</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox" aria-label="Select language">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id" aria-current="true">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                    </div>
                 </div>
 
                 <a class="btn" href="about.html">About <span aria-hidden="true">→</span></a>
@@ -75,13 +82,20 @@
                 <button class="btn" id="closeBtn" aria-label="Close menu">Close</button>
             </div>
 
-            <!-- Mobile language switcher (JS-friendly) -->
+            <!-- ✅ Mobile language dropdown (handled by main.js) -->
             <div style="padding: 8px">
-                <div class="langSwitch" aria-label="Language switcher (mobile)" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id" aria-current="true">ID</a>
-                    <a href="#" data-lang="es">ES</a>
+                <div class="langDropdown" data-lang-switch aria-label="Language switcher (mobile)">
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ID</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id" aria-current="true">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                    </div>
                 </div>
             </div>
 
@@ -169,9 +183,12 @@
                     <article class="card reveal" style="grid-column:1/-1">
                         <div class="cardInner">
                             <h3>Consulting & Collaboration</h3>
-                            <p>We analyze challenges, propose smart solutions, and co-create innovative digital products
+                            <p>
+                                We analyze challenges, propose smart solutions, and co-create innovative digital
+                                products
                                 with your
-                                team.</p>
+                                team.
+                            </p>
                         </div>
                     </article>
                 </div>
@@ -185,8 +202,6 @@
                         </div>
                         <p class="lead">Tell us what you need — we’ll suggest the fastest, safest path to launch.</p>
                     </div>
-
-                    <!-- FIXED (your version was cut off) -->
                     <a class="btn btnPrimary" href="index.html#contact">
                         Start a project <span aria-hidden="true">↗</span>
                     </a>

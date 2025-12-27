@@ -36,12 +36,19 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher (handled by main.js) -->
-                <div class="langSwitch" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id">ID</a>
-                    <a href="#" data-lang="es" aria-current="true">ES</a>
+                <!-- ✅ Language dropdown (handled by main.js) -->
+                <div class="langDropdown" data-lang-switch>
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ES</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox" aria-label="Selector de idioma">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es" aria-current="true">Español (ES)</a>
+                    </div>
                 </div>
 
                 <a class="btn btnPrimary" href="index.html#contact">Contáctanos ↗</a>
@@ -55,8 +62,10 @@
                 <div class="reveal">
                     <div class="kicker">Portafolio</div>
                     <h1 class="pageTitle">Proyectos entregados</h1>
-                    <p class="lead">Una selección de soluciones reales creadas para organizaciones en distintas regiones
-                        e industrias.</p>
+                    <p class="lead">
+                        Una selección de soluciones reales creadas para organizaciones en distintas regiones e
+                        industrias.
+                    </p>
                 </div>
             </div>
         </section>
@@ -71,15 +80,12 @@
                     <button class="filterBtn" data-filter="cloud">Nube</button>
                 </div>
 
-                <!-- Search -->
                 <div class="portfolioTop reveal" style="margin-top:12px">
                     <input id="projectSearch" class="searchInput" type="search" placeholder="Buscar proyectos…" />
                 </div>
 
-                <!-- Projects grid (JS will fill this) -->
                 <div id="projectsGrid" class="grid3" style="margin-top:16px"></div>
 
-                <!-- Project modal -->
                 <div id="projectModal" class="modal" aria-hidden="true">
                     <div class="modalBackdrop" data-close></div>
                     <div class="modalPanel" role="dialog" aria-modal="true" aria-label="Detalles del proyecto">

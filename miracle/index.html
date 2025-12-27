@@ -9,21 +9,30 @@
     <script>
         (function () {
             const supported = ["en", "fr", "id", "es"];
-            const SITE_DIR = "miracle"; // <-- IMPORTANT
+            const SITE_DIR = "miracle"; // your repo name
+
+            // If testing via file://, skip redirect (file paths break base detection)
+            if (location.protocol === "file:") return;
 
             const parts = location.pathname.split("/").filter(Boolean);
 
             // If already inside a language folder, stop
-            if (parts.includes("en") || parts.includes("fr") || parts.includes("id") || parts.includes("es")) {
-                return;
-            }
+            if (parts.some(p => supported.includes(p))) return;
+
+            // If URL contains /miracle, keep it. Otherwise assume root deployment.
+            const base = parts.includes(SITE_DIR) ? `/${SITE_DIR}` : "";
 
             const lang = (navigator.language || "en").slice(0, 2).toLowerCase();
             const chosen = supported.includes(lang) ? lang : "en";
 
-            location.replace(`/${SITE_DIR}/${chosen}/index.html`);
+            location.replace(`${base}/${chosen}/index.html`);
         })();
     </script>
+
+    <!-- Optional fallback if JS is disabled -->
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=./en/index.html">
+    </noscript>
 </head>
 
 <body></body>

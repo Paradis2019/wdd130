@@ -36,12 +36,19 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher (main.js sets correct hrefs) -->
-                <div class="langSwitch" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id">ID</a>
-                    <a href="#" data-lang="es" aria-current="true">ES</a>
+                <!-- ✅ Language dropdown (handled by main.js) -->
+                <div class="langDropdown" data-lang-switch>
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ES</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox" aria-label="Selector de idioma">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es" aria-current="true">Español (ES)</a>
+                    </div>
                 </div>
 
                 <a class="btn" href="services.html">Servicios <span aria-hidden="true">→</span></a>

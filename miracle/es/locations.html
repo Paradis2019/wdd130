@@ -36,18 +36,71 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher (handled by main.js) -->
-                <div class="langSwitch" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id">ID</a>
-                    <a href="#" data-lang="es" aria-current="true">ES</a>
+                <!-- ✅ Language dropdown (handled by main.js) -->
+                <div class="langDropdown" data-lang-switch>
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ES</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox" aria-label="Selector de idioma">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es" aria-current="true">Español (ES)</a>
+                    </div>
                 </div>
 
                 <a class="btn btnPrimary" href="index.html#contact">Contáctanos ↗</a>
+
+                <!-- Optional: if you want the hamburger on this page too, add the button + drawer markup.
+             If you already have it in other ES pages, keep it consistent. -->
             </div>
         </div>
     </header>
+
+    <!-- ✅ OPTIONAL Mobile drawer (only keep if you already use drawer on other pages) -->
+    <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Menú móvil">
+        <div class="backdrop" id="backdrop"></div>
+        <div class="panel">
+            <div class="panelTop">
+                <div class="brand" style="gap:10px">
+                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <div>
+                        <strong style="font-size:14px">Miracle Tech Inc.</strong>
+                        <span style="font-size:11px">Cambiando el mundo con un solo clic</span>
+                    </div>
+                </div>
+                <button class="btn" id="closeBtn" aria-label="Cerrar menú">Cerrar</button>
+            </div>
+
+            <div style="padding:8px">
+                <div class="langDropdown" data-lang-switch aria-label="Selector de idioma (móvil)">
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ES</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es" aria-current="true">Español (ES)</a>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="panelNav" aria-label="Móvil">
+                <a href="index.html">Inicio</a>
+                <a href="about.html">Sobre nosotros</a>
+                <a href="services.html">Servicios</a>
+                <a href="vision.html">Visión</a>
+                <a href="portfolio.html">Portafolio</a>
+                <a href="locations.html">Ubicaciones</a>
+                <a href="index.html#contact">Contacto</a>
+            </nav>
+        </div>
+    </div>
 
     <main>
         <section class="pageHero">
@@ -66,7 +119,6 @@
         <section>
             <div class="container">
                 <div class="grid3">
-                    <!-- USA -->
                     <article class="card reveal">
                         <div class="cardInner">
                             <h3>Estados Unidos — Oficina principal</h3>
@@ -84,7 +136,6 @@
                         </div>
                     </article>
 
-                    <!-- Indonesia -->
                     <article class="card reveal">
                         <div class="cardInner">
                             <h3>Indonesia — Oficina de Yakarta</h3>
@@ -104,7 +155,6 @@
                         </div>
                     </article>
 
-                    <!-- DR Congo -->
                     <article class="card reveal">
                         <div class="cardInner">
                             <h3>República Democrática del Congo</h3>
@@ -133,8 +183,7 @@
                             Aunque nuestras oficinas están distribuidas por regiones, nuestros equipos colaboran sin
                             fricción entre
                             zonas horarias. Apoyamos a socios de todo el mundo con colaboración remota y presencia local
-                            cuando más
-                            importa.
+                            cuando más importa.
                         </p>
                     </div>
                 </div>

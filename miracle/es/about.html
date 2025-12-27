@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
 
-    <!-- Language folders use ../ to reach shared assets -->
     <link rel="stylesheet" href="../assets/css/styles.css" />
 </head>
 
@@ -37,12 +36,19 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher handled by main.js -->
-                <div class="langSwitch" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id">ID</a>
-                    <a href="#" data-lang="es" aria-current="true">ES</a>
+                <!-- ✅ Language dropdown (handled by main.js) -->
+                <div class="langDropdown" data-lang-switch>
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ES</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox" aria-label="Selector de idioma">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es" aria-current="true">Español (ES)</a>
+                    </div>
                 </div>
 
                 <a class="btn" href="services.html">Explorar <span aria-hidden="true">→</span></a>
@@ -76,13 +82,20 @@
                 <button class="btn" id="closeBtn" aria-label="Cerrar menú">Cerrar</button>
             </div>
 
-            <!-- Mobile language switcher -->
+            <!-- ✅ Mobile language dropdown (handled by main.js) -->
             <div style="padding:8px">
-                <div class="langSwitch" data-lang-switch aria-label="Selector de idioma">
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id">ID</a>
-                    <a href="#" data-lang="es" aria-current="true">ES</a>
+                <div class="langDropdown" data-lang-switch aria-label="Selector de idioma (móvil)">
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ES</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es" aria-current="true">Español (ES)</a>
+                    </div>
                 </div>
             </div>
 
@@ -106,8 +119,7 @@
                     <h1 class="pageTitle">Quiénes somos</h1>
                     <p class="lead">
                         Miracle Tech Inc. es una empresa de desarrollo de software e innovación digital enfocada en
-                        crear soluciones
-                        tecnológicas potentes, útiles y accesibles.
+                        crear soluciones tecnológicas potentes, útiles y accesibles.
                     </p>
                 </div>
             </div>
@@ -195,7 +207,6 @@
         </div>
     </footer>
 
-    <!-- Only this script in language pages -->
     <script type="module" src="../assets/js/main.js"></script>
 
     <!-- Tawk.to -->

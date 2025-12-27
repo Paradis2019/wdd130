@@ -36,17 +36,24 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher (main.js sets hrefs) -->
-                <div class="langSwitch" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id" aria-current="true">ID</a>
-                    <a href="#" data-lang="es">ES</a>
+                <!-- ✅ Language dropdown (handled by main.js) -->
+                <div class="langDropdown" data-lang-switch>
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ID</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox" aria-label="Select language">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id" aria-current="true">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                    </div>
                 </div>
 
                 <a class="btn btnPrimary" href="index.html#contact">Contact us <span aria-hidden="true">↗</span></a>
 
-                <!-- Add hamburger so drawer works like other pages -->
+                <!-- Hamburger -->
                 <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
                     aria-controls="drawer">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +67,7 @@
         </div>
     </header>
 
-    <!-- Mobile drawer (consistent with other pages) -->
+    <!-- Mobile drawer -->
     <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
         <div class="backdrop" id="backdrop"></div>
         <div class="panel">
@@ -75,13 +82,20 @@
                 <button class="btn" id="closeBtn" aria-label="Close menu">Close</button>
             </div>
 
-            <!-- Mobile language switcher -->
+            <!-- ✅ Mobile language dropdown (handled by main.js) -->
             <div style="padding: 8px">
-                <div class="langSwitch" aria-label="Language switcher (mobile)" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr">FR</a>
-                    <a href="#" data-lang="id" aria-current="true">ID</a>
-                    <a href="#" data-lang="es">ES</a>
+                <div class="langDropdown" data-lang-switch aria-label="Language switcher (mobile)">
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>ID</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id" aria-current="true">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                    </div>
                 </div>
             </div>
 

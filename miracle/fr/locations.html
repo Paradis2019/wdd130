@@ -36,12 +36,19 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language switcher (main.js sets correct hrefs) -->
-                <div class="langSwitch" data-lang-switch>
-                    <a href="#" data-lang="en">EN</a>
-                    <a href="#" data-lang="fr" aria-current="true">FR</a>
-                    <a href="#" data-lang="id">ID</a>
-                    <a href="#" data-lang="es">ES</a>
+                <!-- ✅ Language dropdown (handled by main.js) -->
+                <div class="langDropdown" data-lang-switch>
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>FR</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+
+                    <div class="langMenu" role="listbox" aria-label="Sélecteur de langue">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr" aria-current="true">Français (FR)</a>
+                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
+                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                    </div>
                 </div>
 
                 <a class="btn btnPrimary" href="index.html#contact">Nous contacter ↗</a>
@@ -133,10 +140,9 @@
                         <p class="lead">
                             Même si nos bureaux sont répartis par région, nos équipes collaborent de manière fluide à
                             travers les
-                            fuseaux horaires.
-                            Nous accompagnons des partenaires partout dans le monde grâce à une collaboration
-                            “remote-first” et une
-                            présence locale lorsque c’est important.
+                            fuseaux horaires. Nous accompagnons des partenaires partout dans le monde grâce à une
+                            collaboration
+                            “remote-first” et une présence locale lorsque c’est important.
                         </p>
                     </div>
                 </div>
@@ -173,7 +179,6 @@
             s0.parentNode.insertBefore(s1, s0);
         })();
     </script>
-    <!--End of Tawk.to Script-->
 </body>
 
 </html>
