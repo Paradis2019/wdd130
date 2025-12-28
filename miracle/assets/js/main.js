@@ -1,9 +1,12 @@
+document.documentElement.classList.add("js");
+
 /* ===============================
-   main.js (SAFE FIXED VERSION v2)
-   - Prevents blank pages (reveal failsafe)
-   - One language system (dropdown + normal links)
-   - Correct GitHub Pages base path (/miracle/)
-   - Robust drawer / portfolio / hero webgl
+   main.js (READY REPLACE v3)
+   FIXES:
+   - Reveal: prevents partial/blank pages (failsafe is reliable)
+   - Language switch: works on home when URL is /en/ (no index.html)
+   - Robust base path (/miracle on GitHub Pages)
+   - Drawer / portfolio / hero webgl kept safe
 ================================ */
 
 const reduceMotion =
@@ -20,68 +23,93 @@ function getPathParts() {
 }
 
 // Base path before language folder.
-// Example GH Pages: /miracle/en/index.html
-// -> base = "/miracle"
+// Example GH Pages: /miracle/en/index.html -> base="/miracle"
 function getBasePath() {
   const parts = getPathParts();
   const langIndex = parts.findIndex((p) => SUPPORTED_LANGS.includes(p));
+
   if (langIndex === -1) {
-    // Not inside /en|fr|id|es, assume first segment is repo base if exists
+    // Not in a lang folder; if deployed under a repo folder, assume first segment
     return parts.length ? `/${parts[0]}` : "";
   }
+
   const baseParts = parts.slice(0, langIndex);
   return baseParts.length ? `/${baseParts.join("/")}` : "";
 }
 
+// IMPORTANT: correctly detect page name even when URL ends with /en/ or /en
 function getCurrentLangAndPage() {
   const parts = getPathParts();
   const langIndex = parts.findIndex((p) => SUPPORTED_LANGS.includes(p));
   if (langIndex === -1) return { lang: "en", page: "index.html" };
 
   const lang = parts[langIndex];
-  const page = parts[langIndex + 1] || "index.html";
+
+  // What comes after lang?
+  const after = parts[langIndex + 1] || "";
+
+  // If it's empty or doesn't look like a file, treat as index.html
+  // (supports /en/, /en, /en/home, etc.)
+  const page = after && after.includes(".") ? after : "index.html";
+
   return { lang, page };
 }
 
 /* ===============================
-   Reveal animations (IMPORTANT)
+   Reveal animations (FIXED)
+   - Never leaves content hidden.
+   - Does not clear failsafe too early.
 ================================ */
 (function revealInit() {
   const items = Array.from(document.querySelectorAll(".reveal"));
   if (!items.length) return;
 
-  // failsafe: if anything crashes, never keep content hidden
-  const FAILSAFE_MS = 1200;
-  const failsafe = setTimeout(() => {
-    items.forEach((el) => el.classList.add("in"));
-  }, FAILSAFE_MS);
+  // Hard failsafe: always show everything after this delay
+  const FAILSAFE_MS = 900;
 
-  if (reduceMotion) {
+  let revealedCount = 0;
+  const total = items.length;
+
+  const forceShowAll = () => {
     items.forEach((el) => el.classList.add("in"));
-    clearTimeout(failsafe);
+  };
+
+  const failsafeTimer = setTimeout(forceShowAll, FAILSAFE_MS);
+
+  // Reduced motion: show immediately
+  if (reduceMotion) {
+    forceShowAll();
+    clearTimeout(failsafeTimer);
     return;
   }
 
+  // IntersectionObserver path
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            io.unobserve(entry.target);
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+          revealedCount++;
+
+          // If enough elements are revealed, we can cancel the failsafe.
+          // (This prevents the "partial page" bug where failsafe gets cleared too early.)
+          if (revealedCount >= Math.min(total, 6)) {
+            clearTimeout(failsafeTimer);
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.12, rootMargin: "80px 0px" }
     );
 
     items.forEach((el) => io.observe(el));
-    clearTimeout(failsafe);
     return;
   }
 
-  items.forEach((el) => el.classList.add("in"));
-  clearTimeout(failsafe);
+  // No observer support: show immediately
+  forceShowAll();
+  clearTimeout(failsafeTimer);
 })();
 
 /* ===============================
@@ -243,7 +271,15 @@ function getCurrentLangAndPage() {
 
   function openModal(p) {
     if (!modal) return;
-    if (!modalTitle || !modalSummary || !modalTags || !modalHighlights || !modalMetaLeft || !modalMetaRight || !modalLink)
+    if (
+      !modalTitle ||
+      !modalSummary ||
+      !modalTags ||
+      !modalHighlights ||
+      !modalMetaLeft ||
+      !modalMetaRight ||
+      !modalLink
+    )
       return;
 
     modalTitle.textContent = p.title || "Project";
@@ -252,8 +288,12 @@ function getCurrentLangAndPage() {
     modalMetaLeft.textContent = p.country ? `Location: ${p.country}` : "";
     modalMetaRight.textContent = p.year ? `Year: ${p.year}` : "";
 
-    modalTags.innerHTML = (p.stack || []).map((s) => `<span class="chip">${s}</span>`).join("");
-    modalHighlights.innerHTML = (p.highlights || []).map((h) => `<li>${h}</li>`).join("");
+    modalTags.innerHTML = (p.stack || [])
+      .map((s) => `<span class="chip">${s}</span>`)
+      .join("");
+    modalHighlights.innerHTML = (p.highlights || [])
+      .map((h) => `<li>${h}</li>`)
+      .join("");
 
     if (p.link && String(p.link).trim()) {
       modalLink.href = p.link;
@@ -289,7 +329,9 @@ function getCurrentLangAndPage() {
     filterBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         activeFilter = btn.dataset.filter || "all";
-        filterBtns.forEach((b) => b.setAttribute("aria-current", String(b === btn)));
+        filterBtns.forEach((b) =>
+          b.setAttribute("aria-current", String(b === btn))
+        );
         render();
       });
     });
@@ -312,7 +354,10 @@ function getCurrentLangAndPage() {
 
   // Close modal
   modal?.addEventListener("click", (e) => {
-    if (e.target.closest("[data-close]") || e.target.classList.contains("modalBackdrop")) {
+    if (
+      e.target.closest("[data-close]") ||
+      e.target.classList.contains("modalBackdrop")
+    ) {
       closeModal();
     }
   });
@@ -325,11 +370,12 @@ function getCurrentLangAndPage() {
 })();
 
 /* ===============================
-   Language dropdown (ONLY ONE SYSTEM)
+   Language switcher (FIXED)
    - Updates links for current page
+   - Works when home URL is /en/ (no filename)
    - Works in /miracle/ subfolder
 ================================ */
-(function langDropdownInit() {
+(function langSwitchInit() {
   const switchers = document.querySelectorAll("[data-lang-switch]");
   if (!switchers.length) return;
 
@@ -337,7 +383,6 @@ function getCurrentLangAndPage() {
   const { lang: currentLang, page } = getCurrentLangAndPage();
 
   switchers.forEach((wrap) => {
-    // If dropdown UI exists
     const btn = wrap.querySelector(".langBtn");
     const menu = wrap.querySelector(".langMenu");
     const current = wrap.querySelector("[data-lang-current]");
@@ -346,13 +391,16 @@ function getCurrentLangAndPage() {
 
     // Rewrite all language links inside this switcher
     wrap.querySelectorAll("a[data-lang]").forEach((a) => {
-      const lang = a.dataset.lang;
-      if (!SUPPORTED_LANGS.includes(lang)) return;
-      a.href = `${base}/${lang}/${page}`.replace(/\/{2,}/g, "/");
-      a.setAttribute("aria-current", lang === currentLang ? "true" : "false");
+      const targetLang = a.dataset.lang;
+      if (!SUPPORTED_LANGS.includes(targetLang)) return;
+
+      a.href = `${base}/${targetLang}/${page}`.replace(/\/{2,}/g, "/");
+
+      if (targetLang === currentLang) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
     });
 
-    // Dropdown open/close behavior
+    // Dropdown open/close behavior (optional UI)
     if (btn && menu) {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -390,7 +438,9 @@ async function initHeroWebGL() {
   if (!canvas) return;
 
   try {
-    const THREE = await import("https://unpkg.com/three@0.160.0/build/three.module.js");
+    const THREE = await import(
+      "https://unpkg.com/three@0.160.0/build/three.module.js"
+    );
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -478,7 +528,6 @@ async function initHeroWebGL() {
     });
   } catch (e) {
     console.error("Hero WebGL error:", e);
-    // if WebGL fails, do nothing (page should still be visible)
   }
 }
 

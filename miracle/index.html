@@ -1,10 +1,44 @@
+<!--  <!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Miracle Tech LLC.</title>
+
+    <script>
+        (function () {
+            const supported = ["en", "fr", "id", "es"];
+            const parts = location.pathname.split("/").filter(Boolean);
+
+            // If already inside a language folder, stop
+            if (parts.some(p => supported.includes(p))) return;
+
+            // Detect base folder (works whether deployed at /miracle/ or at /)
+            // Example: /miracle/ -> base="/miracle"
+            const base = parts.length ? "/" + parts.join("/") : "";
+
+            const lang = (navigator.language || "en").slice(0, 2).toLowerCase();
+            const chosen = supported.includes(lang) ? lang : "en";
+
+            location.replace(`${base}/${chosen}/index.html`);
+        })();
+    </script>
+</head>
+
+<body></body>
+
+</html> -->
+
+
+
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Miracle Tech Inc.</title>
+    <title>Miracle Tech LLC.</title>
 
     <script>
         (function () {

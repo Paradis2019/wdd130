@@ -347,7 +347,32 @@ footer{ padding: 34px 0 52px; color: rgba(255,255,255,.55); border-top: 1px soli
 .footLinks a{ color: rgba(255,255,255,.62); font-size: 12px; padding: 6px 8px; border-radius: 12px; }
 .footLinks a:hover{ background: rgba(255,255,255,.05); }
 
-/* Reveal */
+/* Reveal (SAFE fallback)
+   - Default: content is visible
+   - Only hide animations when JS adds html.js
+*/
+.reveal{
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* JS-enabled: animate in */
+html.js .reveal{
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+}
+
+html.js .reveal.in{
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition: opacity .8s var(--ease), transform .8s var(--ease), filter .8s var(--ease);
+}
+
+
+/* Reveal 
 .reveal{
   opacity:0;
   transform: translateY(14px);
@@ -358,7 +383,7 @@ footer{ padding: 34px 0 52px; color: rgba(255,255,255,.55); border-top: 1px soli
   transform: translateY(0);
   filter: blur(0);
   transition: opacity .8s var(--ease), transform .8s var(--ease), filter .8s var(--ease);
-}
+} */
 
 /* Optional alternative reveal (faster, no blur)
 .reveal{
@@ -527,6 +552,22 @@ footer{ padding: 34px 0 52px; color: rgba(255,255,255,.55); border-top: 1px soli
 }
 .langSwitch a{ color: rgba(255,255,255,.6); }
 .langSwitch a:hover{ color: rgba(255,255,255,.95); } */
+
+
+.langSwitch{
+  display:flex;
+  gap:10px;
+  font-size:12px;
+  align-items:center;
+}
+.langSwitch a{ color: rgba(255,255,255,.6); padding:6px 8px; border-radius:12px; }
+.langSwitch a:hover{ color: rgba(255,255,255,.95); background: rgba(255,255,255,.05); }
+.langSwitch a[aria-current="true"]{
+  color: rgba(255,255,255,.92);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.10);
+}
+
 
 /* ==== Vision bigNum === */
 
