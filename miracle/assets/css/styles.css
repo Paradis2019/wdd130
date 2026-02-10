@@ -19,6 +19,23 @@
   --gradC: linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.28), rgba(255,255,255,.0));
 }
 
+ /* =========================
+    Accessibility helper
+    (ensures sr-only headings are actually hidden)
+   ========================= */
+.sr-only{
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Preserve old rule order / reset */
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 body{
@@ -442,7 +459,11 @@ section{ padding: 70px 0; position:relative; }
   background: rgba(255,255,255,.055);
 }
 .cardInner{ position:relative; padding: 18px 18px 16px; }
+
+/* Ensure switching h3 -> h2 keeps same visual style */
 .card h3{ margin:0 0 6px; font-size: 16px; letter-spacing: -.02em; }
+.card h2{ margin:0 0 6px; font-size: 16px; letter-spacing: -.02em; } /* added */
+
 .card p{ margin:0; color: var(--muted); line-height: 1.65; font-size: 14px; }
 
 .list{ margin: 12px 0 0; padding: 0; list-style:none; color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.7; }
@@ -660,138 +681,7 @@ html.js .reveal.in{
 
 .muted12{ color: rgba(255,255,255,.55); font-size: 12px; }
 
+```css
 /* =========================
    PORTFOLIO / SEARCH / MODAL
 ========================= */
-.portfolioTop{ display:flex; justify-content:flex-end; }
-.searchInput{
-  width: min(420px, 100%);
-  font: inherit;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.18);
-  color: rgba(255,255,255,.88);
-  padding: 12px 14px;
-  outline: none;
-}
-
-.modal{ position:fixed; inset:0; display:none; z-index:90; }
-.modal.on{ display:block; }
-.modalBackdrop{ position:absolute; inset:0; background: rgba(0,0,0,.60); backdrop-filter: blur(6px); }
-.modalPanel{
-  position:relative;
-  width: min(760px, calc(100% - 24px));
-  margin: 8vh auto;
-  border-radius: 26px;
-  border: 1px solid rgba(255,255,255,.16);
-  background: rgba(12,13,18,.78);
-  box-shadow: 0 30px 110px rgba(0,0,0,.55);
-  overflow:hidden;
-}
-.modalHead{
-  display:flex;
-  justify-content:space-between;
-  gap:14px;
-  align-items:flex-start;
-  padding: 18px;
-  border-bottom: 1px solid rgba(255,255,255,.10);
-}
-.modalBody{ padding: 18px; }
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 980px){
-  .heroGrid{ grid-template-columns: 1fr; }
-  .heroRight{ min-height: 360px; }
-  .stats{ grid-template-columns: 1fr; }
-  .contactInner{ grid-template-columns: 1fr; }
-}
-@media (max-width: 720px){
-  .navLinks{ display:none; }
-  .hamburger{ display:flex; }
-  .heroCard{ grid-template-columns: 1fr; }
-  .grid3{ grid-template-columns: 1fr; }
-  .grid2{ grid-template-columns: 1fr; }
-  .heroRight{ min-height: 320px; }
-  .liveGrid{ grid-template-columns: 1fr; }
-}
-@media (prefers-reduced-motion: reduce){
-  .marquee{ animation:none; }
-  .reveal{ opacity:1; transform:none; filter:none; }
-}
-
-@keyframes marquee{
-  from{ transform: translateX(0); }
-  to{ transform: translateX(-50%); }
-}
-
-/* ===== Live widget polish (match screenshot) ===== */
-.liveWidget{
-  top: 62px; /* sits under glassHeader */
-  border-radius: 18px;
-  padding: 14px;
-}
-
-.liveDot{
-  width:10px; height:10px;
-  border-radius:999px;
-  background: rgba(34,197,94,.95);
-  box-shadow: 0 0 0 6px rgba(34,197,94,.12);
-}
-
-.liveClock{
-  font-variant-numeric: tabular-nums;
-  letter-spacing: .02em;
-  color: rgba(255,255,255,.78);
-  font-size: 12px;
-}
-
-/* Bars row like “signal strips” */
-.liveBars{
-  margin-top: 12px;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 8px;
-  opacity: .9;
-}
-
-.liveBars .bar{
-  height: 6px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.06);
-  position: relative;
-  overflow: hidden;
-}
-
-.liveBars .bar::after{
-  content:"";
-  position:absolute;
-  inset: 0;
-  width: var(--v, 60%);
-  border-radius: inherit;
-  background: linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.55), rgba(255,255,255,.0));
-  opacity: .85;
-}
-
-/* Make starfield feel like screenshot */
-.heroRight::after{
-  content:"";
-  position:absolute; inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 20% 25%, rgba(255,255,255,.08), transparent 60%),
-    radial-gradient(circle at 80% 15%, rgba(255,255,255,.06), transparent 55%),
-    radial-gradient(circle at 60% 80%, rgba(255,255,255,.08), transparent 60%);
-  opacity:.55;
-  z-index: 0;
-}
-
-#hero3d{ z-index: 1; }
-.glassHeader, .liveWidget, .heroCard{ z-index: 2; }
-
-/* Responsive: bars wrap on mobile */
-@media (max-width: 720px){
-  .liveBars{ grid-template-columns: repeat(5, 1fr); }
-}
