@@ -1,15 +1,15 @@
 document.documentElement.classList.add("js");
 
 /* ===============================
-   main.js (Awaken EN/FR Version)
-   - Reveal failsafe (prevents "partial page")
-   - Drawer (hamburger)
+   main.js — Awaken (EN/FR only)
+   Fixes:
+   - Reveal failsafe (no partial/blank content)
+   - Drawer
    - Footer year
-   - Language dropdown (EN/FR only)
-   - Testimonials dots
-   - Counter animation (data-target)
-   - Portfolio loader (projects.json)
-   - Optional Hero WebGL safe
+   - Language dropdown links (GitHub Pages safe)
+   - Counter animation (#countProjects[data-target])
+   - Testimonials slider (dots + auto rotate)
+   - Live widget (optional block on index)
 ================================ */
 
 const reduceMotion =
@@ -25,13 +25,18 @@ function getPathParts() {
   return window.location.pathname.split("/").filter(Boolean);
 }
 
-// Base path before language folder.
-// Example: /awaken/en/index.html => base="/awaken"
+// Works for:
+// - https://paradis2019.github.io/wdd130/miracle/fr/index.html
+// - local server /miracle/fr/index.html
 function getBasePath() {
   const parts = getPathParts();
   const langIndex = parts.findIndex((p) => SUPPORTED_LANGS.includes(p));
   if (langIndex === -1) {
-    return parts.length ? `/${parts[0]}` : "";
+    // If not inside a lang folder, assume repo base is first 2 segments if present
+    // Example GH pages: /wdd130/miracle/ -> base "/wdd130/miracle"
+    if (parts.length >= 2) return `/${parts[0]}/${parts[1]}`;
+    if (parts.length === 1) return `/${parts[0]}`;
+    return "";
   }
   const baseParts = parts.slice(0, langIndex);
   return baseParts.length ? `/${baseParts.join("/")}` : "";
@@ -46,15 +51,19 @@ function getCurrentLangAndPage() {
   return { lang, page };
 }
 
+function clamp(n, a, b) {
+  return Math.max(a, Math.min(b, n));
+}
+
 /* ===============================
-   Reveal animations (FAILSAFE)
+   Reveal animations (failsafe)
 ================================ */
 (function revealInit() {
   const items = Array.from(document.querySelectorAll(".reveal"));
   if (!items.length) return;
 
-  // failsafe: if JS crashes or observer doesn't fire, show content
-  const FAILSAFE_MS = 1000;
+  // If anything goes wrong, never keep content hidden.
+  const FAILSAFE_MS = 900;
   const failsafe = setTimeout(() => {
     items.forEach((el) => el.classList.add("in"));
   }, FAILSAFE_MS);
@@ -127,6 +136,7 @@ function getCurrentLangAndPage() {
 
 /* ===============================
    Language dropdown (EN/FR only)
+   - main.js sets hrefs correctly for current page
 ================================ */
 (function langDropdownInit() {
   const switchers = document.querySelectorAll("[data-lang-switch]");
@@ -136,75 +146,57 @@ function getCurrentLangAndPage() {
   const { lang: currentLang, page } = getCurrentLangAndPage();
 
   switchers.forEach((wrap) => {
-    // set label
+    const btn = wrap.querySelector(".langBtn");
     const current = wrap.querySelector("[data-lang-current]");
+
     if (current) current.textContent = currentLang.toUpperCase();
 
-    // rewrite only EN/FR links
+    // Rewrite links
     wrap.querySelectorAll("a[data-lang]").forEach((a) => {
-      const lang = a.dataset.lang;
-      if (!SUPPORTED_LANGS.includes(lang)) {
-        a.remove(); // remove anything not EN/FR
+      const l = a.dataset.lang;
+      if (!SUPPORTED_LANGS.includes(l)) {
+        a.style.display = "none"; // just in case old links exist
         return;
       }
-      a.href = `${base}/${lang}/${page}`.replace(/\/{2,}/g, "/");
-      a.setAttribute("aria-current", lang === currentLang ? "true" : "false");
+      a.href = `${base}/${l}/${page}`.replace(/\/{2,}/g, "/");
+      a.setAttribute("aria-current", l === currentLang ? "true" : "false");
     });
 
-    // open/close dropdown
-    const btn = wrap.querySelector(".langBtn");
-    if (!btn) return;
+    // Dropdown open/close (only if button exists)
+    if (btn) {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const isOpen = wrap.classList.toggle("open");
+        btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
 
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const isOpen = wrap.classList.toggle("open");
-      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    });
+      document.addEventListener("click", (e) => {
+        if (!wrap.contains(e.target)) {
+          wrap.classList.remove("open");
+          btn.setAttribute("aria-expanded", "false");
+        }
+      });
 
-    document.addEventListener("click", (e) => {
-      if (!wrap.contains(e.target)) {
-        wrap.classList.remove("open");
-        btn.setAttribute("aria-expanded", "false");
-      }
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        wrap.classList.remove("open");
-        btn.setAttribute("aria-expanded", "false");
-      }
-    });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          wrap.classList.remove("open");
+          btn.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
   });
 })();
 
 /* ===============================
-   Testimonials dots (Vision + Home)
-================================ */
-(function testimonialsInit() {
-  const slider = document.querySelector(".slider");
-  if (!slider) return;
-
-  const quotes = Array.from(slider.querySelectorAll("[data-quote]"));
-  const dots = Array.from(slider.querySelectorAll(".dotBtn"));
-  if (!quotes.length || !dots.length) return;
-
-  function show(i) {
-    quotes.forEach((q, idx) => q.classList.toggle("active", idx === i));
-    dots.forEach((d, idx) => d.setAttribute("aria-current", idx === i ? "true" : "false"));
-  }
-
-  dots.forEach((btn, i) => btn.addEventListener("click", () => show(i)));
-})();
-
-/* ===============================
-   Counter (data-target)
+   Counter animation (index + vision)
+   Needs: <span id="countProjects" data-target="12">0</span>
 ================================ */
 (function counterInit() {
   const el = document.getElementById("countProjects");
   if (!el) return;
 
-  const target = Number(el.getAttribute("data-target") || "12");
-  const duration = 1100;
+  const target = Number(el.getAttribute("data-target") || "0");
+  if (!Number.isFinite(target) || target <= 0) return;
 
   if (reduceMotion) {
     el.textContent = String(target);
@@ -213,30 +205,37 @@ function getCurrentLangAndPage() {
 
   let started = false;
 
-  function animate() {
+  const animate = () => {
     if (started) return;
     started = true;
 
+    const duration = 1100;
     const start = performance.now();
+
     const tick = (now) => {
-      const t = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
+      const t = clamp((now - start) / duration, 0, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
       el.textContent = String(Math.floor(eased * target));
       if (t < 1) requestAnimationFrame(tick);
       else el.textContent = String(target);
     };
+
     requestAnimationFrame(tick);
-  }
+  };
 
   if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          animate();
-          io.disconnect();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            animate();
+            io.disconnect();
+            break;
+          }
         }
-      }
-    }, { threshold: 0.4 });
+      },
+      { threshold: 0.35 }
+    );
     io.observe(el);
   } else {
     animate();
@@ -244,219 +243,88 @@ function getCurrentLangAndPage() {
 })();
 
 /* ===============================
-   Portfolio (projects.json)
+   Testimonials slider + dots
+   Structure:
+   - .quote[data-quote]
+   - .dots .dotBtn (same order)
 ================================ */
-(async function portfolioInit() {
-  const grid = document.getElementById("projectsGrid");
-  if (!grid) return;
+(function testimonialsInit() {
+  const quotes = Array.from(document.querySelectorAll("[data-quote]"));
+  const dots = Array.from(document.querySelectorAll(".dotBtn"));
+  if (quotes.length < 2 || dots.length < 2) return;
 
-  const searchInput = document.getElementById("projectSearch");
-  const filterBtns = Array.from(document.querySelectorAll(".filterBtn"));
+  let index = quotes.findIndex((q) => q.classList.contains("active"));
+  if (index < 0) index = 0;
 
-  const modal = document.getElementById("projectModal");
-  const modalTitle = document.getElementById("modalTitle");
-  const modalSummary = document.getElementById("modalSummary");
-  const modalTags = document.getElementById("modalTags");
-  const modalHighlights = document.getElementById("modalHighlights");
-  const modalMetaLeft = document.getElementById("modalMetaLeft");
-  const modalMetaRight = document.getElementById("modalMetaRight");
-  const modalLink = document.getElementById("modalLink");
-
-  let projects = [];
-  let activeFilter = "all";
-  let query = "";
-
-  const dataUrl = "../assets/data/projects.json";
-
-  try {
-    const res = await fetch(dataUrl, { cache: "no-store" });
-    if (!res.ok) throw new Error(`Failed to load ${dataUrl} (${res.status})`);
-    projects = await res.json();
-  } catch (err) {
-    console.error(err);
-    grid.innerHTML = `
-      <article class="card">
-        <div class="cardInner">
-          <h3>Portfolio data not loading</h3>
-          <p class="fineprint" style="margin-top:6px">
-            Could not load <b>${dataUrl}</b>. If you opened with <b>file://</b>, fetch is blocked.
-            Use a local server (Live Server / python -m http.server).
-          </p>
-        </div>
-      </article>
-    `;
-    return;
+  function show(i) {
+    index = (i + quotes.length) % quotes.length;
+    quotes.forEach((q, idx) => q.classList.toggle("active", idx === index));
+    dots.forEach((d, idx) =>
+      d.setAttribute("aria-current", idx === index ? "true" : "false")
+    );
   }
 
-  const normalize = (v) => String(v || "").trim().toLowerCase();
-  const projectTags = (p) => Array.isArray(p.tags) ? p.tags.map(normalize) : [];
+  dots.forEach((btn, i) => {
+    btn.addEventListener("click", () => show(i));
+  });
 
-  const hasTag = (p, tag) => {
-    const t = normalize(tag);
-    if (!t) return false;
-    if (projectTags(p).includes(t)) return true;
-    return normalize(p.type) === t;
-  };
+  if (reduceMotion) return;
 
-  function matches(p) {
-    const okFilter = activeFilter === "all" || hasTag(p, activeFilter);
-    if (!query) return okFilter;
+  let timer = setInterval(() => show(index + 1), 5500);
 
-    const hay = [
-      p.title, p.summary, p.country, p.year,
-      ...(p.stack || []), ...(p.tags || []),
-    ].join(" ").toLowerCase();
-
-    return okFilter && hay.includes(query.toLowerCase());
-  }
-
-  function render() {
-    const list = projects.filter(matches);
-    grid.innerHTML = list.map(p => `
-      <article class="card reveal">
-        <div class="cardInner">
-          <h3>${p.title || "Project"}</h3>
-          <p style="margin-top:6px">${p.summary || ""}</p>
-
-          <div style="height:10px"></div>
-          <div class="chipRow">
-            ${(projectTags(p).slice(0,3)).map(t => `<span class="chip">${t.toUpperCase()}</span>`).join("")}
-            ${p.country ? `<span class="chip">${p.country}</span>` : ""}
-            ${p.year ? `<span class="chip">${p.year}</span>` : ""}
-          </div>
-
-          <div style="height:12px"></div>
-          <button class="btn btnPrimary" type="button" data-open="${p.id}">View details ↗</button>
-        </div>
-      </article>
-    `).join("") || `
-      <article class="card">
-        <div class="cardInner">
-          <h3>No projects found</h3>
-          <p class="fineprint" style="margin-top:6px">Try another filter or clear search.</p>
-        </div>
-      </article>
-    `;
-
-    // reveal injected items immediately
-    grid.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
-  }
-
-  function openModal(p) {
-    if (!modal) return;
-    modalTitle.textContent = p.title || "Project";
-    modalSummary.textContent = p.summary || "";
-    modalMetaLeft.textContent = p.country ? `Location: ${p.country}` : "";
-    modalMetaRight.textContent = p.year ? `Year: ${p.year}` : "";
-
-    modalTags.innerHTML = (p.stack || []).map(s => `<span class="chip">${s}</span>`).join("");
-    modalHighlights.innerHTML = (p.highlights || []).map(h => `<li>${h}</li>`).join("");
-
-    if (p.link && String(p.link).trim()) {
-      modalLink.href = p.link;
-      modalLink.style.display = "inline-flex";
-    } else {
-      modalLink.style.display = "none";
-    }
-
-    modal.classList.add("on");
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeModal() {
-    if (!modal) return;
-    modal.classList.remove("on");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  }
-
-  // Filters
-  if (filterBtns.length) {
-    const currentBtn = filterBtns.find(b => b.getAttribute("aria-current") === "true") || filterBtns[0];
-    activeFilter = currentBtn?.dataset?.filter || "all";
-    filterBtns.forEach(b => b.setAttribute("aria-current", String(b === currentBtn)));
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        activeFilter = btn.dataset.filter || "all";
-        filterBtns.forEach(b => b.setAttribute("aria-current", String(b === btn)));
-        render();
-      });
+  // pause on hover (desktop)
+  const slider = document.querySelector(".slider");
+  if (slider) {
+    slider.addEventListener("mouseenter", () => clearInterval(timer));
+    slider.addEventListener("mouseleave", () => {
+      clearInterval(timer);
+      timer = setInterval(() => show(index + 1), 5500);
     });
   }
-
-  // Search
-  searchInput?.addEventListener("input", () => {
-    query = searchInput.value.trim();
-    render();
-  });
-
-  // Open modal
-  grid.addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-open]");
-    if (!btn) return;
-    const id = btn.getAttribute("data-open");
-    const p = projects.find(x => String(x.id) === String(id));
-    if (p) openModal(p);
-  });
-
-  // Close modal
-  modal?.addEventListener("click", (e) => {
-    if (e.target.closest("[data-close]") || e.target.classList.contains("modalBackdrop")) {
-      closeModal();
-    }
-  });
-
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeModal();
-  });
-
-  render();
 })();
 
 /* ===============================
-   Contact form -> inbox (FormSubmit)
+   Live "Innovation / Canvas" widget
+   (Optional block in index.html)
+   IDs used:
+   - liveClock
+   - liveLatency
+   - liveRate
+   - liveStatus
 ================================ */
-(function contactFormInit() {
-  const form = document.getElementById("projectForm");
-  if (!form) return;
+(function liveWidgetInit() {
+  const clock = document.getElementById("liveClock");
+  const latency = document.getElementById("liveLatency");
+  const rate = document.getElementById("liveRate");
+  const status = document.getElementById("liveStatus");
+  if (!clock || !latency || !rate || !status) return;
 
-  const submitBtn = document.getElementById("submitProject");
-  const note = document.getElementById("formNote");
+  const statuses = [
+    "Building scalable foundations…",
+    "Testing secure delivery…",
+    "Optimizing performance…",
+    "Deploying new features…",
+    "Monitoring system health…",
+  ];
 
-  form.addEventListener("submit", async (ev) => {
-    ev.preventDefault();
+  function pad(n) {
+    return String(n).padStart(2, "0");
+  }
 
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Sending…";
-    }
-    if (note) note.textContent = "";
+  setInterval(() => {
+    const d = new Date();
+    clock.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(
+      d.getSeconds()
+    )}`;
 
-    const fd = new FormData(form);
+    // “live” feeling numbers (fake but polished)
+    const ms = Math.round(12 + Math.random() * 18);
+    const r = Math.round(110 + Math.random() * 90);
 
-    // honeypot spam
-    if (fd.get("_honey")) {
-      if (note) note.textContent = "Thanks — message sent.";
-      if (submitBtn) submitBtn.textContent = "Sent ✓";
-      return;
-    }
+    latency.textContent = `${ms} ms`;
+    rate.textContent = `${r}/s`;
 
-    try {
-      const action = form.getAttribute("action");
-      const res = await fetch(action, { method: "POST", mode: "cors", body: fd });
-      if (!res.ok) throw new Error("Network error");
-
-      if (note) note.textContent = "Thanks — message sent. We’ll reply within 24–48 hours.";
-      if (submitBtn) submitBtn.textContent = "Sent ✓";
-      form.reset();
-    } catch (err) {
-      console.error(err);
-      if (note) note.textContent = "Couldn’t send via form. Please use Quick email.";
-    } finally {
-      if (submitBtn && submitBtn.textContent !== "Sent ✓") submitBtn.textContent = "Send brief ↗";
-      if (submitBtn) submitBtn.disabled = false;
-    }
-  });
+    const s = statuses[Math.floor(Math.random() * statuses.length)];
+    status.textContent = `Now: ${s}`;
+  }, 1000);
 })();
