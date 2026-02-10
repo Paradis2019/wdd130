@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <!-- FIX 1: remove role="banner" (header is already a banner landmark) -->
+
     <header class="nav">
         <div class="container navInner">
             <a class="brand" href="index.html" aria-label="Go to home">
@@ -55,7 +55,7 @@
 
                 <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
                     aria-controls="drawer">
-                    <!-- FIX 2: self-close each path (no nesting) -->
+
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true">
                         <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -82,8 +82,7 @@
             </div>
 
             <div style="padding:8px">
-                <!-- FIX 3: remove aria-label from generic div.
-             If you really want a label, add role="group" then aria-label is allowed. -->
+
                 <div class="langDropdown" data-lang-switch role="group" aria-label="Language dropdown (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
@@ -120,7 +119,7 @@
             </div>
         </section>
 
-        <!-- FIX 4: section should have a heading (add visually hidden h2 so layout doesn’t change) -->
+
         <section aria-labelledby="about-sections">
             <h2 id="about-sections" class="sr-only">About details</h2>
 
@@ -128,7 +127,7 @@
                 <div class="grid3">
                     <article class="card reveal">
                         <div class="cardInner">
-                            <!-- FIX 5: h3 -> h2 (no skipping from h1 to h3) -->
+
                             <h2>Our story</h2>
                             <p>We design and build software that helps people and organizations solve real-world
                                 problems.</p>
