@@ -306,69 +306,78 @@
                 </div>
 
                 <!-- ✅ UPDATED: Canvas + Live Innovation Widget -->
-                <div class="heroRight reveal" aria-label="Hero panel">
+                <div class="heroRight reveal" aria-label="Interactive hero visualization">
+                    <!-- Top glass header -->
                     <div class="glassHeader" aria-hidden="true">
                         <div class="mini">
                             <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
-                            <span>Innovation preview</span>
+                            <span>Aperçu innovation</span>
                         </div>
                         <span class="muted12">Live • Canvas</span>
                     </div>
 
-                    <canvas id="hero3d" aria-hidden="true"></canvas>
-
-                    <div class="liveWidget" role="region" aria-label="Live innovation widget">
+                    <!-- Live widget (Pulse Innovation) -->
+                    <div class="liveWidget" aria-hidden="true">
                         <div class="liveTop">
-                            <div class="liveTitle">
+                            <div style="display:flex; align-items:center; gap:10px;">
                                 <span class="liveDot" aria-hidden="true"></span>
-                                <span><b>Live</b> Innovation Pulse</span>
+                                <span style="font-weight:650;">Live — Pulse Innovation</span>
                             </div>
-                            <div class="liveTime" id="liveTime">--:--:--</div>
+
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <span class="muted12"> </span>
+                                <span class="liveClock" data-live-clock>00:00:00</span>
+                            </div>
                         </div>
 
-                        <div class="liveRow">
-                            <div class="liveStat">
-                                <div class="liveLabel">System</div>
-                                <div class="liveValue" id="liveStatus">Stable</div>
+                        <div class="liveGrid" style="margin-top:12px">
+                            <div class="liveItem">
+                                <small>Système</small>
+                                <span data-live-status>Stable</span>
                             </div>
-                            <div class="liveStat">
-                                <div class="liveLabel">Latency</div>
-                                <div class="liveValue"><span id="liveLatency">18</span>ms</div>
+                            <div class="liveItem">
+                                <small>Latence</small>
+                                <span><b data-live-latency>18</b>ms</span>
                             </div>
-                            <div class="liveStat">
-                                <div class="liveLabel">Throughput</div>
-                                <div class="liveValue"><span id="liveThroughput">142</span>/s</div>
+                            <div class="liveItem">
+                                <small>Débit</small>
+                                <span><b data-live-throughput>200</b>/s</span>
                             </div>
                         </div>
 
                         <div class="liveBars" aria-hidden="true">
-                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span
-                                class="bar"></span>
-                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span
-                                class="bar"></span>
-                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span
-                                class="bar"></span>
+                            <span class="bar" style="--v:72%"></span>
+                            <span class="bar" style="--v:45%"></span>
+                            <span class="bar" style="--v:61%"></span>
+                            <span class="bar" style="--v:38%"></span>
+                            <span class="bar" style="--v:54%"></span>
+                            <span class="bar" style="--v:29%"></span>
+                            <span class="bar" style="--v:66%"></span>
+                            <span class="bar" style="--v:41%"></span>
+                            <span class="bar" style="--v:58%"></span>
+                            <span class="bar" style="--v:34%"></span>
                         </div>
 
-                        <div class="livePhrase">
-                            <span class="liveLabel">Now:</span>
-                            <span id="livePhrase">Building scalable foundations…</span>
+                        <div class="liveStatus">En cours : <span data-live-msg>Optimisation des performances…</span>
                         </div>
-
-
                     </div>
 
+                    <!-- Canvas background -->
+                    <canvas id="hero3d" aria-hidden="true"></canvas>
+
+                    <!-- Bottom cards -->
                     <div class="heroCard" aria-hidden="true">
                         <div class="miniCard">
-                            <b>Useful. Intuitive. Impactful.</b>
-                            <p>Technology shouldn’t be complicated — it should create opportunity.</p>
+                            <b>Utile. Intuitif. Impactant.</b>
+                            <p>La technologie ne doit pas être complexe — elle doit créer des opportunités.</p>
                         </div>
                         <div class="miniCard">
-                            <b>Future-ready systems</b>
-                            <p>Modular architecture, scalable foundations, secure delivery.</p>
+                            <b>Des systèmes prêts pour l’avenir</b>
+                            <p>Architecture modulaire; fondations scalables, livraison sécurisée.</p>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div class="marqueeWrap" aria-label="Who we work with">

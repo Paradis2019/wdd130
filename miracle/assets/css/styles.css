@@ -725,3 +725,73 @@ html.js .reveal.in{
   from{ transform: translateX(0); }
   to{ transform: translateX(-50%); }
 }
+
+/* ===== Live widget polish (match screenshot) ===== */
+.liveWidget{
+  top: 62px; /* sits under glassHeader */
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.liveDot{
+  width:10px; height:10px;
+  border-radius:999px;
+  background: rgba(34,197,94,.95);
+  box-shadow: 0 0 0 6px rgba(34,197,94,.12);
+}
+
+.liveClock{
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.78);
+  font-size: 12px;
+}
+
+/* Bars row like “signal strips” */
+.liveBars{
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 8px;
+  opacity: .9;
+}
+
+.liveBars .bar{
+  height: 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.liveBars .bar::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  width: var(--v, 60%);
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.55), rgba(255,255,255,.0));
+  opacity: .85;
+}
+
+/* Make starfield feel like screenshot */
+.heroRight::after{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(circle at 80% 15%, rgba(255,255,255,.06), transparent 55%),
+    radial-gradient(circle at 60% 80%, rgba(255,255,255,.08), transparent 60%);
+  opacity:.55;
+  z-index: 0;
+}
+
+#hero3d{ z-index: 1; }
+.glassHeader, .liveWidget, .heroCard{ z-index: 2; }
+
+/* Responsive: bars wrap on mobile */
+@media (max-width: 720px){
+  .liveBars{ grid-template-columns: repeat(5, 1fr); }
+}
