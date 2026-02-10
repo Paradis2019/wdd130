@@ -13,10 +13,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../assets/css/styles.css">
+
+    <!-- tiny helper in case sr-only isn't in styles.css -->
+    <style>
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
 </head>
 
 <body>
-    <header class="nav" role="banner">
+    <header class="nav">
         <div class="container navInner">
             <a class="brand" href="index.html" aria-label="Go to home">
                 <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="logoImg" width="46" height="46">
@@ -50,11 +65,12 @@
                 <a class="btn btnPrimary" href="index.html#contact">Contact us ↗</a>
                 <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
                     aria-controls="drawer">
+                    <!-- VALID SVG: paths are self-closed, not nested -->
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true">
-                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                            <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                                <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                     </svg>
                 </button>
             </div>
@@ -76,7 +92,8 @@
             </div>
 
             <div style="padding:8px">
-                <div class="langDropdown" data-lang-switch aria-label="Language dropdown (mobile)">
+                <!-- role="group" makes aria-label valid on a div -->
+                <div class="langDropdown" data-lang-switch role="group" aria-label="Language dropdown (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
@@ -111,7 +128,10 @@
             </div>
         </section>
 
-        <section>
+        <!-- add a sr-only heading so validators don't complain about "section lacks heading" -->
+        <section aria-labelledby="portfolio-section-title">
+            <h2 id="portfolio-section-title" class="sr-only">Portfolio projects</h2>
+
             <div class="container">
                 <div class="filters reveal">
                     <button class="filterBtn" data-filter="all" aria-current="true">All</button>
@@ -149,7 +169,8 @@
                             <div style="height:12px"></div>
                             <ul id="modalHighlights" class="list"></ul>
                             <div style="height:12px"></div>
-                            <a id="modalLink" class="btn btnPrimary" target="_blank" rel="noopener"
+                            <!-- fixed: anchor must have href; keep display:none so JS can show when needed -->
+                            <a id="modalLink" class="btn btnPrimary" href="#" target="_blank" rel="noopener"
                                 style="display:none">Visit ↗</a>
                         </div>
                     </div>

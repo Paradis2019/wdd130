@@ -179,6 +179,19 @@
             background: rgba(0, 0, 0, .22);
         }
 
+        /* If you don't already have sr-only in styles.css, keep this here safely */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         @media (max-width: 720px) {
             .liveRow {
                 grid-template-columns: 1fr;
@@ -229,10 +242,12 @@
 
                 <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
                     aria-controls="drawer">
+                    <!-- FIX: valid SVG (no nested paths) -->
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true">
-                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                            <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                     </svg>
                 </button>
             </div>
@@ -255,7 +270,8 @@
             </div>
 
             <div style="padding:8px">
-                <div class="langDropdown" data-lang-switch aria-label="Language dropdown (mobile)">
+                <!-- FIX: aria-label on div requires a role -->
+                <div class="langDropdown" data-lang-switch role="group" aria-label="Language dropdown (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
@@ -297,15 +313,17 @@
                         <a class="btn btnPrimary" href="#contact">Start a project <span aria-hidden="true">↗</span></a>
                         <a class="btn" href="about.html">Learn more <span aria-hidden="true">→</span></a>
                     </div>
-                    <div class="heroMeta" aria-label="Highlights">
+
+                    <!-- FIX: aria-label on div requires role -->
+                    <div class="heroMeta" role="group" aria-label="Highlights">
                         <span class="pill">Web • Mobile • Desktop</span>
                         <span class="pill">UX/UI & Product Strategy</span>
                         <span class="pill">Automation • Cloud • Integrations</span>
                     </div>
                 </div>
 
-                <!-- ✅ UPDATED: Canvas + Live Innovation Widget -->
-                <div class="heroRight reveal" aria-label="Interactive hero visualization">
+                <!-- FIX: aria-label on div requires role -->
+                <div class="heroRight reveal" role="region" aria-label="Interactive hero visualization">
                     <!-- Top glass header -->
                     <div class="glassHeader" aria-hidden="true">
                         <div class="mini">
@@ -379,7 +397,8 @@
 
             </div>
 
-            <div class="marqueeWrap" aria-label="Who we work with">
+            <!-- FIX: aria-label on div requires role -->
+            <div class="marqueeWrap" role="region" aria-label="Who we work with">
                 <div class="container" style="overflow:hidden">
                     <div class="marquee" aria-hidden="true">
                         <span><b>We collaborate with</b>Companies & Startups</span>
@@ -398,7 +417,8 @@
         </section>
 
         <!-- STATS -->
-        <section>
+        <section aria-labelledby="stats-title">
+            <h2 id="stats-title" class="sr-only">Stats</h2>
             <div class="container">
                 <div class="stats">
                     <div class="statPanel reveal">
@@ -415,7 +435,8 @@
                     </div>
 
                     <div class="statPanel reveal">
-                        <div class="slider" aria-label="Testimonial slider">
+                        <!-- FIX: aria-label on div requires role -->
+                        <div class="slider" role="region" aria-label="Testimonial slider">
                             <div class="quote active" data-quote>
                                 <div class="text">“They listened before building and delivered a solution that felt
                                     intuitive from day
@@ -460,7 +481,9 @@
                         <div class="contactCol contactIntro">
                             <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="contactLogo">
 
-                            <h3 style="margin-top:8px">Awaken LLC.</h3>
+                            <!-- FIX: h3 after h1 -> h2 (keeps inline style) -->
+                            <h2 style="margin-top:8px">Awaken LLC.</h2>
+
                             <p class="lead" style="font-size:14px; margin-top:6px">
                                 We build clean, scalable software. Share your goal and timeline — we’ll propose the
                                 fastest safe path
@@ -493,7 +516,8 @@
                             action="https://formsubmit.co/info@yourdomain.com" method="POST" novalidate>
 
                             <div class="cardInner">
-                                <h3>Project brief</h3>
+                                <!-- FIX: h3 after h1 -> h2 -->
+                                <h2>Project brief</h2>
                                 <p class="fineprint" style="margin-top:6px">This sends directly to our inbox.</p>
 
                                 <input type="hidden" name="_subject" value="New project lead — Awaken LLC.">
@@ -582,16 +606,16 @@
 
     <script type="module" src="../assets/js/main.js"></script>
 
-    <!-- ✅ Live widget logic (always works) -->
+    <!-- ✅ Live widget logic (fixed to match your data-live-* attributes) -->
     <script>
         (function () {
-            const timeEl = document.getElementById("liveTime");
-            const statusEl = document.getElementById("liveStatus");
-            const latencyEl = document.getElementById("liveLatency");
-            const thrEl = document.getElementById("liveThroughput");
-            const phraseEl = document.getElementById("livePhrase");
+            const timeEl = document.querySelector("[data-live-clock]");
+            const statusEl = document.querySelector("[data-live-status]");
+            const latencyEl = document.querySelector("[data-live-latency]");
+            const thrEl = document.querySelector("[data-live-throughput]");
+            const msgEl = document.querySelector("[data-live-msg]");
 
-            if (!timeEl || !statusEl || !latencyEl || !thrEl || !phraseEl) return;
+            if (!timeEl || !statusEl || !latencyEl || !thrEl || !msgEl) return;
 
             const phrases = [
                 "Building scalable foundations…",
@@ -611,6 +635,7 @@
 
                 const latency = 12 + Math.floor(Math.random() * 18);   // 12–29ms
                 const thr = 110 + Math.floor(Math.random() * 120);     // 110–229/s
+
                 latencyEl.textContent = String(latency);
                 thrEl.textContent = String(thr);
 
@@ -621,7 +646,7 @@
             let idx = 0;
             function rotatePhrase() {
                 idx = (idx + 1) % phrases.length;
-                phraseEl.textContent = phrases[idx];
+                msgEl.textContent = phrases[idx];
             }
 
             tick();

@@ -55,9 +55,9 @@
                     aria-controls="drawer">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true">
-                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                            <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                                <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
                     </svg>
                 </button>
             </div>
@@ -66,6 +66,7 @@
 
     <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
         <div class="backdrop" id="backdrop"></div>
+
         <div class="panel">
             <div class="panelTop">
                 <div class="brand" style="gap:10px">
@@ -79,7 +80,7 @@
             </div>
 
             <div style="padding:8px">
-                <div class="langDropdown" data-lang-switch aria-label="Language dropdown (mobile)">
+                <div class="langDropdown" data-lang-switch role="region" aria-label="Language dropdown (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
@@ -108,15 +109,19 @@
             <div class="container">
                 <div class="reveal">
                     <div class="kicker">Vision</div>
-                    <h1 class="pageTitle">Our purpose & direction</h1>
-                    <p class="lead">We build technology that empowers people and organizations, focusing on inclusion,
-                        reliability, and measurable impact.</p>
+                    <h1 class="pageTitle">Our purpose &amp; direction</h1>
+                    <p class="lead">
+                        We build technology that empowers people and organizations,
+                        focusing on inclusion, reliability, and measurable impact.
+                    </p>
                 </div>
             </div>
         </section>
 
         <section>
             <div class="container">
+                <h2 class="sectionTitle">Highlights</h2>
+
                 <div class="grid3">
                     <article class="card reveal">
                         <div class="cardInner">
@@ -140,19 +145,23 @@
                     <article class="card reveal">
                         <div class="cardInner">
                             <h3>Approach</h3>
-                            <p>Validate early, iterate quickly, and maintain high quality through testing and
-                                automation.</p>
+                            <p>
+                                Validate early, iterate quickly, and maintain high quality
+                                through testing and automation.
+                            </p>
                         </div>
                     </article>
                 </div>
 
                 <div style="height:18px"></div>
 
-                <div class="card reveal">
+                <div class="card reveal" role="region" aria-label="Long-term view">
                     <div class="cardInner">
                         <h3>Long-term view</h3>
-                        <p class="lead">We partner with teams for the long term — not just to ship features, but to
-                            build resilient systems that last.</p>
+                        <p class="lead">
+                            We partner with teams for the long term — not just to ship features,
+                            but to build resilient systems that last.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -161,7 +170,9 @@
 
     <footer>
         <div class="container foot">
-            <div class="fineprint">© <span id="year"></span> Awaken LLC. All rights reserved.</div>
+            <div class="fineprint">
+                © <span id="year"></span> Awaken LLC. All rights reserved.
+            </div>
             <div class="footLinks">
                 <a href="about.html">About</a>
                 <a href="services.html">Services</a>

@@ -10,14 +10,15 @@
     <link rel="icon" href="../assets/img/logoa.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
+    <!-- removed trailing slash on link tag -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 
 <body>
-    <header class="nav" role="banner">
+    <!-- removed role="banner" (header is already a landmark) -->
+    <header class="nav">
         <div class="container navInner">
             <a class="brand" href="index.html" aria-label="Go to home">
                 <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="logoImg" width="46" height="46">
@@ -54,11 +55,12 @@
 
                 <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
                     aria-controls="drawer">
+                    <!-- FIX: self-closed paths (no nested path elements) -->
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true">
-                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                            <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                                <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                     </svg>
                 </button>
             </div>
@@ -80,7 +82,8 @@
             </div>
 
             <div style="padding:8px">
-                <div class="langDropdown" data-lang-switch aria-label="Language dropdown (mobile)">
+                <!-- FIX: aria-label valid by adding role="group" -->
+                <div class="langDropdown" data-lang-switch role="group" aria-label="Language dropdown (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
@@ -121,7 +124,8 @@
                 <div class="grid3">
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Product strategy & discovery</h3>
+                            <!-- FIX: elevate headings to h2 to avoid skipping h1->h3 -->
+                            <h2>Product strategy & discovery</h2>
                             <p>Research, validation, and roadmaps to build the right product for your users and business
                                 goals.</p>
                         </div>
@@ -129,7 +133,7 @@
 
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Design & UX</h3>
+                            <h2>Design & UX</h2>
                             <p>User-centered design, prototypes, and accessible UX to increase value and reduce
                                 friction.</p>
                         </div>
@@ -137,7 +141,7 @@
 
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Web & mobile engineering</h3>
+                            <h2>Web & mobile engineering</h2>
                             <p>Scalable, maintainable codebases — modern stacks, test automation, and robust delivery
                                 pipelines.</p>
                         </div>
@@ -145,14 +149,14 @@
 
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Cloud & infrastructure</h3>
+                            <h2>Cloud & infrastructure</h2>
                             <p>Cloud architecture, cost optimization, monitoring, and secure deployments.</p>
                         </div>
                     </article>
 
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Automation & integrations</h3>
+                            <h2>Automation & integrations</h2>
                             <p>APIs, integrations, and workflow automation to reduce manual work and increase
                                 reliability.</p>
                         </div>
@@ -160,7 +164,7 @@
 
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Support & scaling</h3>
+                            <h2>Support & scaling</h2>
                             <p>Ongoing maintenance, performance tuning, and team extension for long-term success.</p>
                         </div>
                     </article>
@@ -170,7 +174,7 @@
 
                 <div class="card reveal">
                     <div class="cardInner">
-                        <h3>Let's discuss your needs</h3>
+                        <h2>Let's discuss your needs</h2>
                         <p class="lead">If you're ready to explore a project, use the <a href="index.html#contact">Start
                                 a project</a> brief or email <a
                                 href="mailto:info@yourdomain.com">info@yourdomain.com</a>.</p>
