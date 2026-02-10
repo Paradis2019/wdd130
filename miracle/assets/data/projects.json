@@ -2,7 +2,6 @@
   {
     "id": "mt-service-portal",
     "title": "Service Portal Platform (HQ)",
-    "country": "USA",
     "year": "2025",
     "tags": ["web", "cloud"],
     "summary": "A secure service portal with role-based dashboards, case tracking, and self-service requests designed to scale with organizational growth.",
@@ -17,7 +16,6 @@
   {
     "id": "mt-mobile-community",
     "title": "Community Mobile App",
-    "country": "Indonesia",
     "year": "2024",
     "tags": ["mobile"],
     "summary": "A mobile app for community engagement with quick onboarding, offline-friendly flows, and inclusive UI patterns for broad accessibility.",
@@ -32,7 +30,6 @@
   {
     "id": "mt-workflow-automation",
     "title": "Workflow Automation & Approvals",
-    "country": "DR Congo",
     "year": "2024",
     "tags": ["automation", "cloud"],
     "summary": "Automated approval workflows and notifications that reduce manual processing and improve operational visibility across teams.",
@@ -47,7 +44,6 @@
   {
     "id": "mt-education-lms",
     "title": "Education Learning Tools",
-    "country": "USA",
     "year": "2024",
     "tags": ["web"],
     "summary": "A learning tools suite supporting content delivery, progress tracking, and administration for educators and training teams.",
@@ -62,7 +58,6 @@
   {
     "id": "mt-data-insights",
     "title": "Data Insights & Dashboard System",
-    "country": "Indonesia",
     "year": "2025",
     "tags": ["cloud", "automation"],
     "summary": "A data pipeline and dashboard layer that turns operational activity into clear KPIs and actionable decision-making insights.",
@@ -77,7 +72,6 @@
   {
     "id": "mt-mvp-launch-kit",
     "title": "MVP Launch Kit for Startups",
-    "country": "USA",
     "year": "2025",
     "tags": ["web", "mobile"],
     "summary": "A repeatable MVP process that validates ideas fast with prototypes, usability testing, and a production-ready first release.",
@@ -92,7 +86,6 @@
   {
     "id": "mt-system-integration",
     "title": "System Integration & Modernization",
-    "country": "DR Congo",
     "year": "2025",
     "tags": ["automation", "cloud"],
     "summary": "Integration of existing systems into a unified workflow with modern APIs, reducing duplication and increasing reliability.",
@@ -107,7 +100,6 @@
   {
     "id": "mt-support-maintenance",
     "title": "Maintenance, Security & Performance Support",
-    "country": "USA",
     "year": "2025",
     "tags": ["cloud"],
     "summary": "Ongoing maintenance and monitoring for digital products with updates, performance optimization, and security best practices.",
