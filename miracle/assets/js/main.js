@@ -1,12 +1,15 @@
 document.documentElement.classList.add("js");
 
 /* ===============================
-   main.js (READY REPLACE v3)
-   FIXES:
-   - Reveal: prevents partial/blank pages (failsafe is reliable)
-   - Language switch: works on home when URL is /en/ (no index.html)
-   - Robust base path (/miracle on GitHub Pages)
-   - Drawer / portfolio / hero webgl kept safe
+   main.js (Awaken EN/FR Version)
+   - Reveal failsafe (prevents "partial page")
+   - Drawer (hamburger)
+   - Footer year
+   - Language dropdown (EN/FR only)
+   - Testimonials dots
+   - Counter animation (data-target)
+   - Portfolio loader (projects.json)
+   - Optional Hero WebGL safe
 ================================ */
 
 const reduceMotion =
@@ -16,111 +19,82 @@ const reduceMotion =
 /* ===============================
    Helpers
 ================================ */
-const SUPPORTED_LANGS = ["en", "fr", "id", "es"];
+const SUPPORTED_LANGS = ["en", "fr"];
 
 function getPathParts() {
   return window.location.pathname.split("/").filter(Boolean);
 }
 
 // Base path before language folder.
-// Example GH Pages: /miracle/en/index.html -> base="/miracle"
+// Example: /awaken/en/index.html => base="/awaken"
 function getBasePath() {
   const parts = getPathParts();
   const langIndex = parts.findIndex((p) => SUPPORTED_LANGS.includes(p));
-
   if (langIndex === -1) {
-    // Not in a lang folder; if deployed under a repo folder, assume first segment
     return parts.length ? `/${parts[0]}` : "";
   }
-
   const baseParts = parts.slice(0, langIndex);
   return baseParts.length ? `/${baseParts.join("/")}` : "";
 }
 
-// IMPORTANT: correctly detect page name even when URL ends with /en/ or /en
 function getCurrentLangAndPage() {
   const parts = getPathParts();
   const langIndex = parts.findIndex((p) => SUPPORTED_LANGS.includes(p));
   if (langIndex === -1) return { lang: "en", page: "index.html" };
-
   const lang = parts[langIndex];
-
-  // What comes after lang?
-  const after = parts[langIndex + 1] || "";
-
-  // If it's empty or doesn't look like a file, treat as index.html
-  // (supports /en/, /en, /en/home, etc.)
-  const page = after && after.includes(".") ? after : "index.html";
-
+  const page = parts[langIndex + 1] || "index.html";
   return { lang, page };
 }
 
 /* ===============================
-   Reveal animations (FIXED)
-   - Never leaves content hidden.
-   - Does not clear failsafe too early.
+   Reveal animations (FAILSAFE)
 ================================ */
 (function revealInit() {
   const items = Array.from(document.querySelectorAll(".reveal"));
   if (!items.length) return;
 
-  // Hard failsafe: always show everything after this delay
-  const FAILSAFE_MS = 900;
-
-  let revealedCount = 0;
-  const total = items.length;
-
-  const forceShowAll = () => {
+  // failsafe: if JS crashes or observer doesn't fire, show content
+  const FAILSAFE_MS = 1000;
+  const failsafe = setTimeout(() => {
     items.forEach((el) => el.classList.add("in"));
-  };
+  }, FAILSAFE_MS);
 
-  const failsafeTimer = setTimeout(forceShowAll, FAILSAFE_MS);
-
-  // Reduced motion: show immediately
   if (reduceMotion) {
-    forceShowAll();
-    clearTimeout(failsafeTimer);
+    items.forEach((el) => el.classList.add("in"));
+    clearTimeout(failsafe);
     return;
   }
 
-  // IntersectionObserver path
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("in");
-          io.unobserve(entry.target);
-          revealedCount++;
-
-          // If enough elements are revealed, we can cancel the failsafe.
-          // (This prevents the "partial page" bug where failsafe gets cleared too early.)
-          if (revealedCount >= Math.min(total, 6)) {
-            clearTimeout(failsafeTimer);
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+            io.unobserve(entry.target);
           }
-        });
+        }
       },
-      { threshold: 0.12, rootMargin: "80px 0px" }
+      { threshold: 0.12 }
     );
 
     items.forEach((el) => io.observe(el));
+    clearTimeout(failsafe);
     return;
   }
 
-  // No observer support: show immediately
-  forceShowAll();
-  clearTimeout(failsafeTimer);
+  items.forEach((el) => el.classList.add("in"));
+  clearTimeout(failsafe);
 })();
 
 /* ===============================
-   Mobile drawer (hamburger)
+   Mobile drawer
 ================================ */
 (function drawerInit() {
   const drawer = document.getElementById("drawer");
   const menuBtn = document.getElementById("menuBtn");
   const closeBtn = document.getElementById("closeBtn");
   const backdrop = document.getElementById("backdrop");
-
   if (!drawer || !menuBtn) return;
 
   const open = () => {
@@ -152,16 +126,133 @@ function getCurrentLangAndPage() {
 })();
 
 /* ===============================
-   Portfolio: projects + filters + search + modal
+   Language dropdown (EN/FR only)
+================================ */
+(function langDropdownInit() {
+  const switchers = document.querySelectorAll("[data-lang-switch]");
+  if (!switchers.length) return;
+
+  const base = getBasePath();
+  const { lang: currentLang, page } = getCurrentLangAndPage();
+
+  switchers.forEach((wrap) => {
+    // set label
+    const current = wrap.querySelector("[data-lang-current]");
+    if (current) current.textContent = currentLang.toUpperCase();
+
+    // rewrite only EN/FR links
+    wrap.querySelectorAll("a[data-lang]").forEach((a) => {
+      const lang = a.dataset.lang;
+      if (!SUPPORTED_LANGS.includes(lang)) {
+        a.remove(); // remove anything not EN/FR
+        return;
+      }
+      a.href = `${base}/${lang}/${page}`.replace(/\/{2,}/g, "/");
+      a.setAttribute("aria-current", lang === currentLang ? "true" : "false");
+    });
+
+    // open/close dropdown
+    const btn = wrap.querySelector(".langBtn");
+    if (!btn) return;
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const isOpen = wrap.classList.toggle("open");
+      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!wrap.contains(e.target)) {
+        wrap.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        wrap.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+})();
+
+/* ===============================
+   Testimonials dots (Vision + Home)
+================================ */
+(function testimonialsInit() {
+  const slider = document.querySelector(".slider");
+  if (!slider) return;
+
+  const quotes = Array.from(slider.querySelectorAll("[data-quote]"));
+  const dots = Array.from(slider.querySelectorAll(".dotBtn"));
+  if (!quotes.length || !dots.length) return;
+
+  function show(i) {
+    quotes.forEach((q, idx) => q.classList.toggle("active", idx === i));
+    dots.forEach((d, idx) => d.setAttribute("aria-current", idx === i ? "true" : "false"));
+  }
+
+  dots.forEach((btn, i) => btn.addEventListener("click", () => show(i)));
+})();
+
+/* ===============================
+   Counter (data-target)
+================================ */
+(function counterInit() {
+  const el = document.getElementById("countProjects");
+  if (!el) return;
+
+  const target = Number(el.getAttribute("data-target") || "12");
+  const duration = 1100;
+
+  if (reduceMotion) {
+    el.textContent = String(target);
+    return;
+  }
+
+  let started = false;
+
+  function animate() {
+    if (started) return;
+    started = true;
+
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = String(Math.floor(eased * target));
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = String(target);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          animate();
+          io.disconnect();
+        }
+      }
+    }, { threshold: 0.4 });
+    io.observe(el);
+  } else {
+    animate();
+  }
+})();
+
+/* ===============================
+   Portfolio (projects.json)
 ================================ */
 (async function portfolioInit() {
   const grid = document.getElementById("projectsGrid");
-  if (!grid) return; // only on portfolio page
+  if (!grid) return;
 
   const searchInput = document.getElementById("projectSearch");
   const filterBtns = Array.from(document.querySelectorAll(".filterBtn"));
 
-  // Modal
   const modal = document.getElementById("projectModal");
   const modalTitle = document.getElementById("modalTitle");
   const modalSummary = document.getElementById("modalSummary");
@@ -188,9 +279,8 @@ function getCurrentLangAndPage() {
         <div class="cardInner">
           <h3>Portfolio data not loading</h3>
           <p class="fineprint" style="margin-top:6px">
-            Could not load <b>${dataUrl}</b>.<br/>
-            If you opened this with <b>file://</b>, fetch is blocked.
-            Use a local server (VS Code Live Server / python -m http.server).
+            Could not load <b>${dataUrl}</b>. If you opened with <b>file://</b>, fetch is blocked.
+            Use a local server (Live Server / python -m http.server).
           </p>
         </div>
       </article>
@@ -199,8 +289,7 @@ function getCurrentLangAndPage() {
   }
 
   const normalize = (v) => String(v || "").trim().toLowerCase();
-  const projectTags = (p) =>
-    Array.isArray(p.tags) ? p.tags.map(normalize) : [];
+  const projectTags = (p) => Array.isArray(p.tags) ? p.tags.map(normalize) : [];
 
   const hasTag = (p, tag) => {
     const t = normalize(tag);
@@ -214,26 +303,16 @@ function getCurrentLangAndPage() {
     if (!query) return okFilter;
 
     const hay = [
-      p.title,
-      p.summary,
-      p.country,
-      p.year,
-      ...(p.stack || []),
-      ...(p.tags || []),
-    ]
-      .join(" ")
-      .toLowerCase();
+      p.title, p.summary, p.country, p.year,
+      ...(p.stack || []), ...(p.tags || []),
+    ].join(" ").toLowerCase();
 
     return okFilter && hay.includes(query.toLowerCase());
   }
 
   function render() {
     const list = projects.filter(matches);
-
-    grid.innerHTML =
-      list
-        .map(
-          (p) => `
+    grid.innerHTML = list.map(p => `
       <article class="card reveal">
         <div class="cardInner">
           <h3>${p.title || "Project"}</h3>
@@ -241,10 +320,7 @@ function getCurrentLangAndPage() {
 
           <div style="height:10px"></div>
           <div class="chipRow">
-            ${projectTags(p)
-              .slice(0, 3)
-              .map((t) => `<span class="chip">${t.toUpperCase()}</span>`)
-              .join("")}
+            ${(projectTags(p).slice(0,3)).map(t => `<span class="chip">${t.toUpperCase()}</span>`).join("")}
             ${p.country ? `<span class="chip">${p.country}</span>` : ""}
             ${p.year ? `<span class="chip">${p.year}</span>` : ""}
           </div>
@@ -253,10 +329,7 @@ function getCurrentLangAndPage() {
           <button class="btn btnPrimary" type="button" data-open="${p.id}">View details ↗</button>
         </div>
       </article>
-    `
-        )
-        .join("") ||
-      `
+    `).join("") || `
       <article class="card">
         <div class="cardInner">
           <h3>No projects found</h3>
@@ -265,35 +338,19 @@ function getCurrentLangAndPage() {
       </article>
     `;
 
-    // injected reveals -> show immediately
-    grid.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
+    // reveal injected items immediately
+    grid.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
   }
 
   function openModal(p) {
     if (!modal) return;
-    if (
-      !modalTitle ||
-      !modalSummary ||
-      !modalTags ||
-      !modalHighlights ||
-      !modalMetaLeft ||
-      !modalMetaRight ||
-      !modalLink
-    )
-      return;
-
     modalTitle.textContent = p.title || "Project";
     modalSummary.textContent = p.summary || "";
-
     modalMetaLeft.textContent = p.country ? `Location: ${p.country}` : "";
     modalMetaRight.textContent = p.year ? `Year: ${p.year}` : "";
 
-    modalTags.innerHTML = (p.stack || [])
-      .map((s) => `<span class="chip">${s}</span>`)
-      .join("");
-    modalHighlights.innerHTML = (p.highlights || [])
-      .map((h) => `<li>${h}</li>`)
-      .join("");
+    modalTags.innerHTML = (p.stack || []).map(s => `<span class="chip">${s}</span>`).join("");
+    modalHighlights.innerHTML = (p.highlights || []).map(h => `<li>${h}</li>`).join("");
 
     if (p.link && String(p.link).trim()) {
       modalLink.href = p.link;
@@ -316,22 +373,14 @@ function getCurrentLangAndPage() {
 
   // Filters
   if (filterBtns.length) {
-    const currentBtn =
-      filterBtns.find((b) => b.getAttribute("aria-current") === "true") ||
-      filterBtns[0];
-
+    const currentBtn = filterBtns.find(b => b.getAttribute("aria-current") === "true") || filterBtns[0];
     activeFilter = currentBtn?.dataset?.filter || "all";
+    filterBtns.forEach(b => b.setAttribute("aria-current", String(b === currentBtn)));
 
-    filterBtns.forEach((b) =>
-      b.setAttribute("aria-current", String(b === currentBtn))
-    );
-
-    filterBtns.forEach((btn) => {
+    filterBtns.forEach(btn => {
       btn.addEventListener("click", () => {
         activeFilter = btn.dataset.filter || "all";
-        filterBtns.forEach((b) =>
-          b.setAttribute("aria-current", String(b === btn))
-        );
+        filterBtns.forEach(b => b.setAttribute("aria-current", String(b === btn)));
         render();
       });
     });
@@ -348,16 +397,13 @@ function getCurrentLangAndPage() {
     const btn = e.target.closest("[data-open]");
     if (!btn) return;
     const id = btn.getAttribute("data-open");
-    const p = projects.find((x) => String(x.id) === String(id));
+    const p = projects.find(x => String(x.id) === String(id));
     if (p) openModal(p);
   });
 
   // Close modal
   modal?.addEventListener("click", (e) => {
-    if (
-      e.target.closest("[data-close]") ||
-      e.target.classList.contains("modalBackdrop")
-    ) {
+    if (e.target.closest("[data-close]") || e.target.classList.contains("modalBackdrop")) {
       closeModal();
     }
   });
@@ -370,167 +416,47 @@ function getCurrentLangAndPage() {
 })();
 
 /* ===============================
-   Language switcher (FIXED)
-   - Updates links for current page
-   - Works when home URL is /en/ (no filename)
-   - Works in /miracle/ subfolder
+   Contact form -> inbox (FormSubmit)
 ================================ */
-(function langSwitchInit() {
-  const switchers = document.querySelectorAll("[data-lang-switch]");
-  if (!switchers.length) return;
+(function contactFormInit() {
+  const form = document.getElementById("projectForm");
+  if (!form) return;
 
-  const base = getBasePath();
-  const { lang: currentLang, page } = getCurrentLangAndPage();
+  const submitBtn = document.getElementById("submitProject");
+  const note = document.getElementById("formNote");
 
-  switchers.forEach((wrap) => {
-    const btn = wrap.querySelector(".langBtn");
-    const menu = wrap.querySelector(".langMenu");
-    const current = wrap.querySelector("[data-lang-current]");
+  form.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
 
-    if (current) current.textContent = currentLang.toUpperCase();
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending…";
+    }
+    if (note) note.textContent = "";
 
-    // Rewrite all language links inside this switcher
-    wrap.querySelectorAll("a[data-lang]").forEach((a) => {
-      const targetLang = a.dataset.lang;
-      if (!SUPPORTED_LANGS.includes(targetLang)) return;
+    const fd = new FormData(form);
 
-      a.href = `${base}/${targetLang}/${page}`.replace(/\/{2,}/g, "/");
+    // honeypot spam
+    if (fd.get("_honey")) {
+      if (note) note.textContent = "Thanks — message sent.";
+      if (submitBtn) submitBtn.textContent = "Sent ✓";
+      return;
+    }
 
-      if (targetLang === currentLang) a.setAttribute("aria-current", "true");
-      else a.removeAttribute("aria-current");
-    });
+    try {
+      const action = form.getAttribute("action");
+      const res = await fetch(action, { method: "POST", mode: "cors", body: fd });
+      if (!res.ok) throw new Error("Network error");
 
-    // Dropdown open/close behavior (optional UI)
-    if (btn && menu) {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const isOpen = wrap.classList.toggle("open");
-        btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      });
-
-      document.addEventListener("click", (e) => {
-        if (!wrap.contains(e.target)) {
-          wrap.classList.remove("open");
-          btn.setAttribute("aria-expanded", "false");
-        }
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          wrap.classList.remove("open");
-          btn.setAttribute("aria-expanded", "false");
-        }
-      });
+      if (note) note.textContent = "Thanks — message sent. We’ll reply within 24–48 hours.";
+      if (submitBtn) submitBtn.textContent = "Sent ✓";
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      if (note) note.textContent = "Couldn’t send via form. Please use Quick email.";
+    } finally {
+      if (submitBtn && submitBtn.textContent !== "Sent ✓") submitBtn.textContent = "Send brief ↗";
+      if (submitBtn) submitBtn.disabled = false;
     }
   });
 })();
-
-/* ===============================
-   Hero WebGL (Three.js) - safe init
-================================ */
-let __heroWebglStarted = false;
-
-async function initHeroWebGL() {
-  if (__heroWebglStarted) return;
-  __heroWebglStarted = true;
-
-  const canvas = document.getElementById("hero3d");
-  if (!canvas) return;
-
-  try {
-    const THREE = await import(
-      "https://unpkg.com/three@0.160.0/build/three.module.js"
-    );
-
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: true,
-      powerPreference: "high-performance",
-    });
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
-    camera.position.z = 5;
-
-    const COUNT = 1200;
-    const positions = new Float32Array(COUNT * 3);
-    const speeds = new Float32Array(COUNT);
-
-    for (let i = 0; i < COUNT; i++) {
-      const i3 = i * 3;
-      positions[i3 + 0] = (Math.random() - 0.5) * 6;
-      positions[i3 + 1] = (Math.random() - 0.5) * 3.8;
-      positions[i3 + 2] = (Math.random() - 0.5) * 4;
-      speeds[i] = 0.15 + Math.random() * 0.35;
-    }
-
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-
-    const material = new THREE.PointsMaterial({
-      size: 0.018,
-      sizeAttenuation: true,
-      transparent: true,
-      opacity: 0.9,
-      depthWrite: false,
-    });
-
-    const points = new THREE.Points(geometry, material);
-    scene.add(points);
-
-    function resize() {
-      const dpr = Math.min(2, window.devicePixelRatio || 1);
-      const w = canvas.clientWidth || 1;
-      const h = canvas.clientHeight || 1;
-
-      renderer.setPixelRatio(dpr);
-      renderer.setSize(w, h, false);
-
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-    }
-
-    resize();
-    window.addEventListener("resize", resize, { passive: true });
-
-    let raf = 0;
-    let last = performance.now();
-
-    function animate(now) {
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
-
-      points.rotation.y += dt * 0.12;
-      points.rotation.x += dt * 0.05;
-
-      const pos = geometry.attributes.position.array;
-      for (let i = 0; i < COUNT; i++) {
-        const i3 = i * 3;
-        pos[i3 + 1] += Math.sin(now * 0.001 + i) * dt * 0.02 * speeds[i];
-        if (pos[i3 + 1] > 2) pos[i3 + 1] = -2;
-        if (pos[i3 + 1] < -2) pos[i3 + 1] = 2;
-      }
-      geometry.attributes.position.needsUpdate = true;
-
-      renderer.render(scene, camera);
-      raf = requestAnimationFrame(animate);
-    }
-
-    raf = requestAnimationFrame(animate);
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) cancelAnimationFrame(raf);
-      else {
-        last = performance.now();
-        raf = requestAnimationFrame(animate);
-      }
-    });
-  } catch (e) {
-    console.error("Hero WebGL error:", e);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  initHeroWebGL();
-});

@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
 
-    <!-- language folders use ../ to reach shared assets -->
     <link rel="stylesheet" href="../assets/css/styles.css" />
 </head>
 
@@ -37,23 +36,20 @@
             </nav>
 
             <div class="navCtas">
-                <!-- ✅ Language dropdown (main.js sets hrefs automatically) -->
                 <div class="langDropdown" data-lang-switch>
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
                     <div class="langMenu" role="listbox">
                         <a role="option" href="#" data-lang="en">English (EN)</a>
                         <a role="option" href="#" data-lang="fr">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
                     </div>
                 </div>
 
                 <a class="btn" href="services.html">Explore <span aria-hidden="true">→</span></a>
-                <a class="btn btnPrimary" href="index.html#contact">Talk to us <span aria-hidden="true">↗</span></a>
+                <a class="btn btnPrimary" href="index.html#contact">Start a project <span
+                        aria-hidden="true">↗</span></a>
 
                 <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
                     aria-controls="drawer">
@@ -73,7 +69,7 @@
         <div class="panel">
             <div class="panelTop">
                 <div class="brand" style="gap:10px">
-                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="logoImg" width="40" height="40" />
                     <div>
                         <strong style="font-size:14px">Awaken LLC.</strong>
                         <span style="font-size:11px">Changing the world in one click</span>
@@ -82,19 +78,15 @@
                 <button class="btn" id="closeBtn" aria-label="Close menu">Close</button>
             </div>
 
-            <!-- ✅ Mobile language dropdown (same system, same JS) -->
-            <div style="padding: 8px">
+            <div style="padding:8px">
                 <div class="langDropdown" data-lang-switch aria-label="Language dropdown (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
                     <div class="langMenu" role="listbox">
                         <a role="option" href="#" data-lang="en">English (EN)</a>
                         <a role="option" href="#" data-lang="fr">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
                     </div>
                 </div>
             </div>
@@ -106,7 +98,7 @@
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
                 <a href="locations.html">Locations</a>
-                <a href="index.html#contact">Contact</a>
+                <a href="index.html#contact">Start a project</a>
             </nav>
         </div>
     </div>
@@ -115,13 +107,10 @@
         <section class="pageHero">
             <div class="container">
                 <div class="reveal">
-                    <div class="kicker">About us</div>
+                    <div class="kicker">About</div>
                     <h1 class="pageTitle">Who we are</h1>
-                    <p class="lead">
-                        Awaken LLC. is a software development and digital innovation company focused on creating
-                        powerful,
-                        meaningful, and accessible technology solutions.
-                    </p>
+                    <p class="lead">Awaken LLC is a software development and digital innovation company focused on
+                        building accessible, meaningful technology.</p>
                 </div>
             </div>
         </section>
@@ -140,14 +129,14 @@
                     <article class="card reveal">
                         <div class="cardInner">
                             <h3>What we believe</h3>
-                            <p>Technology should not be complicated — it should be useful, intuitive, and impactful.</p>
+                            <p>Technology should be useful, intuitive, and secure — not complicated.</p>
                         </div>
                     </article>
 
                     <article class="card reveal">
                         <div class="cardInner">
                             <h3>How we work</h3>
-                            <p>From concept to launch and beyond, we support our partners at every stage.</p>
+                            <p>From concept to launch and beyond, we collaborate closely and deliver with clarity.</p>
                         </div>
                     </article>
                 </div>
@@ -156,14 +145,11 @@
 
                 <div class="sectionHead reveal">
                     <div>
-                        <div class="kicker">Who we work with</div>
-                        <div class="h2">Partners across sectors</div>
+                        <div class="kicker">Partners</div>
+                        <div class="h2">Who we work with</div>
                     </div>
-                    <p class="lead">
-                        No matter the size of the project, we approach every partnership with the same commitment to
-                        quality and
-                        impact.
-                    </p>
+                    <p class="lead">We support organizations across industries with the same commitment to quality and
+                        impact.</p>
                 </div>
 
                 <div class="card reveal">
@@ -171,24 +157,11 @@
                         <ul class="list">
                             <li>Companies and startups</li>
                             <li>Government and public institutions</li>
-                            <li>Schools and educational organizations</li>
+                            <li>Schools and education organizations</li>
                             <li>NGOs and non-profits</li>
                             <li>Individuals and innovators</li>
                         </ul>
                     </div>
-                </div>
-
-                <div style="height:18px"></div>
-
-                <div class="sectionHead reveal">
-                    <div>
-                        <div class="kicker">Our philosophy</div>
-                        <div class="h2">Changing the world in one click</div>
-                    </div>
-                    <p class="lead">
-                        Innovation should serve people. Technology should create opportunity. One idea can change
-                        everything.
-                    </p>
                 </div>
             </div>
         </section>
@@ -208,20 +181,6 @@
     </footer>
 
     <script type="module" src="../assets/js/main.js"></script>
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-        (function () {
-            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/69487805420bc819787efed6/1jd1h9lia';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
 </body>
 
 </html>

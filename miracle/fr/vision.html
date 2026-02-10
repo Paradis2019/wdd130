@@ -18,51 +18,38 @@
 <body>
     <header class="nav" role="banner">
         <div class="container navInner">
-            <a class="brand" href="index.html" aria-label="Aller à l’accueil">
-                <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="logoImg" width="46" height="46" />
+            <a class="brand" href="index.html" aria-label="Accueil">
+                <img src="../assets/img/logoa.svg" alt="Awaken logo" class="logoImg" width="46" height="46" />
                 <div>
                     <strong>Awaken LLC.</strong>
                     <span>Changer le monde en un clic</span>
                 </div>
             </a>
 
-            <nav class="navLinks" aria-label="Navigation principale">
+            <nav class="navLinks" aria-label="Principal">
                 <a href="index.html">Accueil</a>
                 <a href="about.html">À propos</a>
                 <a href="services.html">Services</a>
                 <a class="active" href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
-                <a href="locations.html">Implantations</a>
+                <a href="locations.html">Bureaux</a>
             </nav>
 
             <div class="navCtas">
-                <!-- ✅ Language dropdown (handled by main.js) -->
                 <div class="langDropdown" data-lang-switch>
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>FR</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
-                    <div class="langMenu" role="listbox" aria-label="Sélecteur de langue">
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
                         <a role="option" href="#" data-lang="en">English (EN)</a>
-                        <a role="option" href="#" data-lang="fr" aria-current="true">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
                     </div>
                 </div>
 
                 <a class="btn" href="services.html">Services <span aria-hidden="true">→</span></a>
-                <a class="btn btnPrimary" href="index.html#contact">Parlons-en <span aria-hidden="true">↗</span></a>
-
-                <button class="hamburger" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false"
-                    aria-controls="drawer">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true">
-                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                </button>
+                <a class="btn btnPrimary" href="index.html#contact">Démarrer un projet <span
+                        aria-hidden="true">↗</span></a>
             </div>
         </div>
     </header>
@@ -72,7 +59,7 @@
         <div class="panel">
             <div class="panelTop">
                 <div class="brand" style="gap:10px">
-                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <img src="../assets/img/logoa.svg" alt="Awaken logo" class="logoImg" width="34" height="34" />
                     <div>
                         <strong style="font-size:14px">Awaken LLC.</strong>
                         <span style="font-size:11px">Changer le monde en un clic</span>
@@ -81,31 +68,27 @@
                 <button class="btn" id="closeBtn" aria-label="Fermer le menu">Fermer</button>
             </div>
 
-            <!-- ✅ Mobile language dropdown (handled by main.js) -->
             <div style="padding:8px">
                 <div class="langDropdown" data-lang-switch aria-label="Sélecteur de langue (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>FR</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
                     <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
                         <a role="option" href="#" data-lang="en">English (EN)</a>
-                        <a role="option" href="#" data-lang="fr" aria-current="true">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
                     </div>
                 </div>
             </div>
 
-            <nav class="panelNav" aria-label="Menu mobile">
+            <nav class="panelNav" aria-label="Mobile">
                 <a href="index.html">Accueil</a>
                 <a href="about.html">À propos</a>
                 <a href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
-                <a href="locations.html">Implantations</a>
-                <a href="index.html#contact">Contact</a>
+                <a href="locations.html">Bureaux</a>
+                <a href="index.html#contact">Démarrer un projet</a>
             </nav>
         </div>
     </div>
@@ -115,11 +98,8 @@
             <div class="container">
                 <div class="reveal">
                     <div class="kicker">Vision</div>
-                    <h1 class="pageTitle">Notre ambition & notre direction</h1>
-                    <p class="lead">
-                        Nous imaginons un monde où la technologie est accessible, inclusive et réellement
-                        transformatrice.
-                    </p>
+                    <h1 class="pageTitle">Notre but & direction</h1>
+                    <p class="lead">Nous imaginons une technologie accessible, inclusive et transformante.</p>
                 </div>
             </div>
         </section>
@@ -129,30 +109,29 @@
                 <div class="grid3">
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Notre vision</h3>
+                            <h3>Vision</h3>
                             <ul class="list">
-                                <li>Des solutions digitales qui simplifient le quotidien</li>
-                                <li>Une innovation qui atteint chaque communauté</li>
-                                <li>Une technologie au service des personnes, pas des systèmes</li>
+                                <li>Solutions numériques qui simplifient la vie</li>
+                                <li>Innovation pour toutes les communautés</li>
+                                <li>La technologie doit autonomiser les personnes</li>
                             </ul>
                         </div>
                     </article>
 
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Notre mission</h3>
+                            <h3>Mission</h3>
                             <ul class="list">
-                                <li>Construire des logiciels de qualité, prêts pour l’avenir</li>
-                                <li>Encourager l’innovation dans tous les secteurs</li>
-                                <li>Soutenir le développement social et économique grâce à la technologie</li>
-                                <li>Créer des outils digitaux à impact réel et durable</li>
+                                <li>Créer des logiciels durables et fiables</li>
+                                <li>Encourager l'innovation</li>
+                                <li>Soutenir le développement social et économique</li>
                             </ul>
                         </div>
                     </article>
 
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Valeurs clés</h3>
+                            <h3>Valeurs</h3>
                             <ul class="list">
                                 <li>Innovation</li>
                                 <li>Intégrité</li>
@@ -164,69 +143,13 @@
                     </article>
                 </div>
 
-                <div style="height:14px"></div>
-
-                <div class="stats">
-                    <div class="statPanel reveal">
-                        <div class="statInner">
-                            <p class="bigNum">
-                                <span class="bigNumValue">
-                                    <span id="countProjects" data-to="12" data-duration="1200">0</span>
-                                    <span class="plus">+</span>
-                                </span>
-                                <small>solutions livrées</small>
-                            </p>
-                            <p>
-                                Des MVP aux plateformes critiques, nous livrons des logiciels fiables qui évoluent avec
-                                vos besoins.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="statPanel reveal">
-                        <div class="slider" aria-label="Carrousel de témoignages">
-                            <div class="quote active" data-quote>
-                                <div class="text">« Ils ont écouté avant de construire et ont livré une solution
-                                    intuitive dès le premier jour. »</div>
-                                <div class="who">Partenaire — Organisation éducative</div>
-                            </div>
-                            <div class="quote" data-quote>
-                                <div class="text">« Communication claire, ingénierie solide et vraie volonté d’avoir de
-                                    l’impact. »</div>
-                                <div class="who">Partenaire — Équipe associative</div>
-                            </div>
-                            <div class="quote" data-quote>
-                                <div class="text">« Rapide, sécurisé et scalable — l’expérience produit correspondait à
-                                    notre ambition. »</div>
-                                <div class="who">Partenaire — Fondateur de startup</div>
-                            </div>
-
-                            <div class="dots" role="tablist" aria-label="Témoignages">
-                                <button class="dotBtn" aria-label="Afficher le témoignage 1"
-                                    aria-current="true"></button>
-                                <button class="dotBtn" aria-label="Afficher le témoignage 2"
-                                    aria-current="false"></button>
-                                <button class="dotBtn" aria-label="Afficher le témoignage 3"
-                                    aria-current="false"></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div style="height:18px"></div>
-
                 <div class="card reveal">
                     <div class="cardInner">
-                        <h3>Notre engagement</h3>
-                        <ul class="list">
-                            <li>Écouter avant de construire</li>
-                            <li>Concevoir avec intention</li>
-                            <li>Livrer des solutions fiables et sécurisées</li>
-                            <li>Innover de manière responsable</li>
-                        </ul>
+                        <h3>Engagement</h3>
+                        <p class="lead">Nous écoutons avant de construire et livrons avec responsabilité.</p>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
@@ -237,29 +160,14 @@
             <div class="footLinks">
                 <a href="about.html">À propos</a>
                 <a href="services.html">Services</a>
-                <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
-                <a href="locations.html">Implantations</a>
+                <a href="locations.html">Bureaux</a>
                 <a href="index.html#contact">Contact</a>
             </div>
         </div>
     </footer>
 
     <script type="module" src="../assets/js/main.js"></script>
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-        (function () {
-            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/69487805420bc819787efed6/1jd1h9lia';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
 </body>
 
 </html>

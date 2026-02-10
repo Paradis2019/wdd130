@@ -1,60 +1,21 @@
-<!--  <!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Miracle Tech LLC.</title>
-
-    <script>
-        (function () {
-            const supported = ["en", "fr", "id", "es"];
-            const parts = location.pathname.split("/").filter(Boolean);
-
-            // If already inside a language folder, stop
-            if (parts.some(p => supported.includes(p))) return;
-
-            // Detect base folder (works whether deployed at /miracle/ or at /)
-            // Example: /miracle/ -> base="/miracle"
-            const base = parts.length ? "/" + parts.join("/") : "";
-
-            const lang = (navigator.language || "en").slice(0, 2).toLowerCase();
-            const chosen = supported.includes(lang) ? lang : "en";
-
-            location.replace(`${base}/${chosen}/index.html`);
-        })();
-    </script>
-</head>
-
-<body></body>
-
-</html> -->
-
-
-
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Miracle Tech LLC.</title>
-
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Awaken LLC</title>
     <script>
         (function () {
-            const supported = ["en", "fr", "id", "es"];
-            const SITE_DIR = "miracle"; // your repo name
-
-            // If testing via file://, skip redirect (file paths break base detection)
-            if (location.protocol === "file:") return;
-
+            const supported = ["en", "fr"];
             const parts = location.pathname.split("/").filter(Boolean);
 
-            // If already inside a language folder, stop
+            // If already inside /en or /fr, stop
             if (parts.some(p => supported.includes(p))) return;
 
-            // If URL contains /miracle, keep it. Otherwise assume root deployment.
-            const base = parts.includes(SITE_DIR) ? `/${SITE_DIR}` : "";
+            // If deployed under a folder (GitHub Pages), detect base folder
+            // Example: https://domain.com/awaken/ -> base="/awaken"
+            const base = parts.length ? "/" + parts[0] : "";
 
             const lang = (navigator.language || "en").slice(0, 2).toLowerCase();
             const chosen = supported.includes(lang) ? lang : "en";
@@ -62,11 +23,6 @@
             location.replace(`${base}/${chosen}/index.html`);
         })();
     </script>
-
-    <!-- Optional fallback if JS is disabled -->
-    <noscript>
-        <meta http-equiv="refresh" content="0; url=./en/index.html">
-    </noscript>
 </head>
 
 <body></body>

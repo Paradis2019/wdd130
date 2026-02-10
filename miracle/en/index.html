@@ -14,10 +14,13 @@
 
     <link rel="stylesheet" href="../assets/css/styles.css" />
 
+    <!-- ✅ Live widget + canvas safety styles (copy/paste ready) -->
     <style>
+        /* Ensure hero canvas is visible and layered correctly */
         .heroRight {
             position: relative;
             min-height: 420px;
+            overflow: hidden;
         }
 
         #hero3d {
@@ -26,6 +29,164 @@
             width: 100%;
             height: 100%;
             display: block;
+            z-index: 1;
+        }
+
+        /* Live Innovation Widget */
+        .liveWidget {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            top: 72px;
+            z-index: 2;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, .14);
+            background: rgba(0, 0, 0, .18);
+            backdrop-filter: blur(12px);
+            padding: 12px 12px 10px;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, .35);
+        }
+
+        .liveTop {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .liveTitle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, .82);
+        }
+
+        .liveDot {
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            background: rgba(34, 197, 94, .95);
+            box-shadow: 0 0 0 7px rgba(34, 197, 94, .14);
+        }
+
+        .liveTime {
+            font-size: 12px;
+            color: rgba(255, 255, 255, .65);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .liveRow {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .liveStat {
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: rgba(255, 255, 255, .04);
+            padding: 10px;
+        }
+
+        .liveLabel {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .55);
+            margin-bottom: 4px;
+        }
+
+        .liveValue {
+            font-size: 13px;
+            color: rgba(255, 255, 255, .88);
+            font-weight: 650;
+            letter-spacing: -.01em;
+        }
+
+        .liveBars {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 6px;
+            align-items: end;
+            height: 24px;
+        }
+
+        .liveBars .bar {
+            display: block;
+            width: 100%;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .18);
+            height: 20%;
+            animation: pulseBar 1.2s ease-in-out infinite;
+            transform-origin: bottom;
+        }
+
+        .liveBars .bar:nth-child(2n) {
+            animation-duration: 1.05s;
+        }
+
+        .liveBars .bar:nth-child(3n) {
+            animation-duration: 1.35s;
+        }
+
+        .liveBars .bar:nth-child(4n) {
+            animation-duration: .95s;
+        }
+
+        @keyframes pulseBar {
+            0% {
+                transform: scaleY(.35);
+                opacity: .65;
+            }
+
+            50% {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scaleY(.45);
+                opacity: .75;
+            }
+        }
+
+        .livePhrase {
+            margin-top: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, .72);
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* Contact form select styling (your CSS didn’t include select) */
+        select {
+            font: inherit;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, .14);
+            background: rgba(0, 0, 0, .18);
+            color: rgba(255, 255, 255, .88);
+            padding: 12px;
+            outline: none;
+            transition: border-color .18s var(--ease), background .18s var(--ease);
+            width: 100%;
+            appearance: none;
+        }
+
+        select:focus {
+            border-color: rgba(255, 255, 255, .28);
+            background: rgba(0, 0, 0, .22);
+        }
+
+        @media (max-width: 720px) {
+            .liveRow {
+                grid-template-columns: 1fr;
+            }
+
+            .liveWidget {
+                top: 68px;
+            }
         }
     </style>
 </head>
@@ -51,23 +212,20 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language dropdown (consistent everywhere) -->
+                <!-- Language dropdown (EN/FR only; main.js sets hrefs) -->
                 <div class="langDropdown" data-lang-switch>
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
                     <div class="langMenu" role="listbox">
-                        <a role="option" href="../en/index.html" data-lang="en" aria-current="true">English (EN)</a>
-                        <a role="option" href="../fr/index.html" data-lang="fr">Français (FR)</a>
-                        <a role="option" href="../id/index.html" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="../es/index.html" data-lang="es">Español (ES)</a>
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
                     </div>
                 </div>
 
                 <a class="btn" href="services.html">Explore <span aria-hidden="true">→</span></a>
-                <a class="btn btnPrimary" href="#contact">Talk to us <span aria-hidden="true">↗</span></a>
+                <a class="btn btnPrimary" href="#contact">Start a project <span aria-hidden="true">↗</span></a>
 
                 <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
                     aria-controls="drawer">
@@ -88,7 +246,7 @@
         <div class="panel">
             <div class="panelTop">
                 <div class="brand" style="gap:10px">
-                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="logoImg" width="40" height="40" />
                     <div>
                         <strong style="font-size:14px">Awaken LLC.</strong>
                         <span style="font-size:11px">Changing the world in one click</span>
@@ -97,19 +255,15 @@
                 <button class="btn" id="closeBtn" aria-label="Close menu">Close</button>
             </div>
 
-            <div style="padding: 8px">
-                <!-- Mobile language dropdown -->
-                <div class="langDropdown" data-lang-switch aria-label="Language switcher (mobile)">
+            <div style="padding:8px">
+                <div class="langDropdown" data-lang-switch aria-label="Language dropdown (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
                     <div class="langMenu" role="listbox">
-                        <a role="option" href="../en/index.html" data-lang="en" aria-current="true">English (EN)</a>
-                        <a role="option" href="../fr/index.html" data-lang="fr">Français (FR)</a>
-                        <a role="option" href="../id/index.html" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="../es/index.html" data-lang="es">Español (ES)</a>
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
                     </div>
                 </div>
             </div>
@@ -121,10 +275,8 @@
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
                 <a href="locations.html">Locations</a>
-                <a href="#contact">Contact</a>
+                <a href="#contact">Start a project</a>
             </nav>
-
-            <div class="fineprint" style="padding:8px">Tip: Replace the placeholder Address and Email.</div>
         </div>
     </div>
 
@@ -139,9 +291,8 @@
                     </div>
                     <h1><span class="gradText">Powerful, meaningful</span> technology — built to scale.</h1>
                     <p class="sub">
-                        Awaken LLC. designs and builds mobile, web, and desktop applications that help
-                        organizations and individuals solve real-world problems through smart, reliable, and scalable
-                        software.
+                        Awaken LLC designs and builds mobile, web, and desktop applications that help organizations
+                        solve real-world problems through reliable, secure, scalable software.
                     </p>
                     <div class="heroCtas">
                         <a class="btn btnPrimary" href="#contact">Start a project <span aria-hidden="true">↗</span></a>
@@ -154,16 +305,56 @@
                     </div>
                 </div>
 
-                <div class="heroRight reveal" aria-label="Interactive hero visualization">
+                <!-- ✅ UPDATED: Canvas + Live Innovation Widget -->
+                <div class="heroRight reveal" aria-label="Hero panel">
                     <div class="glassHeader" aria-hidden="true">
                         <div class="mini">
                             <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
                             <span>Innovation preview</span>
                         </div>
-                        <span class="muted12">Canvas • Real-time</span>
+                        <span class="muted12">Live • Canvas</span>
                     </div>
 
                     <canvas id="hero3d" aria-hidden="true"></canvas>
+
+                    <div class="liveWidget" role="region" aria-label="Live innovation widget">
+                        <div class="liveTop">
+                            <div class="liveTitle">
+                                <span class="liveDot" aria-hidden="true"></span>
+                                <span><b>Live</b> Innovation Pulse</span>
+                            </div>
+                            <div class="liveTime" id="liveTime">--:--:--</div>
+                        </div>
+
+                        <div class="liveRow">
+                            <div class="liveStat">
+                                <div class="liveLabel">System</div>
+                                <div class="liveValue" id="liveStatus">Stable</div>
+                            </div>
+                            <div class="liveStat">
+                                <div class="liveLabel">Latency</div>
+                                <div class="liveValue"><span id="liveLatency">18</span>ms</div>
+                            </div>
+                            <div class="liveStat">
+                                <div class="liveLabel">Throughput</div>
+                                <div class="liveValue"><span id="liveThroughput">142</span>/s</div>
+                            </div>
+                        </div>
+
+                        <div class="liveBars" aria-hidden="true">
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span
+                                class="bar"></span>
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span
+                                class="bar"></span>
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span
+                                class="bar"></span>
+                        </div>
+
+                        <div class="livePhrase">
+                            <span class="liveLabel">Now:</span>
+                            <span id="livePhrase">Building scalable foundations…</span>
+                        </div>
+                    </div>
 
                     <div class="heroCard" aria-hidden="true">
                         <div class="miniCard">
@@ -196,7 +387,7 @@
             </div>
         </section>
 
-        <!-- STATS / TESTIMONIALS -->
+        <!-- STATS -->
         <section>
             <div class="container">
                 <div class="stats">
@@ -208,8 +399,8 @@
                                 </span>
                                 <small>solutions shipped</small>
                             </p>
-                            <p>From MVPs to mission-critical platforms, we deliver reliable software that grows with
-                                your needs.</p>
+                            <p>From MVPs to mission-critical platforms, we deliver software that grows with your needs.
+                            </p>
                         </div>
                     </div>
 
@@ -217,7 +408,8 @@
                         <div class="slider" aria-label="Testimonial slider">
                             <div class="quote active" data-quote>
                                 <div class="text">“They listened before building and delivered a solution that felt
-                                    intuitive from day one.”</div>
+                                    intuitive from day
+                                    one.”</div>
                                 <div class="who">Partner — Education organization</div>
                             </div>
                             <div class="quote" data-quote>
@@ -239,14 +431,128 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <!-- CONTACT -->
+        <!-- CONTACT / START PROJECT -->
         <section id="contact">
             <div class="container">
-                <!-- your contact section unchanged -->
+                <div class="sectionHead reveal">
+                    <div>
+                        <div class="kicker">Contact</div>
+                        <div class="h2">Start a project</div>
+                    </div>
+                    <p class="lead">Send a brief and we’ll reply quickly with next steps.</p>
+                </div>
+
+                <div class="contactWrap reveal">
+                    <div class="contactInner">
+                        <div class="contactCol contactIntro">
+                            <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="contactLogo" />
+
+                            <h3 style="margin-top:8px">Awaken LLC.</h3>
+                            <p class="lead" style="font-size:14px; margin-top:6px">
+                                We build clean, scalable software. Share your goal and timeline — we’ll propose the
+                                fastest safe path
+                                to launch.
+                            </p>
+
+                            <div class="card contactInfoCard">
+                                <div class="cardInner">
+                                    <p class="fineprint">
+                                        <strong>Email:</strong>
+                                        <a class="fine"
+                                            href="mailto:info@yourdomain.com?subject=Project%20Inquiry%20—%20Awaken%20LLC">info@yourdomain.com</a><br />
+                                        <strong>Response:</strong> usually 24–48 hours
+                                    </p>
+                                    <div style="height:12px"></div>
+                                    <div style="display:flex; gap:10px; flex-wrap:wrap">
+                                        <a class="btn"
+                                            href="mailto:info@yourdomain.com?subject=Project%20Inquiry%20—%20Awaken%20LLC&body=Hi%20Awaken%20team,%0A%0AName:%0ACompany:%0ABudget:%0ATimeline:%0ADescription:%0A">
+                                            Quick email →
+                                        </a>
+                                        <a class="btn btnPrimary" href="#projectForm">Send brief ↗</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fineprint">Prefer phone? Add it in the message and we’ll call back.</div>
+                        </div>
+
+                        <form id="projectForm" class="card contactCol contactForm"
+                            action="https://formsubmit.co/info@yourdomain.com" method="POST" novalidate>
+
+                            <div class="cardInner">
+                                <h3>Project brief</h3>
+                                <p class="fineprint" style="margin-top:6px">This sends directly to our inbox.</p>
+
+                                <input type="hidden" name="_subject" value="New project lead — Awaken LLC." />
+                                <input type="hidden" name="_template" value="table" />
+                                <input type="hidden" name="_captcha" value="false" />
+                                <input type="text" name="_honey" style="display:none" tabindex="-1"
+                                    autocomplete="off" />
+
+                                <div class="field">
+                                    <label for="p_name">Full name</label>
+                                    <input id="p_name" name="name" type="text" placeholder="Your full name" required />
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="grid2" style="gap:12px">
+                                    <div class="field">
+                                        <label for="p_email">Email</label>
+                                        <input id="p_email" name="email" type="email" placeholder="you@example.com"
+                                            required />
+                                    </div>
+                                    <div class="field">
+                                        <label for="p_phone">Phone (optional)</label>
+                                        <input id="p_phone" name="phone" type="tel" placeholder="+1 555 555 5555" />
+                                    </div>
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="field">
+                                    <label for="p_type">Project type</label>
+                                    <select id="p_type" name="type" required>
+                                        <option value="">Select…</option>
+                                        <option>Web application</option>
+                                        <option>Mobile app (iOS / Android)</option>
+                                        <option>Desktop app</option>
+                                        <option>Automation / Integration</option>
+                                        <option>Cloud / Infra</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="field">
+                                    <label for="p_budget">Estimated budget (optional)</label>
+                                    <input id="p_budget" name="budget" type="text" placeholder="$5k – $20k" />
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="field">
+                                    <label for="p_message">Tell us about the project</label>
+                                    <textarea id="p_message" name="message" rows="6"
+                                        placeholder="Goals, timeline, must-haves…" required></textarea>
+                                </div>
+
+                                <div style="height:14px"></div>
+
+                                <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+                                    <button class="btn btnPrimary" id="submitProject" type="submit">Send brief
+                                        ↗</button>
+                                    <span id="formNote" class="fineprint"></span>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -259,136 +565,61 @@
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
                 <a href="locations.html">Locations</a>
-                <a href="index.html#contact">Contact</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
     </footer>
 
-
-    <!-- <footer>
-        <div class="container foot">
-            <div>
-                <div class="brand" style="gap:12px">
-                    <span class="logo" aria-hidden="true" style="width:34px;height:34px"></span>
-                    <div>
-                        <strong>Awaken LLC.</strong>
-                        <span>Changing the world in one click</span>
-                    </div>
-                </div>
-                <div style="height:10px"></div>
-                <div class="fineprint">© <span id="year"></span> Awaken LLC. All rights reserved.</div>
-            </div>
-
-            == Footer language dropdown (optional)==
-
-            <div class="langDropdown" data-lang-switch>
-                <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
-                    <span class="langCurrent" data-lang-current>EN</span>
-                    <span class="langCaret" aria-hidden="true">▾</span>
-                </button>
-
-                <div class="langMenu" role="listbox">
-                    <a role="option" href="../en/index.html" data-lang="en" aria-current="true">English (EN)</a>
-                    <a role="option" href="../fr/index.html" data-lang="fr">Français (FR)</a>
-                    <a role="option" href="../id/index.html" data-lang="id">Indonesia (ID)</a>
-                    <a role="option" href="../es/index.html" data-lang="es">Español (ES)</a>
-                </div>
-            </div>
-        </div>
-    </footer> -->
-
     <script type="module" src="../assets/js/main.js"></script>
 
-    <!-- Dropdown open/close (safe, doesn’t conflict with main.js) -->
-    <!-- <script>
-        (function () {
-            document.querySelectorAll(".langDropdown").forEach((wrap) => {
-                const btn = wrap.querySelector(".langBtn");
-                if (!btn) return;
-
-                btn.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    const open = wrap.classList.toggle("open");
-                    btn.setAttribute("aria-expanded", open ? "true" : "false");
-                });
-
-                document.addEventListener("click", (e) => {
-                    if (!wrap.contains(e.target)) {
-                        wrap.classList.remove("open");
-                        btn.setAttribute("aria-expanded", "false");
-                    }
-                });
-
-                document.addEventListener("keydown", (e) => {
-                    if (e.key === "Escape") {
-                        wrap.classList.remove("open");
-                        btn.setAttribute("aria-expanded", "false");
-                    }
-                });
-            });
-        })();
-    </script> -->
-
-    <!-- Counter animation: 0 → target -->
+    <!-- ✅ Live widget logic (always works) -->
     <script>
         (function () {
-            const el = document.getElementById("countProjects");
-            if (!el) return;
+            const timeEl = document.getElementById("liveTime");
+            const statusEl = document.getElementById("liveStatus");
+            const latencyEl = document.getElementById("liveLatency");
+            const thrEl = document.getElementById("liveThroughput");
+            const phraseEl = document.getElementById("livePhrase");
 
-            const target = Number(el.getAttribute("data-target") || "12");
-            const duration = 1100;
+            if (!timeEl || !statusEl || !latencyEl || !thrEl || !phraseEl) return;
 
-            const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            if (reduceMotion) {
-                el.textContent = String(target);
-                return;
+            const phrases = [
+                "Building scalable foundations…",
+                "Securing data flows…",
+                "Optimizing performance…",
+                "Shipping product upgrades…",
+                "Automating workflows…",
+                "Designing clean UX…",
+                "Deploying cloud services…"
+            ];
+
+            function pad(n) { return String(n).padStart(2, "0"); }
+
+            function tick() {
+                const d = new Date();
+                timeEl.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+
+                const latency = 12 + Math.floor(Math.random() * 18);   // 12–29ms
+                const thr = 110 + Math.floor(Math.random() * 120);     // 110–229/s
+                latencyEl.textContent = String(latency);
+                thrEl.textContent = String(thr);
+
+                const r = Math.random();
+                statusEl.textContent = r > 0.92 ? "Busy" : (r > 0.85 ? "Scaling" : "Stable");
             }
 
-            let started = false;
-
-            const animate = () => {
-                if (started) return;
-                started = true;
-
-                const start = performance.now();
-                const tick = (now) => {
-                    const t = Math.min(1, (now - start) / duration);
-                    const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
-                    el.textContent = String(Math.floor(eased * target));
-                    if (t < 1) requestAnimationFrame(tick);
-                    else el.textContent = String(target);
-                };
-                requestAnimationFrame(tick);
-            };
-
-            if ("IntersectionObserver" in window) {
-                const io = new IntersectionObserver((entries) => {
-                    entries.forEach((e) => {
-                        if (e.isIntersecting) {
-                            animate();
-                            io.disconnect();
-                        }
-                    });
-                }, { threshold: 0.4 });
-                io.observe(el);
-            } else {
-                animate();
+            let idx = 0;
+            function rotatePhrase() {
+                idx = (idx + 1) % phrases.length;
+                phraseEl.textContent = phrases[idx];
             }
+
+            tick();
+            setInterval(tick, 1000);
+            setInterval(rotatePhrase, 2400);
         })();
     </script>
 
-    <!-- Tawk -->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-        (function () {
-            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/69487805420bc819787efed6/1jd1h9lia';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
 </body>
 
 </html>

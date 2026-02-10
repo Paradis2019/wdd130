@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Awaken LLC. — Implantations dans le monde" />
-    <title>Awaken LLC. — Implantations</title>
+    <meta name="description" content="Bureaux — Awaken LLC." />
+    <title>Awaken LLC. — Bureaux</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,54 +18,95 @@
 <body>
     <header class="nav" role="banner">
         <div class="container navInner">
-            <a class="brand" href="index.html" aria-label="Aller à l’accueil">
-                <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="logoImg" width="46" height="46" />
+            <a class="brand" href="index.html" aria-label="Accueil">
+                <img src="../assets/img/logoa.svg" alt="Awaken logo" class="logoImg" width="46" height="46" />
                 <div>
                     <strong>Awaken LLC.</strong>
                     <span>Changer le monde en un clic</span>
                 </div>
             </a>
 
-            <nav class="navLinks" aria-label="Navigation principale">
+            <nav class="navLinks" aria-label="Principal">
                 <a href="index.html">Accueil</a>
                 <a href="about.html">À propos</a>
                 <a href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
-                <a class="active" href="locations.html">Implantations</a>
+                <a class="active" href="locations.html">Bureaux</a>
             </nav>
 
             <div class="navCtas">
-                <!-- ✅ Language dropdown (handled by main.js) -->
                 <div class="langDropdown" data-lang-switch>
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>FR</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
-                    <div class="langMenu" role="listbox" aria-label="Sélecteur de langue">
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
                         <a role="option" href="#" data-lang="en">English (EN)</a>
-                        <a role="option" href="#" data-lang="fr" aria-current="true">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
                     </div>
                 </div>
 
-                <a class="btn btnPrimary" href="index.html#contact">Nous contacter ↗</a>
+                <a class="btn btnPrimary" href="index.html#contact">Contactez-nous ↗</a>
+                <button class="hamburger" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false"
+                    aria-controls="drawer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
             </div>
         </div>
     </header>
+
+    <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Menu mobile">
+        <div class="backdrop" id="backdrop"></div>
+        <div class="panel">
+            <div class="panelTop">
+                <div class="brand" style="gap:10px">
+                    <img src="../assets/img/logoa.svg" alt="Awaken logo" class="logoImg" width="34" height="34" />
+                    <div>
+                        <strong style="font-size:14px">Awaken LLC.</strong>
+                        <span style="font-size:11px">Changer le monde en un clic</span>
+                    </div>
+                </div>
+                <button class="btn" id="closeBtn" aria-label="Fermer le menu">Fermer</button>
+            </div>
+
+            <div style="padding:8px">
+                <div class="langDropdown" data-lang-switch aria-label="Sélecteur de langue (mobile)">
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>FR</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="panelNav" aria-label="Mobile">
+                <a href="index.html">Accueil</a>
+                <a href="about.html">À propos</a>
+                <a href="services.html">Services</a>
+                <a href="vision.html">Vision</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="locations.html">Bureaux</a>
+                <a href="index.html#contact">Démarrer un projet</a>
+            </nav>
+        </div>
+    </div>
 
     <main>
         <section class="pageHero">
             <div class="container">
                 <div class="reveal">
                     <div class="kicker">Présence mondiale</div>
-                    <h1 class="pageTitle">Nos implantations</h1>
-                    <p class="lead">
-                        Awaken LLC. opère dans plusieurs régions afin de rester proche de nos partenaires et de
-                        nos
-                        communautés à travers le monde.
+                    <h1 class="pageTitle">Nos bureaux</h1>
+                    <p class="lead">Nous sommes présents dans plusieurs régions pour être proches de nos partenaires.
                     </p>
                 </div>
             </div>
@@ -74,76 +115,51 @@
         <section>
             <div class="container">
                 <div class="grid3">
-                    <!-- USA -->
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>États-Unis — Bureau principal</h3>
+                            <h3>États-Unis — Siège</h3>
                             <p class="lead" style="font-size:14px; margin-top:6px">Saratoga Springs, Utah</p>
-                            <p class="fine">
-                                713 N Boseman Way<br />
-                                Saratoga Springs, UT 84045<br />
-                                États-Unis
-                            </p>
+                            <p class="fine">713 N Boseman Way<br />Saratoga Springs, UT 84045<br />États-Unis</p>
                             <div style="height:10px"></div>
                             <a class="btn" target="_blank" rel="noopener"
-                                href="https://www.google.com/maps/search/?api=1&query=713+N+Boseman+Way+Saratoga+Springs+UT+84045">
-                                Itinéraire ↗
-                            </a>
+                                href="https://www.google.com/maps/search/?api=1&query=713+N+Boseman+Way+Saratoga+Springs+UT+84045">Itinéraire
+                                ↗</a>
                         </div>
                     </article>
 
-                    <!-- Indonesia -->
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Indonésie — Bureau de Jakarta</h3>
+                            <h3>Indonésie — Jakarta</h3>
                             <p class="lead" style="font-size:14px; margin-top:6px">Jakarta Utara</p>
-                            <p class="fine">
-                                Jalan Kapuk Muara<br />
-                                Komplek Duta Harapan Indah<br />
-                                Blok K/40, Penjaringan 14460<br />
-                                Jakarta Utara, DKI Jakarta<br />
-                                Indonésie
-                            </p>
+                            <p class="fine">Jalan Kapuk Muara<br />Komplek Duta Harapan Indah<br />Blok K/40,
+                                Penjaringan 14460<br />Jakarta Utara, Indonésie</p>
                             <div style="height:10px"></div>
                             <a class="btn" target="_blank" rel="noopener"
-                                href="https://www.google.com/maps/search/?api=1&query=Jalan+Kapuk+Muara+Komplek+Duta+Harapan+Indah+Blok+K+40+Jakarta">
-                                Itinéraire ↗
-                            </a>
+                                href="https://www.google.com/maps/search/?api=1&query=Jalan+Kapuk+Muara+Jakarta">Itinéraire
+                                ↗</a>
                         </div>
                     </article>
 
-                    <!-- DR Congo -->
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>République démocratique du Congo</h3>
-                            <p class="lead" style="font-size:14px; margin-top:6px">Kinshasa — Lemba</p>
-                            <p class="fine">
-                                14 Bis, Avenue Bokiki<br />
-                                Quartier Échangeur<br />
-                                Commune de Lemba<br />
-                                Kinshasa, RDC
-                            </p>
+                            <h3>RDC — Kinshasa</h3>
+                            <p class="lead" style="font-size:14px; margin-top:6px">Lemba</p>
+                            <p class="fine">14 Bis, Avenue Bokiki<br />Quartier Échangeur<br />Commune de
+                                Lemba<br />Kinshasa, RDC</p>
                             <div style="height:10px"></div>
                             <a class="btn" target="_blank" rel="noopener"
-                                href="https://www.google.com/maps/search/?api=1&query=14+Bis+Avenue+Bokiki+Commune+de+Lemba+Kinshasa">
-                                Itinéraire ↗
-                            </a>
+                                href="https://www.google.com/maps/search/?api=1&query=14+Bis+Avenue+Bokiki+Kinshasa">Itinéraire
+                                ↗</a>
                         </div>
                     </article>
                 </div>
 
                 <div style="height:24px"></div>
-
                 <div class="card reveal">
                     <div class="cardInner">
-                        <h3>Travailler à l’échelle mondiale</h3>
-                        <p class="lead">
-                            Même si nos bureaux sont répartis par région, nos équipes collaborent de manière fluide à
-                            travers les
-                            fuseaux horaires. Nous accompagnons des partenaires partout dans le monde grâce à une
-                            collaboration
-                            “remote-first” et une présence locale lorsque c’est important.
-                        </p>
+                        <h3>Collaboration globale</h3>
+                        <p class="lead">Nos équipes travaillent en remote et localement pour offrir un soutien constant
+                            à nos partenaires partout dans le monde.</p>
                     </div>
                 </div>
             </div>
@@ -159,26 +175,12 @@
                 <a href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
-                <a href="locations.html">Implantations</a>
                 <a href="index.html#contact">Contact</a>
             </div>
         </div>
     </footer>
 
     <script type="module" src="../assets/js/main.js"></script>
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-        (function () {
-            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/69487805420bc819787efed6/1jd1h9lia';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
 </body>
 
 </html>

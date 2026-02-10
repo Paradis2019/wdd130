@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Awaken LLC. — Changer le monde en un seul clic." />
+    <meta name="description" content="Awaken LLC. — Changer le monde en un clic." />
     <title>Awaken LLC. — Accueil</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,16 +13,189 @@
         rel="stylesheet" />
 
     <link rel="stylesheet" href="../assets/css/styles.css" />
+
+    <!-- ✅ Live widget + canvas safety styles (copy/paste ready) -->
+    <style>
+        .heroRight {
+            position: relative;
+            min-height: 420px;
+            overflow: hidden;
+        }
+
+        #hero3d {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 1;
+        }
+
+        .liveWidget {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            top: 72px;
+            z-index: 2;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, .14);
+            background: rgba(0, 0, 0, .18);
+            backdrop-filter: blur(12px);
+            padding: 12px 12px 10px;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, .35);
+        }
+
+        .liveTop {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .liveTitle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, .82);
+        }
+
+        .liveDot {
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            background: rgba(34, 197, 94, .95);
+            box-shadow: 0 0 0 7px rgba(34, 197, 94, .14);
+        }
+
+        .liveTime {
+            font-size: 12px;
+            color: rgba(255, 255, 255, .65);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .liveRow {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .liveStat {
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: rgba(255, 255, 255, .04);
+            padding: 10px;
+        }
+
+        .liveLabel {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .55);
+            margin-bottom: 4px;
+        }
+
+        .liveValue {
+            font-size: 13px;
+            color: rgba(255, 255, 255, .88);
+            font-weight: 650;
+            letter-spacing: -.01em;
+        }
+
+        .liveBars {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 6px;
+            align-items: end;
+            height: 24px;
+        }
+
+        .liveBars .bar {
+            display: block;
+            width: 100%;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .18);
+            height: 20%;
+            animation: pulseBar 1.2s ease-in-out infinite;
+            transform-origin: bottom;
+        }
+
+        .liveBars .bar:nth-child(2n) {
+            animation-duration: 1.05s;
+        }
+
+        .liveBars .bar:nth-child(3n) {
+            animation-duration: 1.35s;
+        }
+
+        .liveBars .bar:nth-child(4n) {
+            animation-duration: .95s;
+        }
+
+        @keyframes pulseBar {
+            0% {
+                transform: scaleY(.35);
+                opacity: .65;
+            }
+
+            50% {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scaleY(.45);
+                opacity: .75;
+            }
+        }
+
+        .livePhrase {
+            margin-top: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, .72);
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        select {
+            font: inherit;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, .14);
+            background: rgba(0, 0, 0, .18);
+            color: rgba(255, 255, 255, .88);
+            padding: 12px;
+            outline: none;
+            transition: border-color .18s var(--ease), background .18s var(--ease);
+            width: 100%;
+            appearance: none;
+        }
+
+        select:focus {
+            border-color: rgba(255, 255, 255, .28);
+            background: rgba(0, 0, 0, .22);
+        }
+
+        @media (max-width: 720px) {
+            .liveRow {
+                grid-template-columns: 1fr;
+            }
+
+            .liveWidget {
+                top: 68px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <header class="nav" role="banner">
         <div class="container navInner">
             <a class="brand" href="index.html" aria-label="Aller à l’accueil">
-                <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="logoImg" width="46" height="46" />
+                <img src="../assets/img/logoa.svg" alt="Logo Awaken LLC" class="logoImg" width="46" height="46" />
                 <div>
                     <strong>Awaken LLC.</strong>
-                    <span>Changer le monde en un seul clic</span>
+                    <span>Changer le monde en un clic</span>
                 </div>
             </a>
 
@@ -36,23 +209,20 @@
             </nav>
 
             <div class="navCtas">
-                <!-- ✅ Language dropdown (handled by main.js) -->
+                <!-- Language dropdown (EN/FR only; main.js sets hrefs) -->
                 <div class="langDropdown" data-lang-switch>
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>FR</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
-                    <div class="langMenu" role="listbox" aria-label="Sélecteur de langue">
+                    <div class="langMenu" role="listbox">
                         <a role="option" href="#" data-lang="en">English (EN)</a>
-                        <a role="option" href="#" data-lang="fr" aria-current="true">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
                     </div>
                 </div>
 
-                <a class="btn" href="services.html">Explorer <span aria-hidden="true">→</span></a>
-                <a class="btn btnPrimary" href="#contact">Nous contacter <span aria-hidden="true">↗</span></a>
+                <a class="btn" href="services.html">Découvrir <span aria-hidden="true">→</span></a>
+                <a class="btn btnPrimary" href="#contact">Démarrer un projet <span aria-hidden="true">↗</span></a>
 
                 <button class="hamburger" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false"
                     aria-controls="drawer">
@@ -73,40 +243,42 @@
         <div class="panel">
             <div class="panelTop">
                 <div class="brand" style="gap:10px">
-                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <img src="../assets/img/logoa.svg" alt="Logo Awaken LLC" class="logoImg" width="40" height="40" />
                     <div>
                         <strong style="font-size:14px">Awaken LLC.</strong>
-                        <span style="font-size:11px">Changer le monde en un seul clic</span>
+                        <span style="font-size:11px">Changer le monde en un clic</span>
                     </div>
                 </div>
                 <button class="btn" id="closeBtn" aria-label="Fermer le menu">Fermer</button>
             </div>
 
-            <!-- Mobile language switcher (simple links) -->
-            <div style="padding: 8px">
-                <div class="langSwitch" aria-label="Sélecteur de langue (mobile)">
-                    <a href="../en/index.html">EN</a>
-                    <a href="../fr/index.html" aria-current="true">FR</a>
-                    <a href="../id/index.html">ID</a>
-                    <a href="../es/index.html">ES</a>
+            <div style="padding:8px">
+                <div class="langDropdown" data-lang-switch aria-label="Langue (mobile)">
+                    <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="langCurrent" data-lang-current>FR</span>
+                        <span class="langCaret" aria-hidden="true">▾</span>
+                    </button>
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="en">English (EN)</a>
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
+                    </div>
                 </div>
             </div>
 
-            <nav class="panelNav" aria-label="Mobile">
+            <nav class="panelNav" aria-label="Navigation mobile">
                 <a href="index.html">Accueil</a>
                 <a href="about.html">À propos</a>
                 <a href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
                 <a href="locations.html">Implantations</a>
-                <a href="#contact">Contact</a>
+                <a href="#contact">Démarrer un projet</a>
             </nav>
-
-            <div class="fineprint" style="padding:8px">Astuce : remplacez l’adresse et l’e-mail de démonstration.</div>
         </div>
     </div>
 
     <main id="top">
+        <!-- HERO -->
         <section class="hero">
             <div class="container heroGrid">
                 <div class="reveal">
@@ -114,12 +286,11 @@
                         <span class="dot" aria-hidden="true"></span>
                         <span>Développement logiciel & innovation digitale</span>
                     </div>
-                    <h1><span class="gradText">Une technologie puissante et utile</span> — conçue pour évoluer.</h1>
+                    <h1><span class="gradText">Une technologie puissante</span> et utile — conçue pour évoluer.</h1>
                     <p class="sub">
-                        Awaken LLC. conçoit et développe des applications mobiles, web et desktop qui aident les
+                        Awaken LLC conçoit et développe des applications mobiles, web et desktop pour aider les
                         organisations
-                        et les individus à résoudre des problèmes concrets grâce à un logiciel intelligent, fiable et
-                        scalable.
+                        à résoudre des problèmes concrets grâce à des logiciels fiables, sécurisés et évolutifs.
                     </p>
                     <div class="heroCtas">
                         <a class="btn btnPrimary" href="#contact">Démarrer un projet <span
@@ -133,169 +304,261 @@
                     </div>
                 </div>
 
-                <div class="heroRight reveal" aria-label="Visualisation interactive">
+                <!-- ✅ Canvas + Live Innovation Widget -->
+                <div class="heroRight reveal" aria-label="Panneau hero">
                     <div class="glassHeader" aria-hidden="true">
                         <div class="mini">
                             <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
                             <span>Aperçu innovation</span>
                         </div>
-                        <span class="muted12">Canvas • Temps réel</span>
+                        <span class="muted12">Live • Canvas</span>
                     </div>
 
-                    <canvas id="hero3d"></canvas>
+                    <canvas id="hero3d" aria-hidden="true"></canvas>
+
+                    <div class="liveWidget" role="region" aria-label="Widget d’innovation en direct">
+                        <div class="liveTop">
+                            <div class="liveTitle">
+                                <span class="liveDot" aria-hidden="true"></span>
+                                <span><b>Live</b> — Pulse Innovation</span>
+                            </div>
+                            <div class="liveTime" id="liveTime">--:--:--</div>
+                        </div>
+
+                        <div class="liveRow">
+                            <div class="liveStat">
+                                <div class="liveLabel">Système</div>
+                                <div class="liveValue" id="liveStatus">Stable</div>
+                            </div>
+                            <div class="liveStat">
+                                <div class="liveLabel">Latence</div>
+                                <div class="liveValue"><span id="liveLatency">18</span>ms</div>
+                            </div>
+                            <div class="liveStat">
+                                <div class="liveLabel">Débit</div>
+                                <div class="liveValue"><span id="liveThroughput">142</span>/s</div>
+                            </div>
+                        </div>
+
+                        <div class="liveBars" aria-hidden="true">
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span
+                                class="bar"></span>
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span
+                                class="bar"></span>
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span
+                                class="bar"></span>
+                        </div>
+
+                        <div class="livePhrase">
+                            <span class="liveLabel">En cours :</span>
+                            <span id="livePhrase">Construction de bases évolutives…</span>
+                        </div>
+                    </div>
 
                     <div class="heroCard" aria-hidden="true">
                         <div class="miniCard">
                             <b>Utile. Intuitif. Impactant.</b>
-                            <p>La technologie ne devrait pas être compliquée — elle doit créer des opportunités.</p>
+                            <p>La technologie ne doit pas être complexe — elle doit créer des opportunités.</p>
                         </div>
                         <div class="miniCard">
-                            <b>Systèmes prêts pour l’avenir</b>
+                            <b>Des systèmes prêts pour l’avenir</b>
                             <p>Architecture modulaire, fondations scalables, livraison sécurisée.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="marqueeWrap" aria-label="Avec qui nous travaillons">
+            <div class="marqueeWrap" aria-label="Nos partenaires">
                 <div class="container" style="overflow:hidden">
                     <div class="marquee" aria-hidden="true">
-                        <span><b>Nous collaborons avec</b>Entreprises & startups</span>
-                        <span><b>Nous collaborons avec</b>Gouvernement & institutions publiques</span>
-                        <span><b>Nous collaborons avec</b>Écoles & éducation</span>
-                        <span><b>Nous collaborons avec</b>ONG & associations</span>
-                        <span><b>Nous collaborons avec</b>Individus & innovateurs</span>
-                        <span><b>Nous collaborons avec</b>Entreprises & startups</span>
-                        <span><b>Nous collaborons avec</b>Gouvernement & institutions publiques</span>
-                        <span><b>Nous collaborons avec</b>Écoles & éducation</span>
-                        <span><b>Nous collaborons avec</b>ONG & associations</span>
-                        <span><b>Nous collaborons avec</b>Individus & innovateurs</span>
+                        <span><b>Nous collaborons avec</b>Entreprises & Startups</span>
+                        <span><b>Nous collaborons avec</b>Institutions publiques</span>
+                        <span><b>Nous collaborons avec</b>Écoles & Éducation</span>
+                        <span><b>Nous collaborons avec</b>ONG & Associations</span>
+                        <span><b>Nous collaborons avec</b>Innovateurs & Indépendants</span>
+                        <span><b>Nous collaborons avec</b>Entreprises & Startups</span>
+                        <span><b>Nous collaborons avec</b>Institutions publiques</span>
+                        <span><b>Nous collaborons avec</b>Écoles & Éducation</span>
+                        <span><b>Nous collaborons avec</b>ONG & Associations</span>
+                        <span><b>Nous collaborons avec</b>Innovateurs & Indépendants</span>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- STATS -->
         <section>
             <div class="container">
-                <div class="sectionHead reveal">
-                    <div>
-                        <div class="kicker">En bref</div>
-                        <div class="h2">Ce que nous faisons le mieux</div>
+                <div class="stats">
+                    <div class="statPanel reveal">
+                        <div class="statInner">
+                            <p class="bigNum">
+                                <span class="bigNumValue">
+                                    <span id="countProjects" data-target="12">0</span><span class="plus">+</span>
+                                </span>
+                                <small>solutions livrées</small>
+                            </p>
+                            <p>De MVP à des plateformes critiques, nous livrons des logiciels qui grandissent avec vos
+                                besoins.</p>
+                        </div>
                     </div>
-                    <p class="lead">
-                        Du concept au lancement et au-delà, nous accompagnons nos partenaires à chaque étape de leur
-                        transformation digitale.
-                    </p>
-                </div>
 
-                <div class="grid3">
-                    <article class="card reveal">
-                        <div class="cardInner">
-                            <h3>Construire</h3>
-                            <p>Applications web, mobiles et desktop avec une architecture scalable.</p>
+                    <div class="statPanel reveal">
+                        <div class="slider" aria-label="Carrousel de témoignages">
+                            <div class="quote active" data-quote>
+                                <div class="text">« Ils ont écouté avant de construire et ont livré une solution
+                                    intuitive dès le
+                                    premier jour. »</div>
+                                <div class="who">Partenaire — Organisation éducative</div>
+                            </div>
+                            <div class="quote" data-quote>
+                                <div class="text">« Communication claire, ingénierie solide et véritable engagement sur
+                                    l’impact. »</div>
+                                <div class="who">Partenaire — Équipe associative</div>
+                            </div>
+                            <div class="quote" data-quote>
+                                <div class="text">« Rapide, sécurisé, évolutif — l’expérience produit a suivi notre
+                                    ambition. »</div>
+                                <div class="who">Partenaire — Fondateur de startup</div>
+                            </div>
+
+                            <div class="dots" role="tablist" aria-label="Témoignages">
+                                <button class="dotBtn" aria-label="Afficher le témoignage 1"
+                                    aria-current="true"></button>
+                                <button class="dotBtn" aria-label="Afficher le témoignage 2"
+                                    aria-current="false"></button>
+                                <button class="dotBtn" aria-label="Afficher le témoignage 3"
+                                    aria-current="false"></button>
+                            </div>
                         </div>
-                    </article>
-                    <article class="card reveal">
-                        <div class="cardInner">
-                            <h3>Concevoir</h3>
-                            <p>UX/UI qui rend simples les workflows complexes.</p>
-                        </div>
-                    </article>
-                    <article class="card reveal">
-                        <div class="cardInner">
-                            <h3>Transformer</h3>
-                            <p>Automatisation, intégrations et cloud pour moderniser les systèmes.</p>
-                        </div>
-                    </article>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- CONTACT / START PROJECT -->
         <section id="contact">
             <div class="container">
                 <div class="sectionHead reveal">
                     <div>
                         <div class="kicker">Contact</div>
-                        <div class="h2">Vous avez un projet en tête ?</div>
+                        <div class="h2">Démarrer un projet</div>
                     </div>
-                    <p class="lead">
-                        Dites-nous ce que vous construisez. Nous répondrons avec des questions utiles et une prochaine
-                        étape claire.
-                    </p>
+                    <p class="lead">Envoyez un brief — nous répondrons rapidement avec les prochaines étapes.</p>
                 </div>
 
                 <div class="contactWrap reveal">
                     <div class="contactInner">
-                        <div>
-                            <div class="card" style="background: rgba(0,0,0,.14)">
+                        <div class="contactCol contactIntro">
+                            <img src="../assets/img/logoa.svg" alt="Logo Awaken LLC" class="contactLogo" />
+
+                            <h3 style="margin-top:8px">Awaken LLC.</h3>
+                            <p class="lead" style="font-size:14px; margin-top:6px">
+                                Nous construisons des logiciels propres et scalables. Partagez votre objectif et votre
+                                calendrier —
+                                nous proposerons la voie la plus rapide et la plus sûre vers le lancement.
+                            </p>
+
+                            <div class="card contactInfoCard">
                                 <div class="cardInner">
-                                    <h3>Awaken LLC.</h3>
-                                    <p style="margin-top:6px">Changer le monde en un seul clic</p>
-                                    <div style="height:10px"></div>
-
-                                    <p class="fineprint"><b>Adresse :</b> <span class="fine">[Ajoutez votre adresse
-                                            ici]</span></p>
-                                    <p class="fineprint"><b>Email :</b> <span
-                                            class="fine">bonjour@miracletech.example</span></p>
-
-                                    <p class="fineprint"><b>Nous travaillons avec :</b> Startups • Gouvernement •
-                                        Éducation • ONG • Individus</p>
-                                    <p class="fineprint"><a href="locations.html">Voir toutes les implantations →</a>
+                                    <p class="fineprint">
+                                        <strong>Email :</strong>
+                                        <a class="fine"
+                                            href="mailto:info@yourdomain.com?subject=Demande%20de%20projet%20—%20Awaken%20LLC">info@yourdomain.com</a><br />
+                                        <strong>Réponse :</strong> généralement sous 24–48 h
                                     </p>
+                                    <div style="height:12px"></div>
+                                    <div style="display:flex; gap:10px; flex-wrap:wrap">
+                                        <a class="btn"
+                                            href="mailto:info@yourdomain.com?subject=Demande%20de%20projet%20—%20Awaken%20LLC&body=Bonjour%20l’équipe%20Awaken,%0A%0ANom:%0ASociété:%0ABudget:%0ACalendrier:%0ADescription:%0A">
+                                            Email rapide →
+                                        </a>
+                                        <a class="btn btnPrimary" href="#projectForm">Envoyer un brief ↗</a>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div style="height:12px"></div>
-                            <div class="fineprint">
-                                Regard vers l’avenir : nous ne construisons pas seulement du logiciel — nous créons des
-                                solutions qui changent des vies.
-                            </div>
+                            <div class="fineprint">Vous préférez un appel ? Ajoutez votre numéro dans le message.</div>
                         </div>
 
-                        <form id="contactForm" class="card" style="background: rgba(0,0,0,.12)" autocomplete="on">
+                        <form id="projectForm" class="card contactCol contactForm"
+                            action="https://formsubmit.co/info@yourdomain.com" method="POST" novalidate>
+
                             <div class="cardInner">
-                                <div class="grid2">
+                                <h3>Brief projet</h3>
+                                <p class="fineprint" style="margin-top:6px">Ceci est envoyé directement dans notre boîte
+                                    mail.</p>
+
+                                <input type="hidden" name="_subject" value="Nouveau lead — Awaken LLC." />
+                                <input type="hidden" name="_template" value="table" />
+                                <input type="hidden" name="_captcha" value="false" />
+                                <input type="text" name="_honey" style="display:none" tabindex="-1"
+                                    autocomplete="off" />
+
+                                <div class="field">
+                                    <label for="p_name">Nom complet</label>
+                                    <input id="p_name" name="name" type="text" placeholder="Votre nom complet"
+                                        required />
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="grid2" style="gap:12px">
                                     <div class="field">
-                                        <label for="name">Nom</label>
-                                        <input id="name" name="name" placeholder="Votre nom" required />
-                                    </div>
-                                    <div class="field">
-                                        <label for="email">Email</label>
-                                        <input id="email" name="email" type="email" placeholder="vous@entreprise.com"
+                                        <label for="p_email">Email</label>
+                                        <input id="p_email" name="email" type="email" placeholder="vous@exemple.com"
                                             required />
                                     </div>
+                                    <div class="field">
+                                        <label for="p_phone">Téléphone (optionnel)</label>
+                                        <input id="p_phone" name="phone" type="tel" placeholder="+33 6 00 00 00 00" />
+                                    </div>
                                 </div>
 
                                 <div style="height:12px"></div>
 
                                 <div class="field">
-                                    <label for="topic">Que construisez-vous ?</label>
-                                    <input id="topic" name="topic"
-                                        placeholder="App, plateforme, automatisation, modernisation…" required />
+                                    <label for="p_type">Type de projet</label>
+                                    <select id="p_type" name="type" required>
+                                        <option value="">Sélectionner…</option>
+                                        <option>Application web</option>
+                                        <option>Application mobile (iOS / Android)</option>
+                                        <option>Application desktop</option>
+                                        <option>Automatisation / Intégration</option>
+                                        <option>Cloud / Infra</option>
+                                        <option>Autre</option>
+                                    </select>
                                 </div>
 
                                 <div style="height:12px"></div>
 
                                 <div class="field">
-                                    <label for="message">Message</label>
-                                    <textarea id="message" name="message"
-                                        placeholder="Quelques détails sur les objectifs, le planning, et ce qui définit le succès."
-                                        required></textarea>
+                                    <label for="p_budget">Budget estimé (optionnel)</label>
+                                    <input id="p_budget" name="budget" type="text" placeholder="5k€ – 20k€" />
+                                </div>
+
+                                <div style="height:12px"></div>
+
+                                <div class="field">
+                                    <label for="p_message">Parlez-nous du projet</label>
+                                    <textarea id="p_message" name="message" rows="6"
+                                        placeholder="Objectifs, calendrier, indispensables…" required></textarea>
                                 </div>
 
                                 <div style="height:14px"></div>
 
-                                <button class="btn btnPrimary" type="submit">Envoyer <span
-                                        aria-hidden="true">↗</span></button>
-                                <div id="formNote" class="fineprint" style="margin-top:10px"></div>
+                                <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+                                    <button class="btn btnPrimary" id="submitProject" type="submit">Envoyer ↗</button>
+                                    <span id="formNote" class="fineprint"></span>
+                                </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
         </section>
     </main>
-
 
     <footer>
         <div class="container foot">
@@ -305,50 +568,61 @@
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
                 <a href="locations.html">Implantations</a>
-                <a href="index.html#contact">Contact</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
     </footer>
 
-    <!--
-    <footer>
-        <div class="container foot">
-            <div>
-                <div class="brand" style="gap:12px">
-                    <span class="logo" aria-hidden="true" style="width:34px;height:34px"></span>
-                    <div>
-                        <strong>Awaken LLC.</strong>
-                        <span>Changer le monde en un seul clic</span>
-                    </div>
-                </div>
-                <div style="height:10px"></div>
-                <div class="fineprint">© <span id="year"></span> Awaken LLC. Tous droits réservés.</div>
-            </div>
-
-            <div class="footLinks" aria-label="Pied de page">
-                <a href="about.html">À propos</a>
-                <a href="services.html">Services</a>
-                <a href="vision.html">Vision</a>
-                <a href="portfolio.html">Portfolio</a>
-                <a href="locations.html">Implantations</a>
-            </div>
-        </div>
-    </footer> -->
-
     <script type="module" src="../assets/js/main.js"></script>
 
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    <!-- ✅ Live widget logic (always works) -->
+    <script>
         (function () {
-            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/69487805420bc819787efed6/1jd1h9lia';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
+            const timeEl = document.getElementById("liveTime");
+            const statusEl = document.getElementById("liveStatus");
+            const latencyEl = document.getElementById("liveLatency");
+            const thrEl = document.getElementById("liveThroughput");
+            const phraseEl = document.getElementById("livePhrase");
+
+            if (!timeEl || !statusEl || !latencyEl || !thrEl || !phraseEl) return;
+
+            const phrases = [
+                "Construction de bases évolutives…",
+                "Sécurisation des flux de données…",
+                "Optimisation des performances…",
+                "Déploiement de mises à jour…",
+                "Automatisation des workflows…",
+                "Conception d’une UX claire…",
+                "Mise en place de services cloud…"
+            ];
+
+            function pad(n) { return String(n).padStart(2, "0"); }
+
+            function tick() {
+                const d = new Date();
+                timeEl.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+
+                const latency = 12 + Math.floor(Math.random() * 18);
+                const thr = 110 + Math.floor(Math.random() * 120);
+                latencyEl.textContent = String(latency);
+                thrEl.textContent = String(thr);
+
+                const r = Math.random();
+                statusEl.textContent = r > 0.92 ? "Chargé" : (r > 0.85 ? "Scaling" : "Stable");
+            }
+
+            let idx = 0;
+            function rotatePhrase() {
+                idx = (idx + 1) % phrases.length;
+                phraseEl.textContent = phrases[idx];
+            }
+
+            tick();
+            setInterval(tick, 1000);
+            setInterval(rotatePhrase, 2400);
         })();
     </script>
+
 </body>
 
 </html>

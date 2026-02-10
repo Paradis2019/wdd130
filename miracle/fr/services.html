@@ -18,52 +18,38 @@
 <body>
     <header class="nav" role="banner">
         <div class="container navInner">
-            <a class="brand" href="index.html" aria-label="Aller à l’accueil">
-                <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="logoImg" width="46" height="46" />
+            <a class="brand" href="index.html" aria-label="Accueil">
+                <img src="../assets/img/logoa.svg" alt="Awaken logo" class="logoImg" width="46" height="46" />
                 <div>
                     <strong>Awaken LLC.</strong>
                     <span>Changer le monde en un clic</span>
                 </div>
             </a>
 
-            <nav class="navLinks" aria-label="Navigation principale">
+            <nav class="navLinks" aria-label="Principal">
                 <a href="index.html">Accueil</a>
                 <a href="about.html">À propos</a>
                 <a class="active" href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
-                <a href="locations.html">Implantations</a>
+                <a href="locations.html">Bureaux</a>
             </nav>
 
             <div class="navCtas">
-                <!-- ✅ Language dropdown (handled by main.js) -->
                 <div class="langDropdown" data-lang-switch>
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>FR</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
-                    <div class="langMenu" role="listbox" aria-label="Sélecteur de langue">
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
                         <a role="option" href="#" data-lang="en">English (EN)</a>
-                        <a role="option" href="#" data-lang="fr" aria-current="true">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
                     </div>
                 </div>
 
-                <a class="btn" href="about.html">À propos <span aria-hidden="true">→</span></a>
+                <a class="btn" href="portfolio.html">Nos réalisations <span aria-hidden="true">→</span></a>
                 <a class="btn btnPrimary" href="index.html#contact">Démarrer un projet <span
                         aria-hidden="true">↗</span></a>
-
-                <button class="hamburger" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false"
-                    aria-controls="drawer">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true">
-                        <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        <path d="M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                </button>
             </div>
         </div>
     </header>
@@ -73,7 +59,7 @@
         <div class="panel">
             <div class="panelTop">
                 <div class="brand" style="gap:10px">
-                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <img src="../assets/img/logoa.svg" alt="Awaken logo" class="logoImg" width="34" height="34" />
                     <div>
                         <strong style="font-size:14px">Awaken LLC.</strong>
                         <span style="font-size:11px">Changer le monde en un clic</span>
@@ -82,31 +68,27 @@
                 <button class="btn" id="closeBtn" aria-label="Fermer le menu">Fermer</button>
             </div>
 
-            <!-- ✅ Mobile language dropdown (handled by main.js) -->
             <div style="padding:8px">
                 <div class="langDropdown" data-lang-switch aria-label="Sélecteur de langue (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>FR</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
                     <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
                         <a role="option" href="#" data-lang="en">English (EN)</a>
-                        <a role="option" href="#" data-lang="fr" aria-current="true">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
                     </div>
                 </div>
             </div>
 
-            <nav class="panelNav" aria-label="Menu mobile">
+            <nav class="panelNav" aria-label="Mobile">
                 <a href="index.html">Accueil</a>
                 <a href="about.html">À propos</a>
                 <a href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
-                <a href="locations.html">Implantations</a>
-                <a href="index.html#contact">Contact</a>
+                <a href="locations.html">Bureaux</a>
+                <a href="index.html#contact">Démarrer un projet</a>
             </nav>
         </div>
     </div>
@@ -116,94 +98,60 @@
             <div class="container">
                 <div class="reveal">
                     <div class="kicker">Services</div>
-                    <h1 class="pageTitle">Ce que nous proposons</h1>
-                    <p class="lead">
-                        Nous transformons des idées en produits digitaux en combinant expertise technique,
-                        créativité et réflexion stratégique.
-                    </p>
+                    <h1 class="pageTitle">Nos services</h1>
+                    <p class="lead">Accompagnement complet : de la stratégie produit au support de production.</p>
                 </div>
             </div>
         </section>
 
         <section>
             <div class="container">
-                <div class="grid2">
+                <div class="grid3">
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Développement logiciel sur mesure</h3>
-                            <p>Des solutions conçues pour répondre à de vrais besoins.</p>
-                            <ul class="list">
-                                <li>Applications web (plateformes, portails, SaaS)</li>
-                                <li>Applications mobiles (Android & iOS)</li>
-                                <li>Applications desktop (Windows, macOS, Linux)</li>
-                            </ul>
+                            <h3>Stratégie produit</h3>
+                            <p>Études, validation et roadmaps pour prioriser les bons développements.</p>
                         </div>
                     </article>
-
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Design produit & innovation</h3>
-                            <p>Donner vie à vos idées via la recherche, l’UX/UI et la stratégie.</p>
-                            <ul class="list">
-                                <li>Validation d’idée & recherche</li>
-                                <li>Développement MVP (Produit Minimum Viable)</li>
-                                <li>UX/UI centré sur la clarté et l’utilisabilité</li>
-                                <li>Prototypage & stratégie produit</li>
-                            </ul>
+                            <h3>Design & UX</h3>
+                            <p>Design centré utilisateur, prototypes et accessibilité.</p>
                         </div>
                     </article>
-
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Transformation digitale</h3>
-                            <p>Accompagner les organisations dans la modernisation de leurs systèmes.</p>
-                            <ul class="list">
-                                <li>Automatisation des workflows</li>
-                                <li>Intégration de systèmes</li>
-                                <li>Solutions pilotées par les données</li>
-                                <li>Plateformes cloud</li>
-                            </ul>
+                            <h3>Ingénierie</h3>
+                            <p>Développements scalables, CI/CD et bonnes pratiques d'architecture.</p>
                         </div>
                     </article>
-
                     <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Maintenance & support technique</h3>
-                            <p>Un accompagnement continu après le lancement.</p>
-                            <ul class="list">
-                                <li>Maintenance et mises à jour</li>
-                                <li>Optimisation des performances</li>
-                                <li>Surveillance de la sécurité</li>
-                                <li>Évolutions fonctionnelles</li>
-                            </ul>
+                            <h3>Cloud & infra</h3>
+                            <p>Architecture cloud, sécurité et observabilité.</p>
                         </div>
                     </article>
-
-                    <article class="card reveal" style="grid-column:1/-1">
+                    <article class="card reveal">
                         <div class="cardInner">
-                            <h3>Conseil & collaboration</h3>
-                            <p>
-                                Nous analysons vos défis, proposons des solutions intelligentes et co-créons
-                                des produits digitaux innovants avec votre équipe.
-                            </p>
+                            <h3>Automatisation</h3>
+                            <p>API, intégrations et automatisation des workflows.</p>
+                        </div>
+                    </article>
+                    <article class="card reveal">
+                        <div class="cardInner">
+                            <h3>Support</h3>
+                            <p>Maintenance, monitoring et montée en charge.</p>
                         </div>
                     </article>
                 </div>
 
                 <div style="height:18px"></div>
-
-                <div class="contactCTA reveal">
-                    <div>
-                        <div class="kicker">Prochaine étape</div>
-                        <div class="h2" style="font-size: clamp(22px, 2.4vw, 30px)">Construisons quelque chose qui
-                            compte</div>
-                        <p class="lead">
-                            Expliquez votre besoin — nous proposerons le chemin le plus rapide et le plus sûr vers le
-                            lancement.
-                        </p>
+                <div class="card reveal">
+                    <div class="cardInner">
+                        <h3>Parlons de votre projet</h3>
+                        <p class="lead">Utilisez le formulaire sur la page d'accueil ou écrivez-nous à <a
+                                href="mailto:info@yourdomain.com">info@yourdomain.com</a>.</p>
                     </div>
-                    <a class="btn btnPrimary" href="index.html#contact">Démarrer un projet <span
-                            aria-hidden="true">↗</span></a>
                 </div>
             </div>
         </section>
@@ -213,11 +161,10 @@
         <div class="container foot">
             <div class="fineprint">© <span id="year"></span> Awaken LLC. Tous droits réservés.</div>
             <div class="footLinks">
-                <a href="about.html">À propos</a>
-                <a href="services.html">Services</a>
+                <a href="index.html">Accueil</a>
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
-                <a href="locations.html">Implantations</a>
+                <a href="locations.html">Bureaux</a>
                 <a href="index.html#contact">Contact</a>
             </div>
         </div>

@@ -18,42 +18,36 @@
 <body>
     <header class="nav" role="banner">
         <div class="container navInner">
-            <a class="brand" href="index.html" aria-label="Aller à l’accueil">
-                <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="logoImg" width="46" height="46" />
+            <a class="brand" href="index.html" aria-label="Accueil">
+                <img src="../assets/img/logoa.svg" alt="Awaken logo" class="logoImg" width="46" height="46" />
                 <div>
                     <strong>Awaken LLC.</strong>
                     <span>Changer le monde en un clic</span>
                 </div>
             </a>
 
-            <nav class="navLinks" aria-label="Navigation principale">
+            <nav class="navLinks" aria-label="Principal">
                 <a href="index.html">Accueil</a>
                 <a href="about.html">À propos</a>
                 <a href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
                 <a class="active" href="portfolio.html">Portfolio</a>
-                <a href="locations.html">Implantations</a>
+                <a href="locations.html">Bureaux</a>
             </nav>
 
             <div class="navCtas">
-                <!-- ✅ Language dropdown (handled by main.js) -->
                 <div class="langDropdown" data-lang-switch>
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>FR</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
-                    <div class="langMenu" role="listbox" aria-label="Sélecteur de langue">
+                    <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
                         <a role="option" href="#" data-lang="en">English (EN)</a>
-                        <a role="option" href="#" data-lang="fr" aria-current="true">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
                     </div>
                 </div>
 
-                <a class="btn btnPrimary" href="index.html#contact">Nous contacter ↗</a>
-
-                <!-- ✅ Mobile hamburger -->
+                <a class="btn btnPrimary" href="index.html#contact">Contactez-nous ↗</a>
                 <button class="hamburger" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false"
                     aria-controls="drawer">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -67,13 +61,12 @@
         </div>
     </header>
 
-    <!-- ✅ Mobile drawer -->
     <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Menu mobile">
         <div class="backdrop" id="backdrop"></div>
         <div class="panel">
             <div class="panelTop">
                 <div class="brand" style="gap:10px">
-                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <img src="../assets/img/logoa.svg" alt="Awaken logo" class="logoImg" width="34" height="34" />
                     <div>
                         <strong style="font-size:14px">Awaken LLC.</strong>
                         <span style="font-size:11px">Changer le monde en un clic</span>
@@ -82,19 +75,15 @@
                 <button class="btn" id="closeBtn" aria-label="Fermer le menu">Fermer</button>
             </div>
 
-            <!-- Language switcher in drawer (also handled by main.js) -->
             <div style="padding:8px">
                 <div class="langDropdown" data-lang-switch aria-label="Sélecteur de langue (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>FR</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
                     <div class="langMenu" role="listbox">
+                        <a role="option" href="#" data-lang="fr">Français (FR)</a>
                         <a role="option" href="#" data-lang="en">English (EN)</a>
-                        <a role="option" href="#" data-lang="fr" aria-current="true">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
                     </div>
                 </div>
             </div>
@@ -105,8 +94,8 @@
                 <a href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
-                <a href="locations.html">Implantations</a>
-                <a href="index.html#contact">Contact</a>
+                <a href="locations.html">Bureaux</a>
+                <a href="index.html#contact">Démarrer un projet</a>
             </nav>
         </div>
     </div>
@@ -116,11 +105,8 @@
             <div class="container">
                 <div class="reveal">
                     <div class="kicker">Portfolio</div>
-                    <h1 class="pageTitle">Projets livrés</h1>
-                    <p class="lead">
-                        Une sélection de solutions concrètes conçues pour des organisations, des régions et des secteurs
-                        variés.
-                    </p>
+                    <h1 class="pageTitle">Projets réalisés</h1>
+                    <p class="lead">Sélection de solutions construites pour nos partenaires.</p>
                 </div>
             </div>
         </section>
@@ -136,7 +122,7 @@
                 </div>
 
                 <div class="portfolioTop reveal" style="margin-top:12px">
-                    <input id="projectSearch" class="searchInput" type="search" placeholder="Rechercher des projets…" />
+                    <input id="projectSearch" class="searchInput" type="search" placeholder="Rechercher un projet…" />
                 </div>
 
                 <div id="projectsGrid" class="grid3" style="margin-top:16px"></div>
@@ -151,21 +137,14 @@
                             </div>
                             <button class="btn" data-close>Fermer</button>
                         </div>
-
                         <div class="modalBody">
                             <p class="lead" id="modalSummary"></p>
-
-                            <div class="metaRow" style="margin-top:10px">
-                                <span id="modalMetaLeft"></span>
-                                <span id="modalMetaRight"></span>
-                            </div>
-
+                            <div class="metaRow" style="margin-top:10px"><span id="modalMetaLeft"></span><span
+                                    id="modalMetaRight"></span></div>
                             <div style="height:12px"></div>
                             <div id="modalTags" class="chipRow"></div>
-
                             <div style="height:12px"></div>
                             <ul id="modalHighlights" class="list"></ul>
-
                             <div style="height:12px"></div>
                             <a id="modalLink" class="btn btnPrimary" target="_blank" rel="noopener"
                                 style="display:none">Visiter ↗</a>
@@ -184,8 +163,7 @@
                 <a href="about.html">À propos</a>
                 <a href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
-                <a href="portfolio.html">Portfolio</a>
-                <a href="locations.html">Implantations</a>
+                <a href="locations.html">Bureaux</a>
                 <a href="index.html#contact">Contact</a>
             </div>
         </div>

@@ -36,24 +36,18 @@
             </nav>
 
             <div class="navCtas">
-                <!-- ✅ Language dropdown (main.js sets hrefs automatically) -->
                 <div class="langDropdown" data-lang-switch>
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
                     <div class="langMenu" role="listbox">
                         <a role="option" href="#" data-lang="en">English (EN)</a>
                         <a role="option" href="#" data-lang="fr">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
                     </div>
                 </div>
 
                 <a class="btn btnPrimary" href="index.html#contact">Contact us ↗</a>
-
-                <!-- (Optional) hamburger if you use drawer on this page too -->
                 <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
                     aria-controls="drawer">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -67,13 +61,12 @@
         </div>
     </header>
 
-    <!-- ✅ Mobile drawer (recommended if you have it on all pages) -->
     <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
         <div class="backdrop" id="backdrop"></div>
         <div class="panel">
             <div class="panelTop">
                 <div class="brand" style="gap:10px">
-                    <span class="logo" aria-hidden="true" style="width:30px;height:30px;border-radius:11px"></span>
+                    <img src="../assets/img/logoa.svg" alt="Awaken logo" class="logoImg" width="34" height="34" />
                     <div>
                         <strong style="font-size:14px">Awaken LLC.</strong>
                         <span style="font-size:11px">Changing the world in one click</span>
@@ -82,19 +75,15 @@
                 <button class="btn" id="closeBtn" aria-label="Close menu">Close</button>
             </div>
 
-            <!-- ✅ Mobile language dropdown -->
-            <div style="padding: 8px">
+            <div style="padding:8px">
                 <div class="langDropdown" data-lang-switch aria-label="Language dropdown (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
                         <span class="langCaret" aria-hidden="true">▾</span>
                     </button>
-
                     <div class="langMenu" role="listbox">
                         <a role="option" href="#" data-lang="en">English (EN)</a>
                         <a role="option" href="#" data-lang="fr">Français (FR)</a>
-                        <a role="option" href="#" data-lang="id">Indonesia (ID)</a>
-                        <a role="option" href="#" data-lang="es">Español (ES)</a>
                     </div>
                 </div>
             </div>
@@ -106,7 +95,7 @@
                 <a href="vision.html">Vision</a>
                 <a href="portfolio.html">Portfolio</a>
                 <a href="locations.html">Locations</a>
-                <a href="index.html#contact">Contact</a>
+                <a href="index.html#contact">Start a project</a>
             </nav>
         </div>
     </div>
@@ -117,8 +106,7 @@
                 <div class="reveal">
                     <div class="kicker">Portfolio</div>
                     <h1 class="pageTitle">Projects we’ve delivered</h1>
-                    <p class="lead">A selection of real solutions built for organizations across regions and industries.
-                    </p>
+                    <p class="lead">A curated selection of solutions built for partners across sectors.</p>
                 </div>
             </div>
         </section>
@@ -139,6 +127,7 @@
 
                 <div id="projectsGrid" class="grid3" style="margin-top:16px"></div>
 
+                <!-- Modal -->
                 <div id="projectModal" class="modal" aria-hidden="true">
                     <div class="modalBackdrop" data-close></div>
                     <div class="modalPanel" role="dialog" aria-modal="true" aria-label="Project details">
@@ -151,18 +140,14 @@
                         </div>
                         <div class="modalBody">
                             <p class="lead" id="modalSummary"></p>
-
                             <div class="metaRow" style="margin-top:10px">
                                 <span id="modalMetaLeft"></span>
                                 <span id="modalMetaRight"></span>
                             </div>
-
                             <div style="height:12px"></div>
                             <div id="modalTags" class="chipRow"></div>
-
                             <div style="height:12px"></div>
                             <ul id="modalHighlights" class="list"></ul>
-
                             <div style="height:12px"></div>
                             <a id="modalLink" class="btn btnPrimary" target="_blank" rel="noopener"
                                 style="display:none">Visit ↗</a>
@@ -181,7 +166,6 @@
                 <a href="about.html">About</a>
                 <a href="services.html">Services</a>
                 <a href="vision.html">Vision</a>
-                <a href="portfolio.html">Portfolio</a>
                 <a href="locations.html">Locations</a>
                 <a href="index.html#contact">Contact</a>
             </div>
