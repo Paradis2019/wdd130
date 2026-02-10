@@ -20,8 +20,7 @@
 }
 
  /* =========================
-    Accessibility helper
-    (ensures sr-only headings are actually hidden)
+    Accessibility 
    ========================= */
 .sr-only{
   position: absolute !important;
@@ -35,7 +34,7 @@
   border: 0 !important;
 }
 
-/* Preserve old rule order / reset */
+/* Preserve rule */
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 body{
@@ -90,10 +89,10 @@ a{ color:inherit; text-decoration:none; }
 .brand strong{ font-size:15px; font-weight:650; }
 .brand span{ display:block; font-size:12px; color: var(--muted); margin-top:1px; }
 
-/* Hide the old gradient square logo if still in HTML */
+
 .brand .logo{ display:none !important; }
 
-/* Logo image — responsive + no background */
+/* Logo image background */
 .logoImg{
   width:46px;
   height:46px;
@@ -330,7 +329,7 @@ h1{
 .miniCard b{ font-size: 12px; color: rgba(255,255,255,.88); display:block; }
 .miniCard p{ margin:6px 0 0; font-size: 12px; line-height:1.45; color: rgba(255,255,255,.65); }
 
-/* Live widget (Pulse Innovation) */
+/* Live widget */
 .liveWidget{
   position:absolute;
   left:16px;
@@ -460,9 +459,9 @@ section{ padding: 70px 0; position:relative; }
 }
 .cardInner{ position:relative; padding: 18px 18px 16px; }
 
-/* Ensure switching h3 -> h2 keeps same visual style */
+/*visual style */
 .card h3{ margin:0 0 6px; font-size: 16px; letter-spacing: -.02em; }
-.card h2{ margin:0 0 6px; font-size: 16px; letter-spacing: -.02em; } /* added */
+.card h2{ margin:0 0 6px; font-size: 16px; letter-spacing: -.02em; }
 
 .card p{ margin:0; color: var(--muted); line-height: 1.65; font-size: 14px; }
 
@@ -623,8 +622,8 @@ footer{
 .footLinks a:hover{ background: rgba(255,255,255,.05); }
 
 /* =========================
-   REVEAL (SAFE)
-   Default visible, JS hides then reveals
+   REVEAL 
+   Default
 ========================= */
 .reveal{
   opacity: 1;
@@ -683,5 +682,5 @@ html.js .reveal.in{
 
 ```css
 /* =========================
-   PORTFOLIO / SEARCH / MODAL
+   POPOL ELONDA
 ========================= */

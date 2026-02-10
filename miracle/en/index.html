@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Awaken LLC. — Changing the world in one click.">
+    <meta name="author" content="Popol Elonda">
     <title>Awaken LLC. — Home</title>
 
     <link rel="icon" href="../assets/img/logoa.svg" type="image/svg+xml">
@@ -14,9 +15,9 @@
 
     <link rel="stylesheet" href="../assets/css/styles.css">
 
-    <!--  Live widget + canvas safety styles (copy/paste ready) -->
+
     <style>
-        /* Ensure hero canvas is visible and layered correctly */
+        /*  hero canvas */
         .heroRight {
             position: relative;
             min-height: 420px;
@@ -32,7 +33,7 @@
             z-index: 1;
         }
 
-        /* Live Innovation Widget */
+        /* Live Widget */
         .liveWidget {
             position: absolute;
             left: 16px;
@@ -160,7 +161,7 @@
             flex-wrap: wrap;
         }
 
-        /* Contact form select styling (your CSS didn’t include select) */
+        /* Contact form */
         select {
             font: inherit;
             border-radius: 16px;
@@ -179,7 +180,7 @@
             background: rgba(0, 0, 0, .22);
         }
 
-        /* If you don't already have sr-only in styles.css, keep this here safely */
+
         .sr-only {
             position: absolute;
             width: 1px;
@@ -225,7 +226,7 @@
             </nav>
 
             <div class="navCtas">
-                <!-- Language dropdown (EN/FR only; main.js sets hrefs) -->
+                <!-- Language dropdown EN/FR-->
                 <div class="langDropdown" data-lang-switch>
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
@@ -242,7 +243,7 @@
 
                 <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
                     aria-controls="drawer">
-                    <!-- FIX: valid SVG (no nested paths) -->
+
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true">
                         <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -254,7 +255,7 @@
         </div>
     </header>
 
-    <!-- Mobile drawer -->
+    <!-- Mobile -->
     <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
         <div class="backdrop" id="backdrop"></div>
         <div class="panel">
@@ -270,7 +271,7 @@
             </div>
 
             <div style="padding:8px">
-                <!-- FIX: aria-label on div requires a role -->
+
                 <div class="langDropdown" data-lang-switch role="group" aria-label="Language dropdown (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
@@ -314,7 +315,7 @@
                         <a class="btn" href="about.html">Learn more <span aria-hidden="true">→</span></a>
                     </div>
 
-                    <!-- FIX: aria-label on div requires role -->
+
                     <div class="heroMeta" role="group" aria-label="Highlights">
                         <span class="pill">Web • Mobile • Desktop</span>
                         <span class="pill">UX/UI & Product Strategy</span>
@@ -322,7 +323,7 @@
                     </div>
                 </div>
 
-                <!-- FIX: aria-label on div requires role -->
+
                 <div class="heroRight reveal" role="region" aria-label="Interactive hero visualization">
                     <!-- Top glass header -->
                     <div class="glassHeader" aria-hidden="true">
@@ -333,7 +334,7 @@
                         <span class="muted12">Live • Canvas</span>
                     </div>
 
-                    <!-- Live widget (Pulse Innovation) -->
+                    <!-- Live widget -->
                     <div class="liveWidget" aria-hidden="true">
                         <div class="liveTop">
                             <div style="display:flex; align-items:center; gap:10px;">
@@ -397,7 +398,7 @@
 
             </div>
 
-            <!-- FIX: aria-label on div requires role -->
+
             <div class="marqueeWrap" role="region" aria-label="Who we work with">
                 <div class="container" style="overflow:hidden">
                     <div class="marquee" aria-hidden="true">
@@ -416,7 +417,7 @@
             </div>
         </section>
 
-        <!-- STATS -->
+
         <section aria-labelledby="stats-title">
             <h2 id="stats-title" class="sr-only">Stats</h2>
             <div class="container">
@@ -435,7 +436,7 @@
                     </div>
 
                     <div class="statPanel reveal">
-                        <!-- FIX: aria-label on div requires role -->
+
                         <div class="slider" role="region" aria-label="Testimonial slider">
                             <div class="quote active" data-quote>
                                 <div class="text">“They listened before building and delivered a solution that felt
@@ -481,7 +482,7 @@
                         <div class="contactCol contactIntro">
                             <img src="../assets/img/logoa.svg" alt="Awaken LLC logo" class="contactLogo">
 
-                            <!-- FIX: h3 after h1 -> h2 (keeps inline style) -->
+
                             <h2 style="margin-top:8px">Awaken LLC.</h2>
 
                             <p class="lead" style="font-size:14px; margin-top:6px">
@@ -516,7 +517,7 @@
                             action="https://formsubmit.co/info@yourdomain.com" method="POST" novalidate>
 
                             <div class="cardInner">
-                                <!-- FIX: h3 after h1 -> h2 -->
+
                                 <h2>Project brief</h2>
                                 <p class="fineprint" style="margin-top:6px">This sends directly to our inbox.</p>
 
@@ -605,7 +606,7 @@
 
     <script type="module" src="../assets/js/main.js"></script>
 
-    <!-- ✅ Live widget logic (fixed to match your data-live-* attributes) -->
+    <!-- Live widget -->
     <script>
         (function () {
             const timeEl = document.querySelector("[data-live-clock]");
@@ -632,8 +633,8 @@
                 const d = new Date();
                 timeEl.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 
-                const latency = 12 + Math.floor(Math.random() * 18);   // 12–29ms
-                const thr = 110 + Math.floor(Math.random() * 120);     // 110–229/s
+                const latency = 12 + Math.floor(Math.random() * 18);
+                const thr = 110 + Math.floor(Math.random() * 120);
 
                 latencyEl.textContent = String(latency);
                 thrEl.textContent = String(thr);

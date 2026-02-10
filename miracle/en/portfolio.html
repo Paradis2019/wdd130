@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Portfolio — Awaken LLC.">
+    <meta name="author" content="Popol Elonda">
     <title>Awaken LLC. — Portfolio</title>
 
     <link rel="icon" href="../assets/img/logoa.svg" type="image/svg+xml">
@@ -14,7 +15,7 @@
 
     <link rel="stylesheet" href="../assets/css/styles.css">
 
-    <!-- tiny helper in case sr-only isn't in styles.css -->
+    <!-- css help -->
     <style>
         .sr-only {
             position: absolute;
@@ -65,7 +66,7 @@
                 <a class="btn btnPrimary" href="index.html#contact">Contact us ↗</a>
                 <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
                     aria-controls="drawer">
-                    <!-- VALID SVG: paths are self-closed, not nested -->
+
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true">
                         <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -92,7 +93,7 @@
             </div>
 
             <div style="padding:8px">
-                <!-- role="group" makes aria-label valid on a div -->
+
                 <div class="langDropdown" data-lang-switch role="group" aria-label="Language dropdown (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
@@ -128,7 +129,7 @@
             </div>
         </section>
 
-        <!-- add a sr-only heading so validators don't complain about "section lacks heading" -->
+
         <section aria-labelledby="portfolio-section-title">
             <h2 id="portfolio-section-title" class="sr-only">Portfolio projects</h2>
 
@@ -147,7 +148,7 @@
 
                 <div id="projectsGrid" class="grid3" style="margin-top:16px"></div>
 
-                <!-- Modal -->
+
                 <div id="projectModal" class="modal" aria-hidden="true">
                     <div class="modalBackdrop" data-close></div>
                     <div class="modalPanel" role="dialog" aria-modal="true" aria-label="Project details">
@@ -169,7 +170,7 @@
                             <div style="height:12px"></div>
                             <ul id="modalHighlights" class="list"></ul>
                             <div style="height:12px"></div>
-                            <!-- fixed: anchor must have href; keep display:none so JS can show when needed -->
+
                             <a id="modalLink" class="btn btnPrimary" href="#" target="_blank" rel="noopener"
                                 style="display:none">Visit ↗</a>
                         </div>

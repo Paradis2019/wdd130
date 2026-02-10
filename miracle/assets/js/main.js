@@ -1,16 +1,7 @@
 document.documentElement.classList.add("js");
 
 /* ===============================
-   main.js — Awaken (EN/FR only) — FIXED
-   Fixes:
-   - Reveal failsafe (never blank)
-   - Drawer
-   - Footer year
-   - Language dropdown (GitHub Pages safe)
-   - Counter animation (#countProjects[data-target])
-   - Testimonials slider (dots + auto rotate)
-   - Portfolio loader (ABSOLUTE JSON path using base)
-   - Live widget + Starfield canvas (merged)
+   main.js 
 ================================ */
 
 const reduceMotion =
@@ -26,21 +17,18 @@ function getPathParts() {
   return window.location.pathname.split("/").filter(Boolean);
 }
 
-// Works for:
-// - https://paradis2019.github.io/wdd130/miracle/fr/index.html
-// - local server /wdd130/miracle/fr/index.html (or /miracle/fr/index.html)
+
 function getBasePath() {
   const parts = getPathParts();
   const langIndex = parts.findIndex((p) => SUPPORTED_LANGS.includes(p));
 
-  // If already inside /en or /fr
+  
   if (langIndex !== -1) {
     const baseParts = parts.slice(0, langIndex);
     return baseParts.length ? `/${baseParts.join("/")}` : "";
   }
 
-  // Not inside language folder (ex: /wdd130/miracle/)
-  // Prefer first 2 segments for GH pages: /wdd130/miracle
+  
   if (parts.length >= 2) return `/${parts[0]}/${parts[1]}`;
   if (parts.length === 1) return `/${parts[0]}`;
   return "";
@@ -64,7 +52,7 @@ function safeJoinUrl(...parts) {
 }
 
 /* ===============================
-   Reveal animations (failsafe)
+   Reveal animations
 ================================ */
 (function revealInit() {
   const items = Array.from(document.querySelectorAll(".reveal"));
@@ -134,17 +122,16 @@ function safeJoinUrl(...parts) {
 })();
 
 /* ===============================
-   Footer year (fixed to 2024)
+   Footer year 
 ================================ */
 (function yearInit() {
   const y = document.getElementById("year");
-  if (y) y.textContent = "2024";
+  if (y) y.textContent = "2026";
 })();
 
 
 /* ===============================
-   Language dropdown (EN/FR only)
-   - Sets hrefs for current page
+   Language dropdown
 ================================ */
 (function langDropdownInit() {
   const switchers = document.querySelectorAll("[data-lang-switch]");
@@ -194,7 +181,7 @@ function safeJoinUrl(...parts) {
 })();
 
 /* ===============================
-   Counter animation (index + vision)
+   Counter animation
 ================================ */
 (function counterInit() {
   const el = document.getElementById("countProjects");
@@ -248,7 +235,7 @@ function safeJoinUrl(...parts) {
 })();
 
 /* ===============================
-   Testimonials slider + dots
+   Testimonials slider
 ================================ */
 (function testimonialsInit() {
   const quotes = Array.from(document.querySelectorAll("[data-quote]"));
@@ -283,12 +270,11 @@ function safeJoinUrl(...parts) {
 })();
 
 /* ===============================
-   Portfolio (FIXED JSON path for GH Pages)
-   Requires: #projectsGrid exists on portfolio page
+   Portfolio   
 ================================ */
 (async function portfolioInit() {
   const grid = document.getElementById("projectsGrid");
-  if (!grid) return; // only on portfolio page
+  if (!grid) return; 
 
   const searchInput = document.getElementById("projectSearch");
   const filterBtns = Array.from(document.querySelectorAll(".filterBtn"));
@@ -306,7 +292,7 @@ function safeJoinUrl(...parts) {
   let activeFilter = "all";
   let query = "";
 
-  // ✅ ABSOLUTE JSON PATH using base (fixes 404 on GitHub Pages)
+  
   const base = getBasePath();
   const dataUrl = safeJoinUrl(base, "assets/data/projects.json");
 
@@ -478,8 +464,7 @@ function safeJoinUrl(...parts) {
 })();
 
 /* ===============================
-   Live Widget (optional IDs)
-   - liveClock, liveLatency, liveRate, liveStatus
+   Live WidgeT
 ================================ */
 (function liveWidgetInit() {
   const clock = document.getElementById("liveClock");
@@ -512,11 +497,7 @@ function safeJoinUrl(...parts) {
 })();
 
 /* ===============================
-   Hero Canvas (Starfield) + "Pulse Innovation" metrics
-   Uses the SAME #hero3d canvas you already have.
-   Optional data hooks:
-   - [data-live-clock], [data-live-status], [data-live-latency], [data-live-throughput], [data-live-msg]
-   - .liveBars .bar (optional)
+   Hero Canvas 
 ================================ */
 (function initHeroLiveCanvas() {
   const canvas = document.getElementById("hero3d");
@@ -609,7 +590,7 @@ function safeJoinUrl(...parts) {
 
     ctx.clearRect(0, 0, w, h);
 
-    // Soft gradient haze
+    // Soft 
     const g = ctx.createRadialGradient(w * 0.5, h * 0.2, 10, w * 0.5, h * 0.2, Math.max(w, h));
     g.addColorStop(0, "rgba(124,58,237,0.10)");
     g.addColorStop(0.35, "rgba(59,130,246,0.08)");

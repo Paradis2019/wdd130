@@ -5,19 +5,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Services — Awaken LLC.">
+    <meta name="author" content="Popol Elonda">
     <title>Awaken LLC. — Services</title>
 
     <link rel="icon" href="../assets/img/logoa.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- removed trailing slash on link tag -->
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 
 <body>
-    <!-- removed role="banner" (header is already a landmark) -->
+
     <header class="nav">
         <div class="container navInner">
             <a class="brand" href="index.html" aria-label="Go to home">
@@ -55,7 +56,7 @@
 
                 <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false"
                     aria-controls="drawer">
-                    <!-- FIX: self-closed paths (no nested path elements) -->
+
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true">
                         <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -82,7 +83,7 @@
             </div>
 
             <div style="padding:8px">
-                <!-- FIX: aria-label valid by adding role="group" -->
+
                 <div class="langDropdown" data-lang-switch role="group" aria-label="Language dropdown (mobile)">
                     <button class="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="langCurrent" data-lang-current>EN</span>
@@ -124,7 +125,7 @@
                 <div class="grid3">
                     <article class="card reveal">
                         <div class="cardInner">
-                            <!-- FIX: elevate headings to h2 to avoid skipping h1->h3 -->
+
                             <h2>Product strategy & discovery</h2>
                             <p>Research, validation, and roadmaps to build the right product for your users and business
                                 goals.</p>
