@@ -134,12 +134,13 @@ function safeJoinUrl(...parts) {
 })();
 
 /* ===============================
-   Footer year
+   Footer year (fixed to 2024)
 ================================ */
 (function yearInit() {
   const y = document.getElementById("year");
-  if (y) y.textContent = String(new Date().getFullYear());
+  if (y) y.textContent = "2024";
 })();
+
 
 /* ===============================
    Language dropdown (EN/FR only)
